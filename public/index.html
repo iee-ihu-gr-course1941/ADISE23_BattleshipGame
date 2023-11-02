@@ -4,8 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship Game</title>
+    <!-- CSS Files & Fonts -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    
+    <!-- Responsive Navigation Menu -->
+    <header class="responsive-nav">
+        <a href="" class="logo" id="home">Battleship</a>
+        <ul class="navList">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#start-playing">Start Playing</a></li>
+            <li><a href="#game-rules">Game Rules</a></li>
+            <li><a href="#developers-info">Developers Info</a></li>
+        </ul>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+
+    <!-- Home Section -->
+    <section class="home">
+        <div class="home-text">
+            <h4>Online Game</h4>
+            <h1>BATTLESHIP</h1>
+            <p>Welcome to the world of online Battleship Game! Dive into epic sea battles, challenge opponents 
+                from around the globe, and put your tactical skills to the test. Sink your opponent's fleet before 
+                they sink yours in this classic game of wits and strategy. Prepare for thrilling singleplayer &amp; 
+                multiplayer action, right from your browser, as you engage in intense battles on the high seas. 
+                Are you ready to command your fleet and dominate the ocean? Set sail and embark on your Battleship 
+                adventure today!
+            </p>
+            <a href="#start-playing"><i class="fa-solid fa-gamepad"></i>Play Now</a>
+            <a href="#game-rules" class="cta"><i class="fa-solid fa-circle-question"></i>How to Play</a>
+        </div>
+           
+        <div class="game-image">
+            <img src="img/ship.png" alt="">
+        </div>
+    </section>
+
+    <!-- Scroll Down Arrow -->
+    <div class="scroll-down">
+        <a href="#"><i class="ri-arrow-down-s-fill"></i></a>
+    </div>
+
+    <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- JS Scripts -->
+    <script src="js/script.js"></script>
 </body>
 </html>
