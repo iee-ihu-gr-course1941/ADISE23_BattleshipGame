@@ -10,14 +10,11 @@
 
 body {
     color: white;
-    background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
-    background-size: cover;
-    /* background-attachment: fixed; */
 }
 
-/* Battleship Game - Starting Page */
+/* Battleship Game - Index Webpage */
 header {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 100%;
@@ -70,8 +67,6 @@ header {
     width: 100%;
     min-height: 100vh;
     background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
-    background-size: cover;
-    /* background-attachment: fixed; */
     position: relative;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -131,6 +126,39 @@ section.home {
     transform: translateY(-8px);
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  overflow: auto;
+  z-index: 2;
+}
+
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+}
+
+.show {
+    display: block;
+}
+
+.s-p, .m-p {
+    text-align: center;
+    margin-left: 16px;
+    margin-top: 6px;
+}
+
 .home-text a.cta {
     background: transparent;
     border: 1px solid white;
@@ -142,13 +170,13 @@ section.home {
     margin-right: 5px;
 }
 
-.scroll-down {
-    position: absolute;
+.goto-github {
+    position: fixed;
     bottom: 5%;
     right: 9%;
 }
 
-.scroll-down i {
+.goto-github i {
     display: block;
     padding: 12px;
     font-size: 20px;
@@ -158,7 +186,7 @@ section.home {
     transition: all .50s ease;
 }
 
-.scroll-down i:hover {
+.goto-github i:hover {
     transform: translateY(5px);
 }
 
@@ -180,7 +208,7 @@ section.home {
         height: auto;
     }
 
-    .scroll-down {
+    .goto-github {
         right: 3%;
         transition: .2s;
     }
@@ -225,7 +253,7 @@ section.home {
 
     .home {
         height: 100%;
-        gap: 1rem;
+        gap: 5rem;
         grid-template-columns: 1fr;
     }
 
@@ -245,22 +273,18 @@ section.home {
 
     .navList {
         position: absolute;
-        top: 40%;
+        top: 20%;
         right: -100%;
-        width: 200px;
-        height: 20vh;
-        background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+        width: 180px;
+        height: 15vh;
         display: flex;
         align-items: center;
         flex-direction: column;
         padding: 18px 20px;
-        transition: all .55 ease;
-        border-radius: 50%;
+        background: rgba(214, 215, 216, 0.591);
+        border-radius: 30px;
+        transition: all 0.9s ease;
     }
-
-    /* .navList li:nth-child(1) {
-        margin-top: 10px;
-    }  */
 
     .navList a {
         margin-left: 0;
@@ -270,7 +294,7 @@ section.home {
     }
 
     .navList.open {
-        right: 15px;
+        right: 8px;
     }
 }
 
@@ -321,4 +345,22 @@ section.home {
         font-size: 10px;
     }
 }
-/* Battleship Game - Starting Page */
+/* Battleship Game - Index Webpage */
+
+/* Footer Section */
+footer {
+    position: fixed;
+    bottom: 2%;
+    right: 20%;
+}
+
+footer span, footer span a {
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+footer span a:hover {
+    color: rgba(214, 215, 216, 0.591);
+    cursor: pointer;
+}
+/* Footer Section */

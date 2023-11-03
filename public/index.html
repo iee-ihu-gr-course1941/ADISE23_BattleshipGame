@@ -7,7 +7,6 @@
     <!-- CSS Files & Fonts -->
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,10 +17,9 @@
     <header class="responsive-nav">
         <a href="" class="logo" id="home">Battleship</a>
         <ul class="navList">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#start-playing">Start Playing</a></li>
+            <li><a href="#">Homepage</a></li>
             <li><a href="#game-rules">Game Rules</a></li>
-            <li><a href="#developers-info">Developers Info</a></li>
+            <li><a href="#developers-info">About Us</a></li>
         </ul>
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
@@ -38,18 +36,29 @@
                 Are you ready to command your fleet and dominate the ocean? Set sail and embark on your Battleship 
                 adventure today!
             </p>
-            <a href="#start-playing"><i class="fa-solid fa-gamepad"></i>Play Now</a>
+            <div class="dropdown">
+                <a class="dropbtn" onclick="DropDownOnClick()"><i class="fa-solid fa-gamepad"></i>Play Now</a>
+                <div class="dropdown-content" id="myDropdown">
+                  <a href="singleplayer.html" class="s-p">Singleplayer</a>
+                  <a href="multiplayer.html" class="m-p">Multiplayer</a>
+                </div>
+            </div>
             <a href="#game-rules" class="cta"><i class="fa-solid fa-circle-question"></i>How to Play</a>
         </div>
            
         <div class="game-image">
             <img src="img/ship.png" alt="">
         </div>
+
+        <!-- Footer Section -->
+        <footer class="ft">
+            <span><span class="fa fa-copyright"></span> 2023 Battleship. A Game developed by<br/> <a href="https://alexoiik.github.io/" target="_blank">alexoiik</a>, ssjbillys, steliospanag, kbatsios</span> 
+        </footer>
     </section>
 
     <!-- Scroll Down Arrow -->
-    <div class="scroll-down">
-        <a href="#"><i class="ri-arrow-down-s-fill"></i></a>
+    <div class="goto-github">
+        <a href="https://github.com/iee-ihu-gr-course1941/ADISE23_BattleshipGame" target="_blank"><i class="fab fa-github"></i></a>
     </div>
 
     <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
