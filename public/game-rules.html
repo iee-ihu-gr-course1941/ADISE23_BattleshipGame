@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Game</title>
+    <!-- CSS Files & Fonts -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <!-- Responsive Navigation Menu -->
+    <header class="responsive-nav">
+        <a href="index.html" class="logo" id="home">Battleship</a>
+        <ul class="navList">
+            <li><a href="index.html">Homepage</a></li>
+            <li><a href="#">Game Rules</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+        </ul>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+    
+    <!-- Game Rules Section -->
+    <section class="rules">
+        <div class="rules-text">
+            <h4>Official Battleship</h4>
+            <h1>GAME RULES</h1>
+            <div class="sect">Characteristics and Aim/Goal:</div>
+            <p>Battleship is a war-themed board game for two players in which 
+                the opponents try to guess the location of their opponent's 
+                warships and sink them. The gameplay is straightforward. Each 
+                player hides ships on a grid containing vertical and horizontal 
+                space coordinates. Players take turns calling out row and column 
+                coordinates on the other player's grid in an attempt to identify a 
+                square that contains a ship. The game board each player gets has two 
+                grids. The first grid is used by the player to "hide" the location of 
+                his own ships, while the second is used to record the shots fired toward 
+                the opponent and to document whether those shots were hits or misses.
+            </p>
+            <div class="sect">Setting up the Game:</div>
+            <p>Each player receives a game board and five ships of varying lengths. Each 
+                ship is inserted in grid's coordinates and there is a supply of hit and miss 
+                markers (white and red dots). The five ships are: <br/>
+                <strong>&nbsp; &nbsp; &nbsp; • Battleship</strong>, which has four holes <br/>
+                <strong>&nbsp; &nbsp; &nbsp; • Cruiser</strong>, which has three holes <br/>
+                <strong>&nbsp; &nbsp; &nbsp; • Submarine</strong>, which has three holes <br/>
+                <strong>&nbsp; &nbsp; &nbsp; • Destroyer</strong>, which has two holes <br/>
+                The two players should be positioned so they face each other across a game table. 
+                Their target grids back up to one another vertically so that neither player can see 
+                his opponent's ocean grid and ship locations. Before the game starts, each opponent 
+                secretly places their own five ships on the ocean grid by laying out their ships and 
+                placing them into the holes on the grid. Each ship must be placed horizontally or 
+                vertically across grid spaces—not diagonally—and the ships can't hang off the grid. 
+                Ships can touch each other, but they can't occupy the same grid space. You cannot 
+                change the position of the ships after the game begins.
+            </p>
+            <div class="sect">Gameplay:</div>
+            <p>Players take turns firing shots to attempt to hit the opponent's enemy ships. On your turn, 
+                fire a shot by clicking a coordinate on opponent's target grid. When you fire the shot a response
+                appears: "miss" if there is no ship there, or "hit" if you have correctly guessed a space that 
+                is occupied by a ship. After that it's opponent's turn. As the game proceeds, the red dots will 
+                gradually identify the size and location of your opponent's ships. When it is your opponent's turn 
+                to fire shots at you, each time one of your ships receives a hit, will appear a red dot into the hole 
+                on the ship corresponding to your grid space. When one of your ships has every slot filled with red dots, 
+                then your ship is sunk.
+                <strong>The first player to sink all five of their opponent's ships wins the game.</strong> 
+            </p>
+            <div class="sect">Game Rules with ❤️ from <a href="https://www.thesprucecrafts.com/the-basic-rules-of-battleship-411069" target="_blank" class="instuctions-ref">theSpruceCrafts!</a></div>
+        </div>
+    </section>
+
+    <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- JS Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>

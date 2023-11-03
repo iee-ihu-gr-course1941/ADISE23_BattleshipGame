@@ -347,10 +347,245 @@ section.home {
 }
 /* Battleship Game - Index Webpage */
 
+/* Battleship Game - Game Rules Webpage */
+.rules {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+    position: relative;
+    display: flex;
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+section.rules {
+    padding: 0 18%;
+}
+
+.rules-text h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 75px;
+    line-height: 1;
+    color: white;
+    margin: 0 0 20px;
+}
+
+.rules-text h4 {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.rules-text .sect {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+}
+
+.rules-text p {
+    color: white;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    font-weight: 200;
+    text-align: justify;
+}
+
+.game-image img {
+    width: 750px;
+    height: auto;
+}
+
+.rules-text a {
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: underline;
+    transition: all .55s ease;
+}
+
+.rules-text a:hover {
+    transform: translateY(-8px);
+}
+
+.rules-text a.cta {
+    background: transparent;
+    border: 1px solid white;
+    margin-left: 20px;
+}
+
+.rules-text a i {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+@media (max-width: 1640px) {
+    section.rules {
+        padding: 0 12%;
+        transition: .2s;
+    }
+}
+
+@media (max-width: 1535px) {
+    header {
+        padding: 15px 3%;
+        transition: .2s;
+    }
+
+    .game-image img {
+        width: 700px;
+        height: auto;
+    }
+
+    .goto-github {
+        right: 3%;
+        transition: .2s;
+    }
+}
+
+@media (max-width: 1470px) {
+    .game-image img {
+        width: 600px;
+        height: auto;
+    }
+
+    .rules-text h1 {
+        font-size: 75px;
+        margin: 0 0 30px;
+    }
+
+    .hero-text h4 {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 1250px) {
+    section.rules {
+        padding: 0 3%;
+        transition: .2s;
+    }
+
+    .rules-text {
+        padding-top: 115px;
+    }   
+}
+
+@media (max-width: 1135px) {
+    .game-image {
+        text-align: center;
+    }
+
+    .game-image img {
+        width: 560px;
+        height: auto;
+    }
+
+    .rules {
+        height: 100%;
+        gap: 5rem;
+        grid-template-columns: 1fr;
+    }
+
+    .rules-text {
+        padding-right: 200px;
+    } 
+}
+
+@media (max-width: 880px) {
+    #menu-icon {
+        display: block;
+    }
+
+    .rules-text {
+        padding-right: 0;
+    } 
+
+    .navList {
+        position: absolute;
+        top: 20%;
+        right: -100%;
+        width: 180px;
+        height: 15vh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 18px 20px;
+        background: rgba(214, 215, 216, 0.591);
+        border-radius: 30px;
+        transition: all 0.9s ease;
+    }
+
+    .navList a {
+        margin-left: 0;
+        display: block;
+        margin: 2px 0;
+        font-size: 13.5px;
+    }
+
+    .navList.open {
+        right: 8px;
+    }
+}
+
+@media (max-width: 630px) {
+    .game-image img {
+        width: 450px;
+        height: auto;
+    }
+}
+
+@media (max-width: 512px) {
+    .rules-text h1 {
+        font-size: 60px;
+    }
+
+    .game-image img {
+        width: 380px;
+        height: auto;
+    }
+
+    .rules-text p {
+        font-size: 14px;
+    } 
+}
+
+@media (max-width: 400px) {
+    .rules-text h1 {
+        font-size: 50px;
+    }
+
+    .game-image img {
+        width: 350px;
+        height: auto;
+    }
+
+    .rules-text a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 370px) {
+    .game-image img {
+        width: 320px;
+        height: auto;
+    }
+
+    .rules-text a {
+        font-size: 10px;
+    }
+}
+/* Battleship Game - Game Rules Webpage */
+
 /* Footer Section */
 footer {
     position: fixed;
-    bottom: 2%;
+    bottom: 4.5%;
     right: 20%;
 }
 

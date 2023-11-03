@@ -37,6 +37,7 @@ const sr = ScrollReveal({
 //Calling Reveal Methods:
 sr.reveal('.responsive-nav', { delay: 500, origin: 'top' });
 sr.reveal('.home-text', { delay: 1500, origin: 'top' });
+sr.reveal('.rules-text', { delay: 1500, origin: 'top' });
 sr.reveal('.game-image', { delay: 2500, origin: 'top' });
 sr.reveal('.goto-github', { delay: 3500, origin: 'right' });
 sr.reveal('.ft', { delay: 4500, origin: 'left' });
