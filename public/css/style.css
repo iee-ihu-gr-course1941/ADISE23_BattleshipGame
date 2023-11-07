@@ -224,10 +224,6 @@ section.home {
         font-size: 75px;
         margin: 0 0 30px;
     }
-
-    .hero-text h4 {
-        margin-bottom: 25px;
-    }
 }
 
 @media (max-width: 1250px) {
@@ -355,8 +351,6 @@ section.home {
     background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
     position: relative;
     display: flex;
-    /* display: grid;
-    grid-template-columns: repeat(2, 1fr); */
     align-items: center;
     justify-content: center;
     gap: 2rem;
@@ -458,10 +452,6 @@ section.rules {
     .rules-text h1 {
         font-size: 75px;
         margin: 0 0 30px;
-    }
-
-    .hero-text h4 {
-        margin-bottom: 25px;
     }
 }
 
@@ -581,6 +571,284 @@ section.rules {
     }
 }
 /* Battleship Game - Game Rules Webpage */
+
+/* Battleship Game - About Us Webpage */
+.about {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+section.about {
+    padding: 0 18%;
+}
+
+.about-text h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 75px;
+    line-height: 1;
+    color: white;
+    margin: 0 0 20px;
+}
+
+.about-text h4 {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.about-text .sect {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+}
+
+.about-text p {
+    color: white;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    font-weight: 200;
+    text-align: justify;
+}
+
+.game-image img {
+    width: 750px;
+    height: auto;
+}
+
+.about-text a {
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: underline;
+    transition: all .55s ease;
+}
+
+.about-text a:hover {
+    transform: translateY(-8px);
+}
+
+.about-text a.cta {
+    background: transparent;
+    border: 1px solid white;
+    margin-left: 20px;
+}
+
+.about-text a i {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+a.dept, a.wgame {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 15.5px;
+}
+
+a.dept:hover, a.wgame:hover {
+    color: rgba(214, 215, 216, 0.591);
+    cursor: pointer;
+}
+
+.dev-section {
+    display: flex;
+    justify-content: center;
+}
+
+.dev-section .devs  {
+    text-align: center;
+    margin: 0 60px; 
+}
+
+.dev-section .devs img.developer {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;  
+}
+
+.dev-section .devs .dev-name {
+    padding-top: 20px;
+}
+
+.dev-section .devs .dev-name .our-social {
+    font-size: 21px;
+}
+
+@media (max-width: 1640px) {
+    section.about {
+        padding: 0 12%;
+        transition: .2s;
+    }
+}
+
+@media (max-width: 1535px) {
+    header {
+        padding: 15px 3%;
+        transition: .2s;
+    }
+
+    .game-image img {
+        width: 700px;
+        height: auto;
+    }
+
+    .goto-github {
+        right: 3%;
+        transition: .2s;
+    }
+}
+
+@media (max-width: 1470px) {
+    .game-image img {
+        width: 600px;
+        height: auto;
+    }
+
+    .about-text h1 {
+        font-size: 75px;
+        margin: 0 0 30px;
+    }
+}
+
+@media (max-width: 1250px) {
+    section.about {
+        padding: 0 3%;
+        transition: .2s;
+    }
+
+    .about-text {
+        padding-top: 115px;
+    }   
+}
+
+@media (max-width: 1135px) {
+    .game-image {
+        text-align: center;
+    }
+
+    .game-image img {
+        width: 560px;
+        height: auto;
+    }
+
+    .about {
+        height: 100%;
+        gap: 5rem;
+        grid-template-columns: 1fr;
+    }
+
+    .about-text {
+        padding-right: 200px;
+    } 
+
+    .dev-section .devs  {
+        margin: 0 10px; 
+    }
+}
+
+@media (max-width: 880px) {
+    #menu-icon {
+        display: block;
+    }
+
+    .about-text {
+        padding-right: 0;
+    } 
+
+    .navList {
+        position: absolute;
+        top: 20%;
+        right: -100%;
+        width: 180px;
+        height: 15vh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 18px 20px;
+        background: rgba(214, 215, 216, 0.591);
+        border-radius: 30px;
+        transition: all 0.9s ease;
+    }
+
+    .navList a {
+        margin-left: 0;
+        display: block;
+        margin: 2px 0;
+        font-size: 13.5px;
+    }
+
+    .navList.open {
+        right: 8px;
+    }
+}
+
+@media (max-width: 710px) {
+    .dev-section {
+        display: block;
+    }
+
+    .dev-section .devs .dev-name {
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 630px) {
+    .game-image img {
+        width: 450px;
+        height: auto;
+    }
+}
+
+@media (max-width: 512px) {
+    .about-text h1 {
+        font-size: 60px;
+    }
+
+    .game-image img {
+        width: 380px;
+        height: auto;
+    }
+
+    .about-text p {
+        font-size: 14px;
+    } 
+}
+
+@media (max-width: 400px) {
+    .about-text h1 {
+        font-size: 50px;
+    }
+
+    .game-image img {
+        width: 350px;
+        height: auto;
+    }
+
+    .about-text a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 370px) {
+    .game-image img {
+        width: 320px;
+        height: auto;
+    }
+
+    .about-text a {
+        font-size: 10px;
+    }
+}
+/* Battleship Game - About Us Webpage */
 
 /* Footer Section */
 footer {
