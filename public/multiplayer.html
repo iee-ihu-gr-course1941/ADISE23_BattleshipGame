@@ -4,8 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship Game | Multiplayer</title>
+    <link href="img/favicon.png" rel="icon">
+    <!-- CSS Files & Fonts -->
+    <link href="css/game.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    
+    <div class="game-board" id="game-board">
+        <!-- Color Mode -->
+        <div class="color-mode">
+            <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()"/>
+            <label for="darkmode-toggle">
+                <div class="bx bx-sun"></div> 
+                <div class="bx bx-moon"></div> 
+            </label>
+        </div>
+
+        <!-- Game Title -->
+        <header class="game-title">
+            <h1>Battleship Game</h1> 
+        </header>
+
+        <!-- Game Mode -->
+        <div class="game-mode">
+            <h1>Multiplayer</h1> 
+        </div>  
+        <div class="game-img">
+            <img src="img/boy.png" alt=""> <span>VS</span> <img src="img/man.png" alt="">
+        </div>
+
+        <!-- Gameplay -->
+
+    </div>
+
+    <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- JS Scripts -->
+    <script src="js/singleplayer.js"></script>
 </body>
 </html>

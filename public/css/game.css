@@ -1,0 +1,211 @@
+/* Root Features */
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    color: white;
+}
+
+/* ----- Color Mode ----- */
+/* ----- ----- ----- ----- */
+.color-mode {
+    padding-top: 40px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-mode label {
+    width: 150px;
+    height: 60px;
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 200px;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px -15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.color-mode label:after {
+    content: "";
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    border-radius: 180px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.color-mode input {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.color-mode input:checked + label {
+    background: #26292b;
+}
+
+.color-mode input:checked + label:after {
+    left: 150px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+.color-mode label:active:after {
+    width: 90px;
+}
+
+.color-mode label div {
+    position: absolute;
+    font-size: 45px;
+    z-index: 100;
+}
+
+.color-mode label div.bx-sun {
+    top: 6.5px;
+    left: 6.5px;
+    color: white;
+    transition: 0.3s;
+}
+
+.color-mode label div.bx-moon {
+    top: 6.5px;
+    left: 99px;
+    color: #7e7e7e;
+    transition: 0.3s;
+}
+
+.color-mode input:checked + label div.bx-sun {
+    color: #7e7e7e;
+}
+
+.color-mode input:checked + label div.bx-moon {
+    color: white;
+}
+/* ----- ----- ----- ----- */
+/* ----- Color Mode ----- */
+
+/* Battleship Game - Board */
+.game-board {
+    color: white;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+}
+
+.game-board.dark-mode {
+    background: radial-gradient(#373e42, 20%, #131414);
+}
+
+.game-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+.game-title h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 70px;
+}
+
+.game-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-mode h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 50px;
+}
+
+.game-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.game-img img {
+    width: 75px;
+    height: 65px;
+}
+
+.game-img span {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    padding-right: 9px;
+    padding-left: 5px;
+}
+
+@media (max-width: 630px) {
+    .game-title h1 {
+        font-size: 50px;
+    }
+
+    .game-mode h1 {
+        font-size: 35px;
+    }
+
+    .game-img img {
+        width: 62px;
+        height: 55px;
+    }
+}
+@media (max-width: 450px) {
+    .color-mode label {
+        width: 120px;
+        height: 40px;
+    }
+    
+    .color-mode label:after {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .color-mode input:checked + label:after {
+        left: 120px;
+    }
+    
+    .color-mode label:active:after {
+        width: 70px;
+    }
+    
+    .color-mode label div {
+        font-size: 32px;
+    }
+    
+    .color-mode label div.bx-sun {
+        top: 3.5px;
+        left: 3.5px;
+    }
+    
+    .color-mode label div.bx-moon {
+        top: 3.5px;
+        left: 84.5px;
+    }
+
+    .game-title h1 {
+        font-size: 40px;
+    }
+
+    .game-mode h1 {
+        font-size: 30px;
+    }
+}
+/* Battleship Game - Board */
