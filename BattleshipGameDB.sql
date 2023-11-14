@@ -16,7 +16,9 @@
 
 -- Dumping structure for procedure battleshipgamedb.CheckWinner
 DELIMITER //
-CREATE PROCEDURE `CheckWinner`()
+CREATE PROCEDURE `CheckWinner`(
+	IN `game_id` INT
+)
 BEGIN
     DECLARE player1_ships INT;
     DECLARE player2_ships INT;
@@ -46,7 +48,8 @@ DELIMITER ;
 -- Dumping structure for procedure battleshipgamedb.GameOver
 DELIMITER //
 CREATE PROCEDURE `GameOver`(
-	IN `winner_id` INT
+	IN `winner_id` INT,
+	IN `game_id` INT
 )
 BEGIN
     -- Update the game status.
@@ -78,7 +81,9 @@ CREATE TABLE IF NOT EXISTS `game_status` (
 
 -- Dumping structure for procedure battleshipgamedb.Initialize
 DELIMITER //
-CREATE PROCEDURE `Initialize`()
+CREATE PROCEDURE `Initialize`(
+	IN `game_id` INT
+)
 BEGIN
     -- Assuming that player boards and ships are already set up.
     UPDATE game_status
@@ -230,7 +235,8 @@ CREATE PROCEDURE `RetrieveGameState`(
 	OUT `player1_board_resultset` VARCHAR(2048),
 	OUT `player2_board_resultset` VARCHAR(2048),
 	OUT `current_turn` INT,
-	OUT `game_status` ENUM('Y','N')
+	OUT `game_status` ENUM('Y','N'),
+	IN `game_id` INT
 )
 BEGIN
     -- Retrieve player boards and game status as JSON strings.
