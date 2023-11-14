@@ -208,4 +208,251 @@ body {
         font-size: 30px;
     }
 }
+
+  
+  
+  
+.singleplayer .container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .singleplayer .battleship-grid {
+    margin: 2vmin;
+    display: grid;
+    background-color: hsl(200, 100%, 50%);
+    grid-template-rows: repeat(10, 4.6vmin);
+    grid-template-columns: repeat(10, 4.6vmin);
+  }
+  
+  .singleplayer .grid-computer > .taken,
+  .singleplayer .grid-computer > .boom {
+    background-color: hsl(200, 100%, 50%) !important;
+    border-radius: 0 !important;
+  }
+  
+  .singleplayer .taken,
+  .singleplayer .ship {
+    position: relative;
+    background-color: hsl(0, 0%, 80%);
+  }
+  
+  .singleplayer .taken.start.vertical,
+  .singleplayer .taken.start.vertical::before {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+  
+  .singleplayer .taken.end.vertical,
+  .singleplayer .taken.end.vertical::before {
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+  
+  .singleplayer .taken.start.horizontal,
+  .singleplayer .taken.start.horizontal::before {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  
+  .singleplayer .taken.end.horizontal,
+  .singleplayer .taken.end.horizontal::before {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+  }
+  
+  .singleplayer .taken.vertical::before,
+  .singleplayer .taken.horizontal::before {
+    content: '';
+    position: absolute;
+    border: .3vmin solid white;
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+  }
+  
+  .singleplayer .taken.horizontal::before {
+    animation: ripplesY 3s linear infinite;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .singleplayer .taken.vertical::before {
+    animation: ripplesX 3s linear infinite;
+    border-top: none;
+    border-bottom: none;
+  }
+  
+  @keyframes ripplesX {
+    0% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  
+    100% {
+      opacity: 0;
+      transform: scaleX(1.5);
+    }
+  }
+  
+  @keyframes ripplesY {
+    0% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  
+    100% {
+      opacity: 0;
+      transform: scaleY(1.5);
+    }
+  }
+  
+  .singleplayer .grid-display {
+    display: flex;
+  }
+  
+  .singleplayer .ship > div {
+    width: 4.6vmin;
+    height: 4.6vmin;
+  }
+  
+  .singleplayer .ship {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1vmin;
+    width: calc(4.6vmin * var(--width, 1));
+    height: calc(4.6vmin * var(--height, 1));
+    border-radius: 2.3vmin;
+  }
+  
+  .singleplayer .battleship-grid div {
+    border: 1px solid hsla(0, 0%, 100%, .2);
+  }
+  
+  .singleplayer .destroyer-container {
+    --width: 2;
+  }
+  
+  .singleplayer .destroyer-container-vertical {
+    --height: 2;
+    --width: 1;
+  }
+  
+  .singleplayer .submarine-container,
+  .singleplayer .cruiser-container {
+    --width: 3;
+  }
+  
+  .singleplayer .submarine-container-vertical,
+  .singleplayer .cruiser-container-vertical {
+    --height: 3;
+    --width: 1;
+  }
+  
+  .singleplayer .battleship-container {
+    --width: 4;
+  }
+  
+  .singleplayer .battleship-container-vertical {
+    --height: 4;
+    --width: 1;
+  }
+  
+  .singleplayer .carrier-container {
+    --width: 5;
+  }
+  
+  .singleplayer .carrier-container-vertical {
+    --height: 5;
+    --width: 1;
+  }
+  
+  .singleplayer .hidden-info {
+    font-size: 1.5rem;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .singleplayer .info-text {
+    margin: 1rem;
+  }
+  
+  .singleplayer .miss,
+  .singleplayer .boom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .singleplayer .boom::after,
+  .singleplayer .miss::after {
+    content: '';
+    position: absolute;
+    border-radius: 100%;
+    width: 2vmin;
+    height: 2vmin;
+  }
+  
+  .singleplayer .miss::after {
+    background-color: white;
+  }
+  
+  .singleplayer .boom::after {
+    background-color: red;
+  }
+  
+  .singleplayer .miss::before {
+    content: '';
+    position: absolute;
+    animation: hit .2s ease-out forwards;
+    border: 1vmin solid white;
+    border-radius: 100%;
+    width: 2vmin;
+    height: 2vmin;
+  }
+  
+  .singleplayer .boom {
+    animation: boom .2s ease-out forwards;
+  }
+  
+  @keyframes hit {
+    0% {
+      opacity: 1;
+      transform: scale(0);
+    }
+  
+    100% {
+      opacity: 0;
+      transform: scale(4);
+    }
+  }
+  
+  @keyframes boom {
+    0% {
+      background-color: red;
+    }
+  
+    100% {
+      background-color: hsl(0, 0%, 80%);
+    }
+  }
+  
+  .singleplayer .player {
+    margin: 2vmin;
+  }
+  
+  .singleplayer .connected, .ready {
+    font-weight: normal;
+    opacity: .25;
+    text-decoration: line-through;
+  }
+  
+  .singleplayer .connected.active,
+  .singleplayer .ready.active {
+    opacity: 1;
+    text-decoration: none;
+  }
+
 /* Battleship Game - Board */
