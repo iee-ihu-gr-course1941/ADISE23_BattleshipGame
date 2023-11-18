@@ -12,10 +12,26 @@ body {
     color: white;
 }
 
+.back-button {
+  position: fixed;
+  left: 10px;
+  display: inline-block;
+  padding: 5px 4px;
+  background-color: #389bdd;
+  border-radius: 60%;
+  transition: background-color 0.3s;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}
+
+
 /* ----- Color Mode ----- */
 /* ----- ----- ----- ----- */
 .color-mode {
-    padding-top: 40px;
+    padding-top: 20px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -235,6 +251,7 @@ body {
 }
 
 .btn {
+  position: relative;
   font-size: inherit;
   background: linear-gradient(180deg, #ffcc89, #d8860b);
   padding: .5em 1em;
@@ -245,6 +262,7 @@ body {
   border-radius: 2em;
   color: rgb(6, 38, 58);
   transition: all .55s ease;
+  margin: 5px;
 }
 
 .btn:hover {
@@ -279,6 +297,9 @@ body {
 .battleship-grid {
   margin: 2vmin;
   display: grid;
+  background-image: url('../img/giphy.gif');
+  background-size: cover;
+  background-position: center;
   background-color: hsl(200, 100%, 50%);
   grid-template-rows: repeat(10, 4.6vmin);
   grid-template-columns: repeat(10, 4.6vmin);
@@ -287,7 +308,7 @@ body {
 
 .grid-computer > .taken,
 .grid-computer > .boom {
-  background-color: hsl(200, 100%, 50%) !important;
+  background-color: hsla(200, 100%, 50%, 0) !important;
   border-radius: 0 !important;
 }
 
@@ -389,6 +410,9 @@ body {
 
 .battleship-grid div {
   border: 1px solid hsla(0, 0%, 100%, .2);
+  background-image: url('../img/');
+  background-size: cover;
+  background-position: center;
 }
 
 .destroyer-container {
