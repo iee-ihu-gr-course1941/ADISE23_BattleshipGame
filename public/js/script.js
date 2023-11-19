@@ -32,18 +32,20 @@ function toggleDarkMode() {
   var gameBoard = document.getElementById("game-board");
   var infoPlr = document.querySelector(".game .info-gamers #plr");
   var infoCpu = document.querySelector(".game .info-gamers #cpu");
+  var rotateBtn = document.querySelector(".game .hidden-info button");
   gameBoard.classList.toggle("dark-mode");
   infoPlr.classList.toggle("dark-mode");
   infoCpu.classList.toggle("dark-mode");
+  rotateBtn.classList.toggle("dark-mode");
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:
 const sr = ScrollReveal({
-    distance: '65px',
-    duration: 2600,
-    delay: 450,
-    reset: true
+  distance: '65px',
+  duration: 2600,
+  delay: 450,
+  reset: true
 });
 // Calling Reveal Methods:
 sr.reveal('.responsive-nav', { delay: 500, origin: 'top' });
@@ -53,11 +55,3 @@ sr.reveal('.about-text', { delay: 1500, origin: 'top' });
 sr.reveal('.game-image', { delay: 2500, origin: 'top' });
 sr.reveal('.goto-github', { delay: 3500, origin: 'right' });
 sr.reveal('.ft', { delay: 4500, origin: 'left' });
-
-// sr.reveal('.color-mode', { delay: 500, origin: 'top' });
-// sr.reveal('.game-title', { delay: 500, origin: 'top' });
-// sr.reveal('.game-mode', { delay: 500, origin: 'top' });
-// sr.reveal('.game-img', { delay: 500, origin: 'top' });
-// sr.reveal('.grid-user', { delay: 1500, origin: 'left' });
-// sr.reveal('.grid-computer', { delay: 1500, origin: 'right' }); 
-// sr.reveal('.setup-buttons', { delay: 2500, origin: 'bottom' });  

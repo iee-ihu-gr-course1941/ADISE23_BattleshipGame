@@ -199,11 +199,12 @@ function dragEnd() {
 let currentPlayer = 'user';
 let isGameOver = false;
 
+// Play Game Function:
 function playGame() {
   if (isGameOver) return;
 
   if (currentPlayer === 'user') {
-    turnDisplay.innerHTML = 'Your Go';
+    turnDisplay.innerHTML = 'Your Turn';
     computerSquares.forEach((square) => {
       square.addEventListener('click', () => {
         revealSquare(square);
@@ -212,7 +213,7 @@ function playGame() {
   }
 
   if (currentPlayer === 'computer') {
-    turnDisplay.innerHTML = 'Computer Go';
+    turnDisplay.innerHTML = "Computer's Turn";
     setTimeout(computerGo, 300);
   }
 }
@@ -288,7 +289,7 @@ function computerGo() {
   }
 
   currentPlayer = 'user';
-  turnDisplay.innerHTML = 'Your Go';
+  turnDisplay.innerHTML = 'Your Turn';
 }
 
 function checkForWin() {
@@ -391,8 +392,45 @@ function gameOver() {
   return true;
 }
 
+// Starting Battle:
 startButton.addEventListener('click', () => {
-  document.querySelector('.home').classList.add('ocultar');
-  document.querySelector('.home').classList.remove('home');
-  document.querySelector('.game').classList.remove('ocultar');
+  // User's Name taken through form's input:
+  var nameInput = document.getElementById('nameOfUser');
+  var name = nameInput.value.trim();
+  // Alert Message:
+  var customAlert = document.getElementById('customAlert');
+
+  // Performing additional validation.
+  if (/^[A-Za-z]{3,10}$/.test(name)) {
+    // Hide Alert Message.
+    customAlert.className = 'custom-alert';
+
+    // Starting Battle.
+    document.querySelector('.home').classList.add('ocultar');
+    document.querySelector('.home').classList.remove('home');
+    document.querySelector('.game').classList.remove('ocultar');
+
+    // Adding User's name to board's text.
+    var outputName = document.getElementById('addNameOfUser');
+    outputName.innerHTML = name;
+  } else {
+    // Displaying the Alert Message.
+    customAlert.className = 'custom-alert error show';
+    customAlert.querySelector('p').textContent = "Your name must contain at least 3 to 10 alphabetic characters!";
+  }
 });
+
+// Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
+// Creating ScrollReveal:
+const sr = ScrollReveal({
+  distance: '65px',
+  duration: 2600,
+  delay: 450,
+  reset: true
+});
+// Calling Reveal Methods:
+sr.reveal('#game-title', { delay: 500, origin: 'top' });
+sr.reveal('#game-mode', { delay: 500, origin: 'top' });
+sr.reveal('#game-img', { delay: 1500, origin: 'right' });
+sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
+sr.reveal('#start', { delay: 3500, origin: 'bottom' });

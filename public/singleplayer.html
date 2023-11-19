@@ -14,26 +14,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
   </head>
 <body>
-  <!-- Intro Section -->
+  <!-- Home Section -->
     <section class="home">
       <section class="main">
+        <!-- Alert Message -->
+        <div class="custom-alert" id="customAlert">
+          <p></p>
+        </div>
+
         <!-- Game Title -->
-        <div class="game-title">
+        <div class="game-title" id="game-title">
           <h1>Battleship Game</h1> 
         </div>
         
         <!-- Game Mode -->
-        <div class="game-mode">
+        <div class="game-mode" id="game-mode">
           <h1>Singleplayer</h1> 
         </div>  
-        <div class="game-img">
-          <img src="img/boy.png" alt=""> <span>VS</span> <img src="img/robot.png" alt="">
+        <div class="game-img" id="game-img">
+          <img src="img/user1.png" alt=""> <span>VS</span> <img src="img/bot.png" alt="">
         </div>
       </section>
-      <button id="start">Star Battle</button>
+
+      <!-- User's Form -->
+      <form>
+        <input type="text" id="nameOfUser" size="20px" placeholder="Enter your name"><br/>
+        <button id="start" type="button">Star Battle</button>
+      </form>
     </section>
 
-    <!-- Gameplay Section -->
+    <!-- Board Section -->
     <section class="game game-board ocultar" id="game-board">
         <!-- Color Mode -->
         <div class="color-mode">
@@ -54,13 +64,13 @@
             <h1>Singleplayer</h1> 
         </div>  
         <div class="game-img">
-            <img src="img/boy.png" alt=""> <span>VS</span> <img src="img/robot.png" alt="">
+            <img src="img/user1.png" alt=""> <span>VS</span> <img src="img/bot.png" alt="">
         </div>
 
       <!-- Info Gamers -->
       <div class="info-gamers">
         <div id="plr">
-          <p>Your Board</p>
+          <p><span id="addNameOfUser"></span>'s Board</p>
         </div>
         <div id="cpu">
           <p>Computer's Board</p>
