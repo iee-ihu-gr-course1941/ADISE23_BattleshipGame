@@ -14,249 +14,119 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for procedure battleshipgamedb.CheckWinner
+-- Dumping structure for table battleshipgamedb.board_empty1
+CREATE TABLE IF NOT EXISTS `board_empty1` (
+  `match_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `p1_choice` char(10) DEFAULT NULL,
+  PRIMARY KEY (`match_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- Dumping data for table battleshipgamedb.board_empty1: ~0 rows (approximately)
+INSERT INTO `board_empty1` (`match_id`, `p1_choice`) VALUES
+	(1, NULL);
+
+-- Dumping structure for table battleshipgamedb.board_empty2
+CREATE TABLE IF NOT EXISTS `board_empty2` (
+  `match_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `p2_choice` char(10) DEFAULT NULL,
+  PRIMARY KEY (`match_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- Dumping data for table battleshipgamedb.board_empty2: ~0 rows (approximately)
+INSERT INTO `board_empty2` (`match_id`, `p2_choice`) VALUES
+	(1, NULL);
+
+-- Dumping structure for procedure battleshipgamedb.clean_boards
 DELIMITER //
-CREATE PROCEDURE `CheckWinner`(
-	IN `game_id` INT
-)
+CREATE PROCEDURE `clean_boards`()
 BEGIN
-    DECLARE player1_ships INT;
-    DECLARE player2_ships INT;
-
-    -- Count the remaining ships for each player.
-    SELECT COUNT(*) INTO player1_ships
-    FROM player1_board
-    WHERE player_id = 1 AND has_ship = TRUE;
-
-    SELECT COUNT(*) INTO player2_ships
-    FROM player2_board
-    WHERE player_id = 2 AND has_ship = TRUE;
-
-    -- Update the game status if there's a winner.
-    IF player1_ships = 0 THEN
-        UPDATE game_status
-        SET game_status = 'ended', winner_id = 2
-        WHERE game_id = game_id;
-    ELSEIF player2_ships = 0 THEN
-        UPDATE game_status
-        SET game_status = 'ended', winner_id = 1
-        WHERE game_id = game_id;
-    END IF;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure battleshipgamedb.GameOver
-DELIMITER //
-CREATE PROCEDURE `GameOver`(
-	IN `winner_id` INT,
-	IN `game_id` INT
-)
-BEGIN
-    -- Update the game status.
-    UPDATE game_status
-    SET game_status = 'ended', winner_id = winner_id
-    WHERE game_id = game_id;
-
-    -- Calculate scores (simplified logic).
-    UPDATE players
-    SET player_score = player_score + 1
-    WHERE player_id = winner_id;
+      TRUNCATE TABLE player1_board;
+      REPLACE INTO player1_board SELECT * FROM board_empty1;
+      
+      TRUNCATE TABLE player2_board;
+      REPLACE INTO player2_board SELECT * FROM board_empty2;
+      
+      UPDATE players SET username=NULL, token=NULL, last_action=NULL;
+      UPDATE game_status SET status='not active', player_turn=NULL, result_text=NULL ,result=NULL;
 END//
 DELIMITER ;
 
 -- Dumping structure for table battleshipgamedb.game_status
 CREATE TABLE IF NOT EXISTS `game_status` (
-  `game_id` int(11) NOT NULL AUTO_INCREMENT,
-  `player_turn` int(11) NOT NULL DEFAULT 1,
-  `game_status` enum('not_active','initialized','started','ongoing','ended','aborted') NOT NULL DEFAULT 'not_active',
-  `winner_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`game_id`),
-  KEY `FK_game_status_players` (`player_turn`),
-  KEY `FK_game_status_players_2` (`winner_id`),
-  CONSTRAINT `FK_game_status_players` FOREIGN KEY (`player_turn`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_game_status_players_2` FOREIGN KEY (`winner_id`) REFERENCES `players` (`player_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `status` enum('not active','initialized','started','ended','aborted') NOT NULL DEFAULT 'not active',
+  `player_turn` enum('p1','p2') DEFAULT NULL,
+  `result` enum('p1','p2') DEFAULT NULL,
+  `result_text` char(50) DEFAULT NULL,
+  `last_change` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Dumping data for table battleshipgamedb.game_status: ~0 rows (approximately)
-
--- Dumping structure for procedure battleshipgamedb.Initialize
-DELIMITER //
-CREATE PROCEDURE `Initialize`(
-	IN `game_id` INT
-)
-BEGIN
-    -- Assuming that player boards and ships are already set up.
-    UPDATE game_status
-    SET game_status = 'ongoing', player_turn = 1
-    WHERE game_id = game_id;
-END//
-DELIMITER ;
+-- Dumping data for table battleshipgamedb.game_status: ~2 rows (approximately)
+INSERT INTO `game_status` (`status`, `player_turn`, `result`, `result_text`, `last_change`) VALUES
+	('not active', NULL, NULL, NULL, '2023-11-21 11:39:00');
 
 -- Dumping structure for table battleshipgamedb.player1_board
 CREATE TABLE IF NOT EXISTS `player1_board` (
-  `player_id` int(11) NOT NULL,
-  `x_coordinate` char(1) NOT NULL,
-  `y_coordinate` int(11) NOT NULL,
-  `has_ship` tinyint(1) DEFAULT 0,
-  `is_hit` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`player_id`),
-  CONSTRAINT `player1_board_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `match_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `p1_choice` char(10) DEFAULT NULL,
+  PRIMARY KEY (`match_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Dumping data for table battleshipgamedb.player1_board: ~0 rows (approximately)
+INSERT INTO `player1_board` (`match_id`, `p1_choice`) VALUES
+	(1, NULL);
 
 -- Dumping structure for table battleshipgamedb.player2_board
 CREATE TABLE IF NOT EXISTS `player2_board` (
-  `player_id` int(11) NOT NULL,
-  `x_coordinate` char(1) NOT NULL,
-  `y_coordinate` int(11) NOT NULL,
-  `has_ship` tinyint(1) DEFAULT 0,
-  `is_hit` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`player_id`),
-  CONSTRAINT `player2_board_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `match_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `p2_choice` char(10) DEFAULT NULL,
+  PRIMARY KEY (`match_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Dumping data for table battleshipgamedb.player2_board: ~0 rows (approximately)
+INSERT INTO `player2_board` (`match_id`, `p2_choice`) VALUES
+	(1, NULL);
 
 -- Dumping structure for table battleshipgamedb.players
 CREATE TABLE IF NOT EXISTS `players` (
-  `player_id` int(10) NOT NULL,
-  `player_name` varchar(255) DEFAULT NULL,
-  `player_score` int(50) DEFAULT NULL,
-  PRIMARY KEY (`player_id`)
+  `username` varchar(50) DEFAULT NULL,
+  `player_number` enum('p1','p2') NOT NULL,
+  `token` varchar(100) NOT NULL,
+  `last_action` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- Dumping data for table battleshipgamedb.players: ~2 rows (approximately)
-INSERT INTO `players` (`player_id`, `player_name`, `player_score`) VALUES
-	(1, NULL, NULL),
-	(2, NULL, NULL);
+INSERT INTO `players` (`username`, `player_number`, `token`, `last_action`) VALUES
+	(NULL, 'p1', '', NULL),
+	(NULL, 'p2', '', NULL);
 
--- Dumping structure for procedure battleshipgamedb.PlayerTurn
+-- Dumping structure for procedure battleshipgamedb.play_again
 DELIMITER //
-CREATE PROCEDURE `PlayerTurn`(
-	IN `player_id` INT,
-	IN `x_coord` CHAR(50),
-	IN `y_coord` INT
-)
+CREATE PROCEDURE `play_again`()
 BEGIN
-    DECLARE is_hit BOOLEAN;
-
-    -- Check if it's a hit or miss (simplified logic).
-    SELECT has_ship INTO is_hit
-    FROM player1_board
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-    SELECT has_ship INTO is_hit
-    FROM player2_board
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-    -- Update player's board.
-    UPDATE player1_board
-    SET is_hit = TRUE
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-    -- Update opponent's board.
-    UPDATE player2_board
-    SET has_ship = is_hit
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-    -- Switch player's turn in the game status.
-    UPDATE game_status
-    SET player_turn = CASE WHEN player_turn = 1 THEN 2 ELSE 1 END
-    WHERE game_id = game_id;
+    If (SELECT `status` FROM `game_status`) LIKE 'ended' THEN        
+		  UPDATE `game_status` SET `player_turn`=(SELECT result FROM `game_status`);
+		  
+		  TRUNCATE TABLE player1_board;
+        REPLACE INTO `player1_board` SELECT * FROM `board_empty1`;
+        UPDATE `player1_board` SET `p1_choice`=NULL, `p2_choice`=NULL, `winner`=NULL WHERE match_id=1;
+        
+        TRUNCATE TABLE player2_board;
+        REPLACE INTO `player2_board` SELECT * FROM `board_empty2`;
+        UPDATE `player2_board` SET `p1_choice`=NULL, `p2_choice`=NULL, `winner`=NULL WHERE match_id=1;
+        
+        UPDATE `game_status` SET `status`='started', `result`=NULL;
+    END IF;      
 END//
 DELIMITER ;
 
--- Dumping structure for procedure battleshipgamedb.RecordHit
+-- Dumping structure for trigger battleshipgamedb.game_status_update
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
-CREATE PROCEDURE `RecordHit`(
-	IN `player_id` INT,
-	IN `x_coord ` CHAR(1),
-	IN `y_coord` INT
-)
-BEGIN
-    -- Record a hit on the opponent's board.
-    UPDATE player1_board
-    SET has_ship = TRUE
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-	 
-	 UPDATE player2_board
-    SET has_ship = TRUE
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-
-    -- Check if a ship has been sunk (simplified logic).
-    IF (SELECT COUNT(*) FROM player1_board WHERE player_id = player_id AND has_ship = FALSE) = 0 THEN
-        CALL CheckWinner();
-      ELSEIF (SELECT COUNT(*) FROM player2_board WHERE player_id = player_id AND has_ship = FALSE) = 0 THEN
-        CALL CheckWinner();
-    END IF;
+CREATE TRIGGER `game_status_update` BEFORE UPDATE ON `game_status` FOR EACH ROW BEGIN
+   SET NEW.last_change=NOW();
 END//
 DELIMITER ;
-
--- Dumping structure for procedure battleshipgamedb.RecordMiss
-DELIMITER //
-CREATE PROCEDURE `RecordMiss`(
-	IN `player_id` INT,
-	IN `x_coord` CHAR(1),
-	IN `y_coord` INT
-)
-BEGIN
-    -- Record a miss on the opponent's board.
-    UPDATE player1_board
-    SET has_ship = FALSE
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-    
-    UPDATE player2_board
-    SET has_ship = FALSE
-    WHERE player_id = player_id AND x_coordinate = x_coord AND y_coordinate = y_coord;
-    
-END//
-DELIMITER ;
-
--- Dumping structure for procedure battleshipgamedb.ResetGame
-DELIMITER //
-CREATE PROCEDURE `ResetGame`()
-BEGIN
-    -- Clear player boards.
-    DELETE FROM player1_board WHERE player_id IN (1, 2);
-    DELETE FROM player2_board WHERE player_id IN (1, 2);
-     
-    -- Reset the game status.
-    UPDATE game_status
-    SET game_status = 'pending', winner_id = NULL
-    WHERE game_id = game_id;
-END//
-DELIMITER ;
-
--- Dumping structure for procedure battleshipgamedb.RetrieveGameState
-DELIMITER //
-CREATE PROCEDURE `RetrieveGameState`(
-	OUT `player1_board_resultset` VARCHAR(2048),
-	OUT `player2_board_resultset` VARCHAR(2048),
-	OUT `current_turn` INT,
-	OUT `game_status` ENUM('Y','N'),
-	IN `game_id` INT
-)
-BEGIN
-    -- Retrieve player boards and game status as JSON strings.
-    SET player1_board_resultset = (
-        SELECT CONCAT('[', GROUP_CONCAT(JSON_OBJECT('x_coordinate', x_coordinate, 'y_coordinate', y_coordinate, 'has_ship', has_ship, 'is_hit', is_hit)), ']')
-        FROM player1_board
-        WHERE player_id = 1
-    );
-
-    SET player2_board_resultset = (
-        SELECT CONCAT('[', GROUP_CONCAT(JSON_OBJECT('x_coordinate', x_coordinate, 'y_coordinate', y_coordinate, 'has_ship', has_ship, 'is_hit', is_hit)), ']')
-        FROM player2_board
-        WHERE player_id = 2
-    );
-
-    SELECT player_turn, game_status INTO current_turn, game_status
-    FROM game_status
-    WHERE game_id = game_id;
-END//
-DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
