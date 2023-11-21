@@ -39,6 +39,8 @@ function toggleDarkMode() {
   rotateBtn.classList.toggle("dark-mode");
 }
 
+
+
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:
 const sr = ScrollReveal({
