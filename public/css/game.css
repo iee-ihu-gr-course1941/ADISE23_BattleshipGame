@@ -71,7 +71,6 @@ body {
 .color-mode label div {
     position: absolute;
     font-size: 45px;
-    z-index: 100;
 }
 
 .color-mode label div.bx-sun {
@@ -79,6 +78,7 @@ body {
     left: 6.5px;
     color: white;
     transition: 0.3s;
+    z-index: 1;
 }
 
 .color-mode label div.bx-moon {
@@ -86,6 +86,7 @@ body {
     left: 99px;
     color: #7e7e7e;
     transition: 0.3s;
+    z-index: 1;
 }
 
 .color-mode input:checked + label div.bx-sun {
@@ -98,7 +99,607 @@ body {
 /* ----- ----- ----- ----- */
 /* ----- Color Mode ----- */
 
-/* Battleship Game - Board */
+/* --- Allert Message --- */
+/* ----- ----- ----- ----- */
+.custom-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin: 5px 100px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  display: none;
+}
+
+.custom-alert p {
+  margin: 0;
+}
+
+.custom-alert.error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.custom-alert.show {
+  display: block;
+}
+/* ----- ----- ----- ----- */
+/* --- Allert Message --- */
+
+/* Battleship Game - Home Section */
+.ocultar {
+  display: none;
+}
+
+.home {
+  font-family: "Roboto Mono", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+  transition: all .55s ease; 
+}
+
+.home #nameOfUser {
+  display: inline-block;
+  color: black;
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.home #start {
+  display: inline-block;
+  color: white;
+  background: transparent;
+  border: 1px solid white;
+  padding: 12px 40px;
+  line-height: 1.4;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.home #start:hover {
+  background: rgba(214, 215, 216, 0.591);
+  border: 1px solid transparent;
+}
+
+.home .main {
+  display: block;
+  text-align: center;
+}
+
+.home .main .game-title h1 {
+  font-size: 90px;
+}
+
+.home .main .game-mode h1 {
+  font-size: 70px;
+}
+
+.home .main .game-img img {
+  width: 85px;
+  height: 80px;
+}
+
+@media (max-width: 800px) {
+  .home #start {
+    padding: 12px 50px;
+    font-size: 12px;
+  } 
+
+  .home .main .game-title h1 {
+    font-size: 60px;
+  }
+
+  .home .main .game-mode h1 {
+    font-size: 45px;
+  }
+
+  .home .main .game-img img {
+    width: 65px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 540px) {
+  .home .main .game-title h1 {
+    font-size: 40px;
+  }
+
+  .home .main .game-mode h1 {
+    font-size: 30px;
+  }
+
+  .home .main .game-img img {
+    width: 62px;
+    height: 58px;
+  }
+}
+
+@media (max-width: 485px) {
+  .custom-alert {
+    margin: 5px 40px;
+}
+}
+/* Battleship Game - Home Section */
+
+/* Battleship Game - Board Section */
+.game .info-gamers {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.game .info-gamers div {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+}
+
+.game .info-gamers #plr {
+  background: linear-gradient(180deg, #ffcc89, #d8860b);
+}
+
+.game .info-gamers #plr.dark-mode {
+  background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+.game .info-gamers #cpu {
+  background: linear-gradient(180deg, #ee7571, #d8260b);
+}
+
+.game .info-gamers #cpu.dark-mode {
+  background: linear-gradient(180deg, #7d3434, #bd2121);
+}
+
+.game .container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.game .grid-computer, 
+.game .grid-user {
+  width: 350px;
+  height: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0px;
+}
+
+.game .grid div {
+  width: 35px;
+  height: 35px;
+  outline: 1.5px solid hsla(0, 0%, 100%, 0.527);
+  border-radius: 5px;
+  transition: 0.1s ease all;
+  cursor: pointer;
+}
+
+.game .grid-user div:hover {
+  background-color: #f8b967ad;
+} 
+
+.game .grid-computer div:hover {
+  background-color: #f15b56ad;
+} 
+
+.game .grid-user {
+  background-color: hsl(200, 100%, 50%);
+}
+
+.game .grid-computer {
+  background-color: #8d949a;
+}
+
+.game .destroyer {
+  background-color: #8d949a;
+}
+
+.game .submarine {
+  background-color: #8d949a;
+}
+
+.game .cruiser {
+  background-color: #8d949a;
+}
+
+.game .battleship {
+  background-color: #8d949a;
+}
+
+.game .carrier {
+  background-color: #8d949a;
+}
+
+.game .boom {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(111, 23, 23);
+}
+
+.game .boom .fas {
+  color: rgba(231, 9, 31, 0.938);
+}
+
+.game .miss {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game .miss .fas {
+  color: white;
+}
+
+.game .hidden-info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+
+.game .hidden-info button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  outline: none;
+  background: linear-gradient(180deg, #ee7571, #d8260b);
+  border-style: none;
+  transition: 0.55s ease all;
+  cursor: pointer;
+}
+
+.game .hidden-info button.dark-mode {
+  background: linear-gradient(180deg, #7d3434, #bd2121);
+}
+
+.game .hidden-info button i {
+  color: white;
+}
+
+.game .hidden-info button:hover {
+  transform: translateY(-8px);
+}
+
+.game .me {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.game .me .grid-display {
+  width: 700px;
+  display: flex;
+  height: 220px;
+}
+
+.game .me .grid-display .ships-container, .game .me .grid-display .carrier-container, .game .me .grid-display .battleship-container, .game .me .grid-display .cruiser-container, .game .me .grid-display .submarine-container, .game .me .grid-display .destroyer-container {
+  height: 35px;
+  display: flex;
+  margin: 10px;
+}
+
+.game .me .grid-display .ship div {
+  width: 35px;
+  height: 35px;
+  /* outline: 1.5px solid white; */
+  border-radius: 5px;
+  cursor: grab;
+}
+
+.game .me .grid-display .destroyer-container {
+  width: 70px;
+  /* background-color: #8d949a; */
+}
+
+.game .me .grid-display .destroyer-container-vertical {
+  width: 35px;
+  height: 70px;
+  flex-wrap: wrap;
+}
+
+.game .me .grid-display .destroyer-container #destroyer-0 {
+  background-image: url('../img/destroyer-0.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .destroyer-container #destroyer-1 {
+  background-image: url('../img/destroyer-1.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .destroyer-container-vertical #destroyer-0 {
+  transform: rotate(0deg);
+} 
+
+.game .me .grid-display .destroyer-container-vertical #destroyer-1 {
+  transform: rotate(0deg);
+} 
+
+.game .me .grid-display .submarine-container {
+  width: 105px;
+  /* background-color: #8d949a; */
+}
+
+.game .me .grid-display .submarine-container-vertical {
+  width: 35px;
+  height: 105px;
+  flex-wrap: wrap;
+}
+
+.game .me .grid-display .submarine-container #submarine-0 {
+  background-image: url('../img/submarine-0.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .submarine-container #submarine-1 {
+  background-image: url('../img/submarine-1.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .submarine-container #submarine-2 {
+  background-image: url('../img/submarine-2.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .submarine-container-vertical #submarine-0 {
+  transform: rotate(0deg);
+} 
+
+.game .me .grid-display .submarine-container-vertical #submarine-1 {
+  transform: rotate(0deg);
+} 
+
+.game .me .grid-display .submarine-container-vertical #submarine-2 {
+  transform: rotate(0deg);
+} 
+
+.game .me .grid-display .cruiser-container {
+  width: 105px;
+  /* background-color: #8d949a; */
+}
+
+.game .me .grid-display .cruiser-container-vertical {
+  width: 35px;
+  height: 105px;
+  flex-wrap: wrap;
+}
+
+.game .me .grid-display .cruiser-container #cruiser-0 {
+  background-image: url('../img/cruiser-0.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .cruiser-container #cruiser-1 {
+  background-image: url('../img/cruiser-1.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .cruiser-container #cruiser-2 {
+  background-image: url('../img/cruiser-2.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .cruiser-container-vertical #cruiser-0  {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .cruiser-container-vertical #cruiser-1  {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .cruiser-container-vertical #cruiser-2  {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .battleship-container {
+  width: 140px;
+  /* background-color: #8d949a; */
+}
+
+.game .me .grid-display .battleship-container-vertical {
+  width: 35px;
+  height: 140px;
+  flex-wrap: wrap;
+}
+
+.game .me .grid-display .battleship-container #battleship-0 {
+  background-image: url('../img/battleship-0.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .battleship-container #battleship-1 {
+  background-image: url('../img/battleship-1.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .battleship-container #battleship-2 {
+  background-image: url('../img/battleship-2.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .battleship-container #battleship-3 {
+  background-image: url('../img/battleship-3.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .battleship-container-vertical #battleship-0 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .battleship-container-vertical #battleship-1 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .battleship-container-vertical #battleship-2 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .battleship-container-vertical #battleship-3 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .carrier-container {
+  width: 175px;
+  /* background-color: #8d949a; */
+}
+
+.game .me .grid-display .carrier-container-vertical {
+  width: 35px;
+  height: 175px;
+  flex-wrap: wrap;
+}
+
+.game .me .grid-display .carrier-container #carrier-0 {
+  background-image: url('../img/carrier-0.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .carrier-container #carrier-1 {
+  background-image: url('../img/carrier-1.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .carrier-container #carrier-2 {
+  background-image: url('../img/carrier-2.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .carrier-container #carrier-3 {
+  background-image: url('../img/carrier-3.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .carrier-container #carrier-4 {
+  background-image: url('../img/carrier-4.png');
+  background-size: 35px;
+  transform: rotate(270deg);
+}
+
+.game .me .grid-display .carrier-container-vertical #carrier-0 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .carrier-container-vertical #carrier-1 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .carrier-container-vertical #carrier-2 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .carrier-container-vertical #carrier-3 {
+  transform: rotate(0deg);
+}
+
+.game .me .grid-display .carrier-container-vertical #carrier-4 {
+  transform: rotate(0deg);
+}
+
+.game .isHorizontal {
+  display: flex;
+  justify-content: center;
+}
+
+.game .gameController {
+  font-family: "Stick No Bills", sans-serif;
+  font-size: 36px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.autor {
+  color: white;
+}
+
+.declarateWinner {
+  font-size: 80px;
+  color: white;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(#49c1f9, 20%, rgb(6, 38, 58));
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.declarateWinner h1 {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 80px;
+}
+
+.declarateWinner div button {
+  color: white;
+  background: transparent;
+  border: 1px solid white;
+  padding: 12px 40px;
+  line-height: 1.4;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 30px;
+  text-transform: uppercase;
+  transition: all .55s ease;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.declarateWinner div button:hover {
+  transform: translateY(-8px);
+  background: rgba(214, 215, 216, 0.591);
+  border: 1px solid transparent;
+}
+
+.declarateWinner div button a {
+  color: white;
+}
+
 .game-board {
     color: white;
     height: 100%;
@@ -144,339 +745,114 @@ body {
 
 .game-img img {
     width: 75px;
-    height: 65px;
+    height: 68px;
 }
 
 .game-img span {
     font-family: 'Permanent Marker', cursive;
     font-size: 25px;
-    padding-right: 9px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+@media (max-width: 755px) {
+  .container {
+    flex-direction: column;
+    padding-left: 170px;
+  }
+
+  .game .me .grid-display {
+    padding-left: 130px;
+    display: block;
+    height: 700px;
+  }
+
+  .game .gameController {
+    font-size: 25px;
+  }
 }
 
 @media (max-width: 630px) {
-    .game-title h1 {
-        font-size: 50px;
-    }
+  .game-title h1 {
+      font-size: 50px;
+  }
 
-    .game-mode h1 {
-        font-size: 35px;
-    }
+  .game-mode h1 {
+      font-size: 35px;
+  }
 
-    .game-img img {
-        width: 62px;
-        height: 55px;
-    }
+  .game-img img {
+      width: 62px;
+      height: 58px;
+  }
+
+  .declarateWinner h1 {
+    font-size: 55px;
+  }
 }
+
+@media (max-width: 630px) {
+  .container {
+    padding-left: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 40px;
+  }
+}
+
 @media (max-width: 450px) {
-    .color-mode label {
-        width: 120px;
-        height: 40px;
-    }
-    
-    .color-mode label:after {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .color-mode input:checked + label:after {
-        left: 120px;
-    }
-    
-    .color-mode label:active:after {
-        width: 70px;
-    }
-    
-    .color-mode label div {
-        font-size: 32px;
-    }
-    
-    .color-mode label div.bx-sun {
-        top: 3.5px;
-        left: 3.5px;
-    }
-    
-    .color-mode label div.bx-moon {
-        top: 3.5px;
-        left: 84.5px;
-    }
-
-    .game-title h1 {
-        font-size: 40px;
-    }
-
-    .game-mode h1 {
-        font-size: 30px;
-    }
-}
-
-/* Gameplay */
-.splash-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 66vh;
-}
-
-.splash-title {
-  font-family: 'Bangers', cursive;
-  font-size: 10rem;
-}
-
-.splash-battleship-image {
-  position: absolute;
-  bottom: 5vh;
-  left: 20vw;
-  width: 100%;
-  transform: rotateY(180deg);
-  pointer-events: none;
-  opacity: .25;
-}
-
-.btn {
-  font-size: inherit;
-  background: linear-gradient(180deg, #ffcc89, #d8860b);
-  padding: .5em 1em;
-  outline: none;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 2em;
-  color: rgb(6, 38, 58);
-  transition: all .55s ease;
-}
-
-.btn:hover {
-  transform: translateY(8px);
-}
-
-#playAgain {
-  display: none;
-}
-
-#start.dark-mode,
-#rotate.dark-mode,
-#playAgain.dark-mode {
-  background: linear-gradient(180deg, #777, #3a3a3a);
-  color: white;
-}
-
-.playAgain {
-  color: rgb(6, 38, 58);
-}
-
-.playAgain.dark-mode {
-  color: white;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.battleship-grid {
-  margin: 2vmin;
-  display: grid;
-  background-color: hsl(200, 100%, 50%);
-  grid-template-rows: repeat(10, 4.6vmin);
-  grid-template-columns: repeat(10, 4.6vmin);
-  cursor: pointer;
-}
-
-.grid-computer > .taken,
-.grid-computer > .boom {
-  background-color: hsl(200, 100%, 50%) !important;
-  border-radius: 0 !important;
-}
-
-.taken,
-.ship {
-  position: relative;
-  background-color: hsl(0, 0%, 80%);
-}
-
-.taken.start.vertical,
-.taken.start.vertical::before {
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-}
-
-.taken.end.vertical,
-.taken.end.vertical::before {
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-}
-
-.taken.start.horizontal,
-.taken.start.horizontal::before {
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-
-.taken.end.horizontal,
-.taken.end.horizontal::before {
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
-}
-
-.taken.vertical::before,
-.taken.horizontal::before {
-  content: '';
-  position: absolute;
-  border: .3vmin solid white;
-  top: -1px;
-  bottom: -1px;
-  left: -1px;
-  right: -1px;
-}
-
-.taken.horizontal::before {
-  animation: ripplesY 3s linear infinite;
-  border-left: none;
-  border-right: none;
-}
-
-.taken.vertical::before {
-  animation: ripplesX 3s linear infinite;
-  border-top: none;
-  border-bottom: none;
-}
-
-@keyframes ripplesX {
-  0% {
-    opacity: 1;
-    transform: scaleX(1);
+  .container {
+    padding-left: 18px;
   }
 
-  100% {
-    opacity: 0;
-    transform: scaleX(1.5);
+  .color-mode label {
+    width: 120px;
+    height: 40px;
+  }
+  
+  .color-mode label:after {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .color-mode input:checked + label:after {
+    left: 120px;
+  }
+  
+  .color-mode label:active:after {
+    width: 70px;
+  }
+  
+  .color-mode label div {
+    font-size: 32px;
+  }
+  
+  .color-mode label div.bx-sun {
+    top: 3.5px;
+    left: 3.5px;
+  }
+  
+  .color-mode label div.bx-moon {
+    top: 3.5px;
+    left: 84.5px;
+  }
+
+  .game-title h1 {
+    font-size: 40px;
+  }
+
+  .game-mode h1 {
+    font-size: 30px;
+  }
+
+  .declarateWinner div button {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 13px;
   }
 }
-
-@keyframes ripplesY {
-  0% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scaleY(1.5);
-  }
-}
-
-.grid-display {
-  display: flex;
-  margin-bottom: 30px;
-}
-
-.ship > div {
-  width: 4.6vmin;
-  height: 4.6vmin;
-}
-
-.ship {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1vmin;
-  width: calc(4.6vmin * var(--width, 1));
-  height: calc(4.6vmin * var(--height, 1));
-  border-radius: 2.3vmin;
-}
-
-.battleship-grid div {
-  border: 1px solid hsla(0, 0%, 100%, .2);
-}
-
-.destroyer-container {
-  --width: 2;
-}
-
-.destroyer-container-vertical {
-  --height: 2;
-  --width: 1;
-}
-
-.submarine-container,
-.cruiser-container {
-  --width: 3;
-}
-
-.submarine-container-vertical,
-.cruiser-container-vertical {
-  --height: 3;
-  --width: 1;
-}
-
-.battleship-container {
-  --width: 4;
-}
-
-.battleship-container-vertical {
-  --height: 4;
-  --width: 1;
-}
-
-.carrier-container {
-  --width: 5;
-}
-
-.carrier-container-vertical {
-  --height: 5;
-  --width: 1;
-}
-
-.hidden-info {
-  font-size: 1.5rem;
-  align-items: center;
-  flex-direction: column;
-}
-
-.info-text {
-  margin: 1rem;
-}
-
-.miss,
-.boom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.boom::after,
-.miss::after {
-  content: '';
-  position: absolute;
-  border-radius: 100%;
-  width: 2vmin;
-  height: 2vmin;
-}
-
-.miss::after {
-  background-color: white;
-}
-
-.boom::after {
-  background-color: red;
-}
-
-.player {
-  margin: 2vmin;
-}
-
-.connected, .ready {
-  font-weight: normal;
-  opacity: .25;
-  text-decoration: line-through;
-}
-
-.connected.active,
-.ready.active {
-  opacity: 1;
-  text-decoration: none;
-}
-/* Gameplay */
-/* Battleship Game - Board */
+/* Battleship Game - Board Section */
