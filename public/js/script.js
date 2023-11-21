@@ -1,4 +1,4 @@
-//Responsive Navigation Menu:
+// Responsive Navigation Menu:
 let menu = document.querySelector('#menu-icon');
 let navList = document.querySelector('.navList');
 
@@ -26,15 +26,28 @@ window.onclick = function(event) {
   }
 }
 
-//Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
-//Creating ScrollReveal:
+// Color Mode Changer (betweem Light Mode <-> Dark Mode):
+function toggleDarkMode() {
+  // Dark Color Characteristics:
+  var gameBoard = document.getElementById("game-board");
+  var infoPlr = document.querySelector(".game .info-gamers #plr");
+  var infoCpu = document.querySelector(".game .info-gamers #cpu");
+  var rotateBtn = document.querySelector(".game .hidden-info button");
+  gameBoard.classList.toggle("dark-mode");
+  infoPlr.classList.toggle("dark-mode");
+  infoCpu.classList.toggle("dark-mode");
+  rotateBtn.classList.toggle("dark-mode");
+}
+
+// Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
+// Creating ScrollReveal:
 const sr = ScrollReveal({
-    distance: '65px',
-    duration: 2600,
-    delay: 450,
-    reset: true
+  distance: '65px',
+  duration: 2600,
+  delay: 450,
+  reset: true
 });
-//Calling Reveal Methods:
+// Calling Reveal Methods:
 sr.reveal('.responsive-nav', { delay: 500, origin: 'top' });
 sr.reveal('.home-text', { delay: 1500, origin: 'top' });
 sr.reveal('.rules-text', { delay: 1500, origin: 'top' });
