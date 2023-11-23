@@ -39,6 +39,16 @@ function toggleDarkMode() {
   rotateBtn.classList.toggle("dark-mode");
 }
 
+// If I select my option player, then it will change color to black:
+function selectedOpt() {
+  var select = document.getElementById('player_select');
+  var selectedValue = select.options[select.selectedIndex].value;
+
+  if (selectedValue == 'p1' || selectedValue == 'p2') {
+    select.style.color = 'black';
+  }
+}
+
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:
 const sr = ScrollReveal({

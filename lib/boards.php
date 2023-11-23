@@ -1,7 +1,14 @@
 <?php
-    // potentially for next time: reset_board(), make_move(), do_move(), check_winner(), play_again()
+    // Potentially for next time: make_move(), do_move(), check_winner(), play_again().
 
-    // Request to return player1's board
+    // SQL Request for reseting/cleaning the boards.
+    function reset_boards() {
+        global $mysqli;
+        $sql = 'call clean_boards()';
+        $mysqli->query($sql);
+    }
+
+    // SQL Request to return player1's board.
     function read_board1() {
         global $mysqli;
         $sql = 'select * from player1_board';
@@ -11,7 +18,7 @@
         return($res->fetch_all(MYSQLI_ASSOC));
     }
 
-    // Request to return player2's board
+    // SQL Request to return player2's board.
     function read_board2() {
         global $mysqli;
         $sql = 'select * from player2_board';

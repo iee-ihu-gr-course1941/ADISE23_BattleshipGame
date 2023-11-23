@@ -153,6 +153,21 @@ body {
   margin-top: 20px;
 }
 
+.home #player_select {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.633);
+  border: 1px solid transparent;
+  padding: 2px 0px;
+  border-radius: 5px;
+  margin: 0 35px;
+  margin-top: 20px;
+}
+
+.home #player_select option:nth-child(2),
+.home #player_select option:nth-child(3) {
+  color: black;
+}
+
 .home #start {
   display: inline-block;
   color: white;

@@ -14,36 +14,140 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-    <div class="game-board" id="game-board">
-        <!-- Color Mode -->
-        <div class="color-mode">
-            <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()"/>
-            <label for="darkmode-toggle">
-                <div class="bx bx-sun"></div> 
-                <div class="bx bx-moon"></div> 
-            </label>
-        </div>
-
-        <!-- Game Title -->
-        <header class="game-title">
+     <!-- Home Section -->
+     <section class="home">
+        <section class="main">
+          <!-- Alert Message -->
+          <div class="custom-alert" id="customAlert">
+            <p></p>
+          </div>
+  
+          <!-- Game Title -->
+          <div class="game-title" id="game-title">
             <h1>Battleship Game</h1> 
-        </header>
-
-        <!-- Game Mode -->
-        <div class="game-mode">
+          </div>
+          
+          <!-- Game Mode -->
+          <div class="game-mode" id="game-mode">
             <h1>Multiplayer</h1> 
-        </div>  
-        <div class="game-img">
+          </div>  
+          <div class="game-img" id="game-img">
             <img src="img/user1.png" alt=""> <span>VS</span> <img src="img/user2.png" alt="">
+          </div>
+        </section>
+  
+        <!-- User's Form -->
+        <form method="get">
+          <input type="text" id="nameOfUser" size="20px" placeholder="Enter your name"><br/>
+          <select id="player_select" onchange="selectedOpt()">
+            <option value='' disabled selected>Select Player</option>
+            <option value='p1'>Player 1</option>
+            <option value='p2'>Player 2</option>
+          </select><br/>
+          <button id="start" type="button">Star Battle</button>
+        </form>
+      </section>
+  
+      <!-- Board Section -->
+      <section class="game game-board ocultar" id="game-board">
+          <!-- Color Mode -->
+          <div class="color-mode">
+              <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()"/>
+              <label for="darkmode-toggle">
+                  <div class="bx bx-sun"></div> 
+                  <div class="bx bx-moon"></div> 
+              </label>
+          </div> 
+  
+          <!-- Game Title -->
+          <div class="game-title">
+              <h1>Battleship Game</h1> 
+          </div>
+  
+          <!-- Game Mode -->
+          <div class="game-mode">
+              <h1>Multiplayer</h1> 
+          </div>  
+          <div class="game-img">
+              <img src="img/user1.png" alt=""> <span>VS</span> <img src="img/user2.png" alt="">
+          </div>
+  
+        <!-- Info Gamers -->
+        <div class="info-gamers">
+          <div id="plr">
+            <p><span id="addNameOfUser"></span>'s Board</p>
+          </div>
+          <div id="cpu">
+            <p>Enemy's Board</p>
+          </div>
         </div>
-
-        <!-- Gameplay -->
-
-    </div>
-
-    <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <!-- JS Scripts -->
-    <script src="js/multiplayer.js"></script>
+  
+        <!-- Game Grids -->
+        <div class="container">
+          <div class="grid grid-user"></div>
+          <div class="grid grid-computer"></div>
+        </div>
+  
+        <!-- Game Controler: Turn and Info -->
+        <div class="gameController">
+          <h3 id="whose-go">Locate your ships!</h3>
+          <h3 id="info"></h3>
+        </div>
+  
+        <!-- Rotate Ships -->
+        <div class="hidden-info">
+          <button id="rotate"><i class="fas fa-sync-alt"></i></button>
+        </div>
+  
+        <!-- Ships -->
+        <div class="me">
+          <div class="grid-display">
+            <div class="ship destroyer-container" draggable="true">
+              <div id="destroyer-0"></div>
+              <div id="destroyer-1"></div>
+            </div>
+            <div class="ship submarine-container" draggable="true">
+              <div id="submarine-0"></div>
+              <div id="submarine-1"></div>
+              <div id="submarine-2"></div>
+            </div>
+            <div class="ship cruiser-container" draggable="true">
+              <div id="cruiser-0"></div>
+              <div id="cruiser-1"></div>
+              <div id="cruiser-2"></div>
+            </div>
+            <div class="ship battleship-container" draggable="true">
+              <div id="battleship-0"></div>
+              <div id="battleship-1"></div>
+              <div id="battleship-2"></div>
+              <div id="battleship-3"></div>
+            </div>
+            <div class="ship carrier-container" draggable="true">
+              <div id="carrier-0"></div>
+              <div id="carrier-1"></div>
+              <div id="carrier-2"></div>
+              <div id="carrier-3"></div>
+              <div id="carrier-4"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Game Over Section -->
+      <section class="ocultar" id="winners">
+        <h1 id="winner">GAME OVER</h1>
+        <div class="buttons">
+          <button><a href="">Play Again</a></button>
+          <button><a href="index.html">Return Home</a></button>
+        </div>
+      </section>
+  
+      <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
+      <script src="https://unpkg.com/scrollreveal"></script>
+      <!-- JS Scripts -->
+      <script src="js/script.js"></script>
+      <script src="js/multiplayer.js" type="module"></script>
+      <script src="js/ships.js" type="module"></script>
+      <script src="js/gameBoard.js" type="module"></script>
 </body>
 </html>
