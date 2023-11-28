@@ -434,3 +434,5 @@ sr.reveal('#game-mode', { delay: 500, origin: 'top' });
 sr.reveal('#game-img', { delay: 1500, origin: 'right' });
 sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
 sr.reveal('#start', { delay: 3500, origin: 'bottom' });
+sr.reveal('.back-button', { delay:100, origin: 'left'});
+sr.reveal('.music-button', { delay:100, origin: 'right'});
