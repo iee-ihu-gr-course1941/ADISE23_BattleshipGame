@@ -80,8 +80,8 @@
           <div id="plr">
             <p><span id="addNameOfUser"></span>'s Board</p>
           </div>
-          <div id="cpu">
-            <p>Enemy's Board</p>
+          <div id="plr2">
+            <p><span id="addNameOfUser2"></span>'s Board</p>
           </div>
         </div>
   
@@ -441,27 +441,27 @@
             </div>
             <!-- Destroyer -->
             <div class="ship">
-              <span>Set Destroyer's Coordinates: </span>
+              <span>Set <span class="clr">Destroyer's</span> Coordinates: </span>
               <input type="text" id="p1-destroyer-coord1" size="1px">
               <input type="text" id="p1-destroyer-coord2" size="1px">
             </div>
             <!-- Submarine -->
             <div class="ship">
-              <span>Set Submarine's Coordinates: </span>
+              <span>Set <span class="clr">Submarine's</span> Coordinates: </span>
               <input type="text" id="p1-submarine-coord1" size="1px">
               <input type="text" id="p1-submarine-coord2" size="1px">
               <input type="text" id="p1-submarine-coord3" size="1px">
             </div>
             <!-- Cruiser -->
             <div class="ship">
-              <span>Set Cruiser's Coordinates: </span>
+              <span>Set <span class="clr">Cruiser's</span> Coordinates: </span>
               <input type="text" id="p1-cruiser-coord1" size="1px">
               <input type="text" id="p1-cruiser-coord2" size="1px">
               <input type="text" id="p1-cruiser-coord3" size="1px">
             </div>
             <!-- Battleship -->
             <div class="ship">
-              <span>Set Battleship's Coordinates: </span>
+              <span>Set <span class="clr">Battleship's</span> Coordinates: </span>
               <input type="text" id="p1-battleship-coord1" size="1px">
               <input type="text" id="p1-battleship-coord2" size="1px">
               <input type="text" id="p1-battleship-coord3" size="1px">
@@ -469,7 +469,7 @@
             </div>
             <!-- Carrier -->
             <div class="ship">
-              <span>Set Carrier's Coordinates: </span>
+              <span>Set <span class="clr">Carrier's</span> Coordinates: </span>
               <input type="text" id="p1-carrier-coord1" size="1px">
               <input type="text" id="p1-carrier-coord2" size="1px">
               <input type="text" id="p1-carrier-coord3" size="1px">
@@ -486,27 +486,27 @@
             </div>
             <!-- Destroyer -->
             <div class="ship">
-              <span>Set Destroyer's Coordinates: </span>
+              <span>Set <span class="clr">Destroyer's</span> Coordinates: </span>
               <input type="text" id="p2-destroyer-coord1" size="1px">
               <input type="text" id="p2-destroyer-coord2" size="1px">
             </div>
             <!-- Submarine -->
             <div class="ship">
-              <span>Set Submarine's Coordinates: </span>
+              <span>Set <span class="clr">Submarine's</span> Coordinates: </span>
               <input type="text" id="p2-submarine-coord1" size="1px">
               <input type="text" id="p2-submarine-coord2" size="1px">
               <input type="text" id="p2-submarine-coord3" size="1px">
             </div>
             <!-- Cruiser -->
             <div class="ship">
-              <span>Set Cruiser's Coordinates: </span>
+              <span>Set <span class="clr">Cruiser's</span> Coordinates: </span>
               <input type="text" id="p2-cruiser-coord1" size="1px">
               <input type="text" id="p2-cruiser-coord2" size="1px">
               <input type="text" id="p2-cruiser-coord3" size="1px">
             </div>
             <!-- Battleship -->
             <div class="ship">
-              <span>Set Battleship's Coordinates: </span>
+              <span>Set <span class="clr">Battleship's</span> Coordinates: </span>
               <input type="text" id="p2-battleship-coord1" size="1px">
               <input type="text" id="p2-battleship-coord2" size="1px">
               <input type="text" id="p2-battleship-coord3" size="1px">
@@ -514,7 +514,7 @@
             </div>
             <!-- Carrier -->
             <div class="ship">
-              <span>Set Carrier's Coordinates: </span>
+              <span>Set <span class="clr">Carrier's</span> Coordinates: </span>
               <input type="text" id="p2-carrier-coord1" size="1px">
               <input type="text" id="p2-carrier-coord2" size="1px">
               <input type="text" id="p2-carrier-coord3" size="1px">
@@ -537,9 +537,38 @@
       <!-- Using 'ScrollReveal' by: https://github.com/jlmakes/scrollreveal -->
       <script src="https://unpkg.com/scrollreveal"></script>
       <!-- JS Scripts -->
-      <script src="js/script.js"></script>
       <script src="js/multiplayer.js" type="module"></script>
-      <script src="js/ships.js" type="module"></script>
-      <script src="js/gameBoard.js" type="module"></script>
+      <script>
+        // If I select my option player, then it will change color to black (means selected).
+        function selectedOpt() {
+            var select = document.getElementById('player_select');
+            var selectedValue = select.options[select.selectedIndex].value;
+          
+            if (selectedValue == 'p1' || selectedValue == 'p2') {
+              select.style.color = 'black';
+            }
+        }
+
+        // Color Mode Changer (betweem Light Mode <-> Dark Mode):
+        function toggleDarkMode() {
+            // Dark Color Characteristics:
+            var gameBoard = document.getElementById("game-board");
+            var infoPlr = document.querySelector(".game .info-gamers #plr");
+            var infoPlr2 = document.querySelector(".game .info-gamers #plr2");
+            //var rotateBtn = document.querySelector(".game .hidden-info button");
+            var plr1Ships = document.querySelectorAll(".ship-area .player1-ships .ship .clr");
+            plr1Ships.forEach(function(element) {
+                element.classList.toggle('dark-mode');
+            });
+            var plr2Ships = document.querySelectorAll(".ship-area .player2-ships .ship .clr ");
+            plr2Ships.forEach(function(element2) {
+                element2.classList.toggle('dark-mode');
+            });
+            gameBoard.classList.toggle("dark-mode");
+            infoPlr.classList.toggle("dark-mode");
+            infoPlr2.classList.toggle("dark-mode");
+            //rotateBtn.classList.toggle("dark-mode");
+          }
+      </script>
 </body>
 </html>

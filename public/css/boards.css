@@ -56,6 +56,34 @@ td {
     text-align: left;
 }
 
+.ship-area .player1-ships .ship .clr {
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+}
+
+.ship-area .player1-ships .ship .clr.dark-mode {    
+    background: linear-gradient(180deg, #777, #3a3a3a);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+}
+
+.ship-area .player2-ships .ship .clr {
+    background: linear-gradient(180deg, #ee7571, #d8260b);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+}
+
+.ship-area .player2-ships .ship .clr.dark-mode {
+    background: linear-gradient(180deg, #7d3434, #bd2121);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
+}
+
 .ship-area .ship input {
     display: inline-block;
     border: 1px solid transparent;

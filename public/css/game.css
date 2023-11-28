@@ -284,6 +284,14 @@ body {
   background: linear-gradient(180deg, #7d3434, #bd2121);
 }
 
+.game .info-gamers #plr2 {
+  background: linear-gradient(180deg, #ee7571, #d8260b);
+}
+
+.game .info-gamers #plr2.dark-mode {
+  background: linear-gradient(180deg, #7d3434, #bd2121);
+}
+
 .game .container {
   display: flex;
   width: 100%;

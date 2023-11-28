@@ -26,29 +26,6 @@ window.onclick = function(event) {
   }
 }
 
-// Color Mode Changer (betweem Light Mode <-> Dark Mode):
-function toggleDarkMode() {
-  // Dark Color Characteristics:
-  var gameBoard = document.getElementById("game-board");
-  var infoPlr = document.querySelector(".game .info-gamers #plr");
-  var infoCpu = document.querySelector(".game .info-gamers #cpu");
-  var rotateBtn = document.querySelector(".game .hidden-info button");
-  gameBoard.classList.toggle("dark-mode");
-  infoPlr.classList.toggle("dark-mode");
-  infoCpu.classList.toggle("dark-mode");
-  rotateBtn.classList.toggle("dark-mode");
-}
-
-// If I select my option player, then it will change color to black:
-function selectedOpt() {
-  var select = document.getElementById('player_select');
-  var selectedValue = select.options[select.selectedIndex].value;
-
-  if (selectedValue == 'p1' || selectedValue == 'p2') {
-    select.style.color = 'black';
-  }
-}
-
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:
 const sr = ScrollReveal({
