@@ -1,5 +1,5 @@
 <?php
-    require_once "lib/dbconnect.php";
+    require_once "../lib/dbconnect.php";
     require_once "../lib/boards.php";
     require_once "../lib/game.php";
     require_once "../lib/user.php";

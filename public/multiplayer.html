@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship Game | Multiplayer</title>
     <link href="img/favicon.png" rel="icon">
+    <!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- CSS Files & Fonts -->
     <link href="css/game.css" rel="stylesheet" type="text/css">
+    <link href="css/boards.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,9 +43,9 @@
         <form method="get">
           <input type="text" id="nameOfUser" size="20px" placeholder="Enter your name"><br/>
           <select id="player_select" onchange="selectedOpt()">
-            <option value='' disabled selected>Select Player</option>
-            <option value='p1'>Player 1</option>
-            <option value='p2'>Player 2</option>
+            <option value="" disabled selected>Select Player</option>
+            <option value="p1">Player 1</option>
+            <option value="p2">Player 2</option>
           </select><br/>
           <button id="start" type="button">Star Battle</button>
         </form>
@@ -82,11 +85,308 @@
           </div>
         </div>
   
-        <!-- Game Grids -->
+        <!-- Game Tables -->
         <div class="container">
-          <div class="grid grid-user"></div>
-          <div class="grid grid-computer"></div>
-        </div>
+          <table id="player1_board">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th>A</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>B</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>C</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                    <th>D</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>E</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>F</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>G</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>H</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>I</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>J</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="player2_board">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <th>A</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th>B</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th>C</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                  <th>D</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>E</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>F</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>G</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>H</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>I</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>J</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
   
         <!-- Game Controler: Turn and Info -->
         <div class="gameController">
@@ -95,11 +395,11 @@
         </div>
   
         <!-- Rotate Ships -->
-        <div class="hidden-info">
+        <!-- <div class="hidden-info">
           <button id="rotate"><i class="fas fa-sync-alt"></i></button>
-        </div>
+        </div> -->
   
-        <!-- Ships -->
+        <!-- Ship Area -->
         <div class="me">
           <div class="grid-display">
             <div class="ship destroyer-container" draggable="true">
@@ -128,6 +428,98 @@
               <div id="carrier-2"></div>
               <div id="carrier-3"></div>
               <div id="carrier-4"></div>
+            </div>
+          </div>
+        </div>
+          
+        <div class="ship-area">
+          <!-- Player's 1 Ships -->
+          <div class="player1-ships">
+            <!-- Player's title -->
+            <div class="player-title">
+              <h1>Player 1:</h1>
+            </div>
+            <!-- Destroyer -->
+            <div class="ship">
+              <span>Set Destroyer's Coordinates: </span>
+              <input type="text" id="p1-destroyer-coord1" size="1px">
+              <input type="text" id="p1-destroyer-coord2" size="1px">
+            </div>
+            <!-- Submarine -->
+            <div class="ship">
+              <span>Set Submarine's Coordinates: </span>
+              <input type="text" id="p1-submarine-coord1" size="1px">
+              <input type="text" id="p1-submarine-coord2" size="1px">
+              <input type="text" id="p1-submarine-coord3" size="1px">
+            </div>
+            <!-- Cruiser -->
+            <div class="ship">
+              <span>Set Cruiser's Coordinates: </span>
+              <input type="text" id="p1-cruiser-coord1" size="1px">
+              <input type="text" id="p1-cruiser-coord2" size="1px">
+              <input type="text" id="p1-cruiser-coord3" size="1px">
+            </div>
+            <!-- Battleship -->
+            <div class="ship">
+              <span>Set Battleship's Coordinates: </span>
+              <input type="text" id="p1-battleship-coord1" size="1px">
+              <input type="text" id="p1-battleship-coord2" size="1px">
+              <input type="text" id="p1-battleship-coord3" size="1px">
+              <input type="text" id="p1-battleship-coord4" size="1px">
+            </div>
+            <!-- Carrier -->
+            <div class="ship">
+              <span>Set Carrier's Coordinates: </span>
+              <input type="text" id="p1-carrier-coord1" size="1px">
+              <input type="text" id="p1-carrier-coord2" size="1px">
+              <input type="text" id="p1-carrier-coord3" size="1px">
+              <input type="text" id="p1-carrier-coord4" size="1px">
+              <input type="text" id="p1-carrier-coord5" size="1px">
+            </div>
+          </div>
+
+          <!-- Player's 2 Ships -->
+          <div class="player2-ships">
+            <!-- Player's title -->
+            <div class="player-title">
+              <h1>Player 2:</h1>
+            </div>
+            <!-- Destroyer -->
+            <div class="ship">
+              <span>Set Destroyer's Coordinates: </span>
+              <input type="text" id="p2-destroyer-coord1" size="1px">
+              <input type="text" id="p2-destroyer-coord2" size="1px">
+            </div>
+            <!-- Submarine -->
+            <div class="ship">
+              <span>Set Submarine's Coordinates: </span>
+              <input type="text" id="p2-submarine-coord1" size="1px">
+              <input type="text" id="p2-submarine-coord2" size="1px">
+              <input type="text" id="p2-submarine-coord3" size="1px">
+            </div>
+            <!-- Cruiser -->
+            <div class="ship">
+              <span>Set Cruiser's Coordinates: </span>
+              <input type="text" id="p2-cruiser-coord1" size="1px">
+              <input type="text" id="p2-cruiser-coord2" size="1px">
+              <input type="text" id="p2-cruiser-coord3" size="1px">
+            </div>
+            <!-- Battleship -->
+            <div class="ship">
+              <span>Set Battleship's Coordinates: </span>
+              <input type="text" id="p2-battleship-coord1" size="1px">
+              <input type="text" id="p2-battleship-coord2" size="1px">
+              <input type="text" id="p2-battleship-coord3" size="1px">
+              <input type="text" id="p2-battleship-coord4" size="1px">
+            </div>
+            <!-- Carrier -->
+            <div class="ship">
+              <span>Set Carrier's Coordinates: </span>
+              <input type="text" id="p2-carrier-coord1" size="1px">
+              <input type="text" id="p2-carrier-coord2" size="1px">
+              <input type="text" id="p2-carrier-coord3" size="1px">
+              <input type="text" id="p2-carrier-coord4" size="1px">
+              <input type="text" id="p2-carrier-coord5" size="1px">
             </div>
           </div>
         </div>

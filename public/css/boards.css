@@ -1,0 +1,66 @@
+/* Game Boards - Tables */
+table {
+    border-collapse: collapse;
+    width: 400px;
+    height: 350px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0px;
+    margin-bottom: 50px;
+}
+
+table#player1_board {
+    margin-left: 30px;
+}
+
+table#player2_board {
+    margin-right: 18px;
+}
+
+th {
+    width: 35px;
+    height: 35px;
+    background-color: hsl(200, 100%, 50%);
+}
+
+td {
+    width: 35px;
+    height: 35px;
+    outline: 1.5px solid hsla(0, 0%, 100%, 0.527);
+    border-radius: 3.2px;
+    transition: 0.1s ease all; 
+    cursor: pointer;
+    background-color: hsl(200, 100%, 50%);
+}
+
+/* Ship Areas */
+.game .me {
+    height: 75px;
+}
+
+.ship-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+    column-gap: 10rem;
+}
+
+.ship-area .player-title {
+    text-align: center;
+    font-size: 22px;
+}
+
+.ship-area .ship {
+    margin-top: 12px;
+    text-align: left;
+}
+
+.ship-area .ship input {
+    display: inline-block;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+}
