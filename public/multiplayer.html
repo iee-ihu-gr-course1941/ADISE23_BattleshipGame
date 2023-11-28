@@ -17,6 +17,43 @@
      <!-- Home Section -->
      <section class="home">
         <section class="main">
+          <!-- Back and Music Button -->
+          <div class="btn-div">
+          <a href="#" class="back-button">
+            <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
+          </a>
+
+          <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
+            <i class="fas fa-pause"></i>
+          </button>
+          <audio id="backgroundMusic" loop>
+            <source src="./sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+
+          <script>
+            window.addEventListener("DOMContentLoaded", event => {
+              const audio = document.querySelector("audio");
+              audio.play();
+            });
+           
+            var musicEnabled = true;
+            var backgroundMusic = document.getElementById('backgroundMusic');
+            var musicButton = document.getElementById('musicButton');
+    
+            function toggleMusic() {
+                if (musicEnabled) {
+                    backgroundMusic.pause();
+                    musicButton.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    backgroundMusic.play();
+                    musicButton.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                musicEnabled = !musicEnabled;
+            }
+        </script>
+        </div>
+
           <!-- Alert Message -->
           <div class="custom-alert" id="customAlert">
             <p></p>
@@ -58,7 +95,18 @@
                   <div class="bx bx-moon"></div> 
               </label>
           </div> 
-  
+          
+          <!-- Back and Music Buttons-->
+          <div class="btn-div">
+            <a href="#" class="back-button">
+              <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
+            </a>
+
+            <button href="#" class="music-button" id="musicButton2" onclick="toggleMusic()">
+              <i class="fas fa-pause"></i>
+            </button>
+          </div>
+        
           <!-- Game Title -->
           <div class="game-title">
               <h1>Battleship Game</h1> 
