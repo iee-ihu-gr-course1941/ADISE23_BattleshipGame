@@ -1,7 +1,7 @@
 <?php
     // Potentially for next time: show_users(), set_user(), handle_user().
 
-    // Checking user's token. Returning player with that toke.
+    // Checking user's token. Returning player with that token.
     function current_player($token) {
         global $mysqli;
 
