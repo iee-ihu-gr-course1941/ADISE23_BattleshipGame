@@ -2,6 +2,7 @@
     // checking status if it's aborted and returning SQL request of table game_status.
     function show_status() {
         global $mysqli;
+        
         initialized();
         aborted();
 

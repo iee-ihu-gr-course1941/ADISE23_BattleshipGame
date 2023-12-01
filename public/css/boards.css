@@ -46,38 +46,33 @@ td {
     column-gap: 10rem;
 }
 
-.ship-area .player-title {
-    text-align: center;
-    font-size: 22px;
-}
-
 .ship-area .ship {
     margin-top: 12px;
     text-align: left;
 }
 
-.ship-area .player1-ships .ship .clr {
+.ship-area .player-ships .ship .clr.one {
     background: linear-gradient(180deg, #ffcc89, #d8860b);
     -webkit-background-clip: text;
     color: transparent;
     background-clip: text;
 }
 
-.ship-area .player1-ships .ship .clr.dark-mode {    
+.ship-area .player-ships .ship .clr.one.dark-mode {    
     background: linear-gradient(180deg, #777, #3a3a3a);
     -webkit-background-clip: text;
     color: transparent;
     background-clip: text;
 }
 
-.ship-area .player2-ships .ship .clr {
+.ship-area .player-ships .ship .clr.two {
     background: linear-gradient(180deg, #ee7571, #d8260b);
     -webkit-background-clip: text;
     color: transparent;
     background-clip: text;
 }
 
-.ship-area .player2-ships .ship .clr.dark-mode {
+.ship-area .player-ships .ship .clr.two.dark-mode {
     background: linear-gradient(180deg, #7d3434, #bd2121);
     -webkit-background-clip: text;
     color: transparent;
