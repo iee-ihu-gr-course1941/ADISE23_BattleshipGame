@@ -165,3 +165,5 @@ const sr = ScrollReveal({
 // sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
 // sr.reveal('#player_select', { delay: 3500, origin: 'right' });
 // sr.reveal('#start', { delay: 4500, origin: 'bottom' });
+sr.reveal('.back-button', { delay: 100, origin: 'left' });
+sr.reveal('.music-button', { delay: 100, origin: 'right' });

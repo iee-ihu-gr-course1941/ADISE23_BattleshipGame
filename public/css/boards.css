@@ -17,10 +17,17 @@ table#player2_board {
     margin-right: 18px;
 }
 
+tbody {
+    background-color: rgb(14, 24, 80);
+    background-image: url('../img/radar2.gif');
+    background-position: 4px;
+    background-repeat: no-repeat;
+}
+
 th {
     width: 35px;
     height: 35px;
-    background-color: hsl(200, 100%, 50%);
+    background-color: hsl(201, 83%, 21%);
 }
 
 td {
@@ -30,7 +37,6 @@ td {
     border-radius: 3.2px;
     transition: 0.1s ease all; 
     cursor: pointer;
-    background-color: hsl(200, 100%, 50%);
 }
 
 /* Ship Areas */

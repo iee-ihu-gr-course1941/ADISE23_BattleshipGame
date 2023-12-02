@@ -21,11 +21,10 @@
      <section class="home">
         <section class="main">
           <!-- Back and Music Button -->
-          <div class="btn-div">
+        <div class="btn-div">
           <a href="#" class="back-button">
             <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
           </a>
-
           <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
             <i class="fas fa-pause"></i>
           </button>
@@ -33,28 +32,6 @@
             <source src="./sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
             Your browser does not support the audio element.
           </audio>
-
-          <script>
-            window.addEventListener("DOMContentLoaded", event => {
-              const audio = document.querySelector("audio");
-              audio.play();
-            });
-           
-            var musicEnabled = true;
-            var backgroundMusic = document.getElementById('backgroundMusic');
-            var musicButton = document.getElementById('musicButton');
-    
-            function toggleMusic() {
-                if (musicEnabled) {
-                    backgroundMusic.pause();
-                    musicButton.innerHTML = '<i class="fas fa-play"></i>';
-                } else {
-                    backgroundMusic.play();
-                    musicButton.innerHTML = '<i class="fas fa-pause"></i>';
-                }
-                musicEnabled = !musicEnabled;
-            }
-        </script>
         </div>
 
           <!-- Alert Message -->
@@ -100,12 +77,12 @@
           </div> 
           
           <!-- Back and Music Buttons-->
-          <div class="btn-div">
-            <a href="#" class="back-button">
-              <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
+          <div class="btn-div2">
+            <a href="#" class="back-button2">
+              <img src="./img/back.png" alt="Back" width="42" height="40" onclick="location.reload()">
             </a>
 
-            <button href="#" class="music-button" id="musicButton2" onclick="toggleMusic()">
+            <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
               <i class="fas fa-pause"></i>
             </button>
           </div>
@@ -561,6 +538,50 @@
             infoPlr.classList.toggle("dark-mode");
             infoPlr2.classList.toggle("dark-mode");
           }
+      </script>
+      <script>
+        window.addEventListener("DOMContentLoaded", event => {
+          const audio = document.querySelector("audio");
+          audio.play();
+        });
+       
+        var musicEnabled = true;
+        var backgroundMusic = document.getElementById('backgroundMusic');
+        var musicButton = document.getElementById('musicButton');
+        var musicButton2 = document.getElementById('musicButton2');
+  
+        function toggleMusic() {
+            if (musicEnabled) {
+                backgroundMusic.pause();
+                musicButton.innerHTML = '<i class="fas fa-play"></i>';
+                musicButton2.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                backgroundMusic.play();
+                musicButton.innerHTML = '<i class="fas fa-pause"></i>';
+                musicButton2.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            musicEnabled = !musicEnabled;
+        }
+      </script>
+
+      <audio id="myAudio" src="./sounds/sonar-ping-95840.mp3" preload="auto"></audio>
+      <audio id="myAudio2" src="./sounds/sonar-sweep-beep-80957.mp3" preload="auto"></audio>
+      <script>
+        // Function to play the audio
+        temp = 0;
+        function playAudio() {
+          if(temp%2 == 0){
+            var audio = document.getElementById('myAudio');
+          }
+          else{
+            var audio = document.getElementById('myAudio2');
+          }
+          temp++;
+          audio.play();
+        }
+      
+        // Set interval to play the audio every five seconds (5000 milliseconds)
+        setInterval(playAudio, 8000);
       </script>
 </body>
 </html>
