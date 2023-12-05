@@ -23,7 +23,7 @@
           <!-- Back and Music Button -->
         <div class="btn-div">
           <a href="#" class="back-button">
-            <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
+            <img src="./img/back.png" alt="Back" width="25" height="25" onclick="history.back()">
           </a>
           <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
             <i class="fas fa-pause"></i>
@@ -54,7 +54,7 @@
         </section>
   
         <!-- User's Form -->
-        <form method="get">
+        <form>
           <input type="text" id="nameOfUser" size="20px" placeholder="Enter your name"><br/>
           <select id="player_select" onchange="selectedOpt()">
             <option value="" disabled selected>Select Player</option>
@@ -79,7 +79,7 @@
           <!-- Back and Music Buttons-->
           <div class="btn-div2">
             <a href="#" class="back-button2">
-              <img src="./img/back.png" alt="Back" width="42" height="40" onclick="location.reload()">
+              <img src="./img/back.png" alt="Back" width="25" height="25" onclick="location.reload()">
             </a>
 
             <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
@@ -577,11 +577,13 @@
             var audio = document.getElementById('myAudio2');
           }
           temp++;
+          audio.volume = 0.3;
           audio.play();
         }
       
         // Set interval to play the audio every five seconds (5000 milliseconds)
-        setInterval(playAudio, 8000);
+        setInterval(playAudio, 3500);
       </script>
+      
 </body>
 </html>
