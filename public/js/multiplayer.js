@@ -26,12 +26,12 @@ function login_to_game() {
   // Performing additional validation.
   if (/^[A-Za-z]{3,10}$/.test(name) && (selectedValue == 'p1' || selectedValue == 'p2')) {
     // Hide Alert Message
-    $('#customAlert').removeClass('custom-alert');
+    $('#customAlert').removeClass('custom-alert error show');
 
     // Starting Battle.
-    $('.home').addClass('ocultar');
-    $('.home').removeClass('home');
-    $('.game').removeClass('ocultar');
+    // $('.home').addClass('ocultar');
+    // $('.home').removeClass('home');
+    // $('.game').removeClass('ocultar');
 
     var outputName = $('#addNameOfUser');
     var outputName2 = $('#addNameOfUser2');
@@ -46,26 +46,41 @@ function login_to_game() {
       outputName2.text(name);
       $('.ship-area .player-ships .ship .clr').addClass('two')
     }
-
-    // $.ajax({
-    //   url: "battleship.php/players/",
-    //   method: 'POST',
-    //   dataType: 'json',
-    //   headers: { "X-Token": me.token },
-    //   contentType: 'application/json',
-    //   data: JSON.stringify({
-    //     username: $('#nameOfUser').val(),
-    //     player_number: $('#player_select').val()
-    //   }),
-    //   success: login_result,
-    //   error: show_error
-    // });
-    
+  
   } else {
     // Displaying the Alert Message.
     $('#customAlert').addClass('custom-alert error show');
     $('#customAlert').find('p').text("You must select player & your name must contain at least 3 to 10 alphabetic characters!");
+    return;
   }
+
+    $.ajax({
+      url: "battleship.php/players/"+player_select,
+      method: 'PUT',
+      dataType: 'json',
+      headers: { "X-Token": me.token },
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: $('#nameOfUser').val(),
+        player_number: player_select
+      }),
+      success: login_result,
+      error: show_error
+    });
+
+  // $.ajax({
+  //   url: "battleship.php/players/",
+  //   method: 'POST',
+  //   dataType: 'json',
+  //   headers: { "X-Token": me.token },
+  //   contentType: 'application/json',
+  //   data: JSON.stringify({
+  //     username: $('#nameOfUser').val(),
+  //     player_number: $('#player_select').val()
+  //   }),
+  //   success: login_result,
+  //   error: show_error
+  // });
 }
 
 // Ajax Request for the player to set the ships.
@@ -99,7 +114,7 @@ function reset_boards() {
 
 	clearTimeout(timer);
 	if (game_status.status!='not active') {
-		$.ajax({url: "battleship.php/boards/",
+		$.ajax({url: "battleship.php/board/",
 		headers: {"X-Token": me.token},
 		method: 'POST'});
 	}
@@ -113,13 +128,12 @@ function reset_boards() {
 
 // Importing player details and updating games_status.
 function login_result(data) {
+  me = data[0];
 
   // Starting Battle.
-  //$('.home').addClass('ocultar');
-  //$('.home').removeClass('home');
-  //$('.game').removeClass('ocultar');
-
-  me = data[0];
+  $('.home').addClass('ocultar');
+  $('.home').removeClass('home');
+  $('.game').removeClass('ocultar');
 
 	// Listener that resets the game when the user refresh or close the page.
 	window.addEventListener("beforeunload", function(e) {
@@ -131,13 +145,15 @@ function login_result(data) {
 }
 
 function show_error(data) {
+  var x = data.responseJSON;
+	alert(x.errormesg);
 
   // Displaying an Alert/Error Message.
-  var customAlert = $('#customAlert');
-  var x = data.responseJSON;
-  
-  customAlert.addClass('custom-alert error show');
-  customAlert.find('p').text("Oh no. An error occurred: " + x.errormesg);
+  //   var customAlert = $('#customAlert');
+  //   var x = data.responseJSON;
+    
+  //   customAlert.addClass('custom-alert error show');
+  //   customAlert.find('p').text("Oh no. An error occurred: " + x.errormesg);
 }
 
 // Ajax Request for game_status.
@@ -150,6 +166,7 @@ function game_status_update() {
 	headers: {"X-Token": me.token}});
 }
 
+
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:
 const sr = ScrollReveal({
@@ -159,11 +176,11 @@ const sr = ScrollReveal({
   reset: true
 });
 // Calling Reveal Methods:
-// sr.reveal('#game-title', { delay: 500, origin: 'top' });
-// sr.reveal('#game-mode', { delay: 500, origin: 'top' });
-// sr.reveal('#game-img', { delay: 1500, origin: 'right' });
-// sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
-// sr.reveal('#player_select', { delay: 3500, origin: 'right' });
-// sr.reveal('#start', { delay: 4500, origin: 'bottom' });
+sr.reveal('#game-title', { delay: 500, origin: 'top' });
+sr.reveal('#game-mode', { delay: 500, origin: 'top' });
+sr.reveal('#game-img', { delay: 1500, origin: 'right' });
+sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
+sr.reveal('#player_select', { delay: 3500, origin: 'right' });
+sr.reveal('#start', { delay: 4500, origin: 'bottom' });
 sr.reveal('.back-button', { delay: 100, origin: 'left' });
 sr.reveal('.music-button', { delay: 100, origin: 'right' });
