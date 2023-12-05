@@ -1,5 +1,6 @@
 <?php
     // Potentially for next time: show_users(), set_user(), handle_user().
+    // These functions above were implemented at billy-dev branch
 
     // Checking user's token. Returning player with that token.
     function current_player($token) {
