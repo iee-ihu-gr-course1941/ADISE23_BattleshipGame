@@ -6,12 +6,45 @@ var game_status={};
 var timer=null;
 var last_update=new Date().getTime();
 var surrendered=false;
-// var sounds=true;
 
 $(function() {
   
   $('#start').click(login_to_game); // Login.
+  
+  // Ready Button.
+  $('#ready-btn').click(function() {
+    // Retrieving values from input fields.
+    // Destroyer coords:
+    var destroyer_coord1 = $('#destroyer-coord1').val();
+    var destroyer_coord2 = $('#destroyer-coord2').val();
+    // Submarine coords:
+    var submarine_coord1 = $('#submarine-coord1').val();
+    var submarine_coord2 = $('#submarine-coord2').val();
+    var submarine_coord3 = $('#submarine-coord3').val();
+    // Cruiser coords:
+    var cruiser_coord1 = $('#cruiser-coord1').val();
+    var cruiser_coord2 = $('#cruiser-coord2').val();
+    var cruiser_coord3 = $('#cruiser-coord3').val();
+    // Battleship coords:
+    var battleship_coord1 = $('#battleship-coord1').val();
+    var battleship_coord2 = $('#battleship-coord2').val();
+    var battleship_coord3 = $('#battleship-coord3').val();
+    var battleship_coord4 = $('#battleship-coord4').val();
+    // Carrier coords:
+    var carrier_coord1 = $('#carrier-coord1').val();
+    var carrier_coord2 = $('#carrier-coord2').val();
+    var carrier_coord3 = $('#carrier-coord3').val();
+    var carrier_coord4 = $('#carrier-coord4').val();
+    var carrier_coord5 = $('#carrier-coord5').val();
+    
+    set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5);
+  });
 
+  // Reset Button.
+  $('#reset_game').click(function() {
+    surrendered=true;
+    reset_boards(); 
+  });
 });
 
 // Ajax Request for login.
@@ -121,9 +154,8 @@ function reset_boards() {
  
   game_status_update();
 
-  location.reload();
+  //location.reload();
 }
-
 
 // Importing player details and updating games_status.
 function login_result(data) {
@@ -139,20 +171,19 @@ function login_result(data) {
 		reset_boards();
   }, false);
 
-	//update_info();
+	update_info();
 	game_status_update();
 }
 
 function show_error(data) {
+  // Displaying an Alert/Error Message.
   var x = data.responseJSON;
 	alert(x.errormesg);
-
-  // Displaying an Alert/Error Message.
-  //   var customAlert = $('#customAlert');
-  //   var x = data.responseJSON;
-    
-  //   customAlert.addClass('custom-alert error show');
-  //   customAlert.find('p').text("Oh no. An error occurred: " + x.errormesg);
+  
+  //  var customAlert = $('#customAlert');
+  //  var x = data.responseJSON;
+  //  customAlert.addClass('custom-alert error show');
+  //  customAlert.find('p').text("Oh no. An error occurred: " + x.errormesg);
 }
 
 // Ajax Request for game_status.
@@ -165,6 +196,50 @@ function game_status_update() {
 	headers: {"X-Token": me.token}});
 }
 
+// Updating Info of players.
+function update_info() {
+
+	if (me.player_number =='p1') {
+		player='Player 1';
+	} else {
+    player='Player 2';
+  }
+	
+	if (game_status.player_turn=='p1') {
+    player_turn='Player 1';
+	} else { 
+    player_turn='Player 2';
+  }
+
+	if (players==null) {
+		opponent="Opponent";
+	} else {
+		if (me.player_number=='p1') {
+			opponent=players[1].username;
+		} else if (me.player_number=='p2') {
+			opponent=players[0].username;
+		} 
+	}
+
+	if(game_status.status=='started' && me.token!=null) {
+		if (players==null) {
+			// $('#game_info').html("<h4><b> Score:</h4></b>" + me.username + ": " + score.me + "</br>Opponent: " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '
+			// + game_status.status + '<b>');
+		} else {
+			// $('#game_info').html("<h4><b> Score:</h4></b>" + me.username + ": " + score.me + "</br>"+ opponent + ": " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '
+			// + game_status.status + '<b>');
+		}
+
+		if (game_status.player_turn==me.player_number) {
+			// $('#player_turn').html("<h6> It's </b> your turn to play now.</h6>");
+		} else {  
+			// $('#player_turn').html("<h6> It's " + opponent +"'s</b> turn to play now.</h6>");
+		}
+	} else {
+    // $('#game_info').html("<h4><b> Score:</h4></b>"  + me.username + ": " + score.me + "</br>Opponent: " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '+ game_status.status);
+    // $('#player_turn').html("<h6>Playing as " + player + "</h6>");
+    }
+}
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
 // Creating ScrollReveal:

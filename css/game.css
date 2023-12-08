@@ -20,7 +20,7 @@ body {
   justify-content: center;
 }
 
-.btn-div  .back-button {
+.btn-div .back-button {
   display: inline-block;
   padding: 0 12px;
   padding-top: 13px;
@@ -36,7 +36,7 @@ body {
   margin-right: 1000px;
 }
 
-.btn-div  .music-button {
+.btn-div .music-button {
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -74,7 +74,7 @@ body {
   margin-right: 1000px;
 }
 
-.btn-div2  .music-button2 {
+.btn-div2 .music-button2 {
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -85,7 +85,7 @@ body {
   border-radius: 30%;
   transition: background-color 0.3s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-left:1000px;
+  margin-left: 1000px;
 }
 
 @media (max-width: 1050px) {
