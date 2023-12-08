@@ -54,33 +54,32 @@ function login_to_game() {
     return;
   }
 
-    $.ajax({
-      url: "battleship.php/players/"+player_select,
-      method: 'PUT',
-      dataType: 'json',
-      headers: { "X-Token": me.token },
-      contentType: 'application/json',
-      data: JSON.stringify({
-        username: $('#nameOfUser').val(),
-        player_number: player_select
-      }),
-      success: login_result,
-      error: show_error
-    });
+    // $.ajax({
+    //   url: "battleship.php/players/"+player_select,
+    //   method: 'PUT',
+    //   dataType: 'json',
+    //   headers: { "X-Token": me.token },
+    //   contentType: 'application/json',
+    //   data: JSON.stringify({
+    //     username: $('#nameOfUser').val(),
+    //     player_number: player_select
+    //   }),
+    //   success: login_result,
+    //   error: show_error
+    // });
 
-  // $.ajax({
-  //   url: "battleship.php/players/",
-  //   method: 'POST',
-  //   dataType: 'json',
-  //   headers: { "X-Token": me.token },
-  //   contentType: 'application/json',
-  //   data: JSON.stringify({
-  //     username: $('#nameOfUser').val(),
-  //     player_number: $('#player_select').val()
-  //   }),
-  //   success: login_result,
-  //   error: show_error
-  // });
+  $.ajax({
+    url: "battleship.php/players/",
+    method: 'POST',
+    dataType: 'json',
+    headers: { "X-Token": me.token },
+    contentType: 'application/json',
+    data: JSON.stringify({
+      username: $('#nameOfUser').val(),
+      player_number: $('#player_select').val()
+    }),
+    success: login_result,
+    error: show_error});
 }
 
 // Ajax Request for the player to set the ships.
@@ -176,11 +175,11 @@ const sr = ScrollReveal({
   reset: true
 });
 // Calling Reveal Methods:
+sr.reveal('.back-button', { delay: 500, origin: 'top' });
+sr.reveal('.music-button', { delay: 500, origin: 'top' });
 sr.reveal('#game-title', { delay: 500, origin: 'top' });
 sr.reveal('#game-mode', { delay: 500, origin: 'top' });
 sr.reveal('#game-img', { delay: 1500, origin: 'right' });
 sr.reveal('#nameOfUser ', { delay: 2500, origin: 'left' });
 sr.reveal('#player_select', { delay: 3500, origin: 'right' });
 sr.reveal('#start', { delay: 4500, origin: 'bottom' });
-sr.reveal('.back-button', { delay: 100, origin: 'left' });
-sr.reveal('.music-button', { delay: 100, origin: 'right' });
