@@ -23,7 +23,7 @@
           <!-- Back and Music Button -->
         <div class="btn-div">
           <a href="#" class="back-button">
-            <img src="./img/back.png" alt="Back" width="42" height="40" onclick="history.back()">
+            <img src="./img/back.png" alt="Back" width="25" height="25" onclick="history.back()">
           </a>
           <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
             <i class="fas fa-pause"></i>
@@ -54,7 +54,7 @@
         </section>
   
         <!-- User's Form -->
-        <form method="get">
+        <form>
           <input type="text" id="nameOfUser" size="20px" placeholder="Enter your name"><br/>
           <select id="player_select" onchange="selectedOpt()">
             <option value="" disabled selected>Select Player</option>
@@ -79,7 +79,7 @@
           <!-- Back and Music Buttons-->
           <div class="btn-div2">
             <a href="#" class="back-button2">
-              <img src="./img/back.png" alt="Back" width="42" height="40" onclick="location.reload()">
+              <img src="./img/back.png" alt="Back" width="25" height="25" onclick="location.reload()">
             </a>
 
             <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
@@ -458,41 +458,47 @@
             <!-- Destroyer -->
             <div class="ship">
               <span>Set <span class="clr">Destroyer's</span> Coordinates: </span>
-              <input type="text" id="p1-destroyer-coord1" size="1px">
-              <input type="text" id="p1-destroyer-coord2" size="1px">
+              <input type="text" id="destroyer-coord1" size="1px">
+              <input type="text" id="destroyer-coord2" size="1px">
             </div>
             <!-- Submarine -->
             <div class="ship">
               <span>Set <span class="clr">Submarine's</span> Coordinates: </span>
-              <input type="text" id="p1-submarine-coord1" size="1px">
-              <input type="text" id="p1-submarine-coord2" size="1px">
-              <input type="text" id="p1-submarine-coord3" size="1px">
+              <input type="text" id="submarine-coord1" size="1px">
+              <input type="text" id="submarine-coord2" size="1px">
+              <input type="text" id="submarine-coord3" size="1px">
             </div>
             <!-- Cruiser -->
             <div class="ship">
               <span>Set <span class="clr">Cruiser's</span> Coordinates: </span>
-              <input type="text" id="p1-cruiser-coord1" size="1px">
-              <input type="text" id="p1-cruiser-coord2" size="1px">
-              <input type="text" id="p1-cruiser-coord3" size="1px">
+              <input type="text" id="cruiser-coord1" size="1px">
+              <input type="text" id="cruiser-coord2" size="1px">
+              <input type="text" id="cruiser-coord3" size="1px">
             </div>
             <!-- Battleship -->
             <div class="ship">
               <span>Set <span class="clr">Battleship's</span> Coordinates: </span>
-              <input type="text" id="p1-battleship-coord1" size="1px">
-              <input type="text" id="p1-battleship-coord2" size="1px">
-              <input type="text" id="p1-battleship-coord3" size="1px">
-              <input type="text" id="p1-battleship-coord4" size="1px">
+              <input type="text" id="battleship-coord1" size="1px">
+              <input type="text" id="battleship-coord2" size="1px">
+              <input type="text" id="battleship-coord3" size="1px">
+              <input type="text" id="battleship-coord4" size="1px">
             </div>
             <!-- Carrier -->
             <div class="ship">
               <span>Set <span class="clr">Carrier's</span> Coordinates: </span>
-              <input type="text" id="p1-carrier-coord1" size="1px">
-              <input type="text" id="p1-carrier-coord2" size="1px">
-              <input type="text" id="p1-carrier-coord3" size="1px">
-              <input type="text" id="p1-carrier-coord4" size="1px">
-              <input type="text" id="p1-carrier-coord5" size="1px">
+              <input type="text" id="carrier-coord1" size="1px">
+              <input type="text" id="carrier-coord2" size="1px">
+              <input type="text" id="carrier-coord3" size="1px">
+              <input type="text" id="carrier-coord4" size="1px">
+              <input type="text" id="carrier-coord5" size="1px">
             </div>
           </div>
+        </div>
+
+        <!-- Game Buttons -->
+        <div class="div-game-btns">
+          <button id="ready-btn" class="ready-btn" type="button">Ready</button>
+          <input id="reset_game" class="reset-btn" type="submit" value="Reset">
         </div>
       </section>
   
@@ -577,11 +583,13 @@
             var audio = document.getElementById('myAudio2');
           }
           temp++;
+          audio.volume = 0.3;
           audio.play();
         }
       
         // Set interval to play the audio every five seconds (5000 milliseconds)
-        setInterval(playAudio, 8000);
+        setInterval(playAudio, 3500);
       </script>
+      
 </body>
 </html>

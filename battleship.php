@@ -1,8 +1,8 @@
 <?php
-    require_once "../lib/dbconnect.php";
-    require_once "../lib/board.php";
-    require_once "../lib/game.php";
-    require_once "../lib/user.php";
+    require_once "lib/dbconnect.php";
+    require_once "lib/board.php";
+    require_once "lib/game.php";
+    require_once "lib/user.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
     $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
@@ -55,7 +55,7 @@
     }
 
     // Checking method handle_board (From path /board).
-    function handle_board($method){
+    function handle_board($method) {
         if($method=='GET') {
             print json_encode(['errormesg'=>"Method $method not allowed here."]);
         } else if($method=='POST') {
@@ -69,9 +69,9 @@
             case '':
             case null:
                 if($method=='GET') {
-                    //show_users($method);
+                    show_users($method);
                 } else if($method=='POST') {
-                    //handle_user($method, $b,$input);
+                    handle_user($method, $b,$input);
                 } else {
                     print json_encode(['errormesg'=>"Method $method not allowed here."]);
                 }

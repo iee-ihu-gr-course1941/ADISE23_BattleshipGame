@@ -1,15 +1,16 @@
 <?php
     $host = 'localhost';
+    $user = 'root';
     $db = 'battleshipgamedb';
     require_once "db_upass.php";
 
-    $user = $DB_USER;
-    $pass = $DB_PASS;
+    // $user = $DB_USER;
+    // $pass = $DB_PASS;
 
-    $con = mysqli_connect($host, $user, '', $db);
+    $mysqli = new mysqli($host, $user, '', $db);
 
-    if(!$con) {
-        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    if(!$mysqli) {
+        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     }    
 
     // if (gethostname()=='users.iee.ihu.gr') {
