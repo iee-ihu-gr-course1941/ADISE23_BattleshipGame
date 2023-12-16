@@ -12,8 +12,9 @@ body {
     color: white;
 }
 
+/* ----- Back & Music Btns ----- */
+/* ------- ------- ------- ------- */
 .btn-div {
-  margin-top: 5px;
   width: 100%;
   display: flex;
   position: relative;
@@ -24,49 +25,46 @@ body {
   display: inline-block;
   padding: 0 12px;
   padding-top: 13px;
-  padding-bottom: 7px;
+  padding-bottom: 5px;
   cursor: pointer;
   border: 2px solid #3498db;
   position: absolute;
-  margin-bottom: 30px;
   background-color: #389bdd;
   border-radius: 30%;
   transition: background-color 0.3s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-right: 1000px;
+  margin-right: 700px;
 }
 
 .btn-div .music-button {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  margin-bottom: 30px;
   padding: 15px 20px;
   background-color: #0de84f;
   border: 2px solid #1ddd4d;
   border-radius: 30%;
   transition: background-color 0.3s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-left:1000px;
+  margin-left: 700px;
 }
 
 .btn-div2 {
-  margin-top: 5px;
+  padding-top: 20px;
   width: 100%;
   display: flex;
   position: relative;
   justify-content: center;
 }
 
-.btn-div2  .back-button2 {
+.btn-div2 .back-button2 {
   display: inline-block;
   padding: 0 12px;
   padding-top: 13px;
-  padding-bottom: 7px;
+  padding-bottom: 5px;
   cursor: pointer;
   border: 2px solid #3498db;
   position: absolute;
-  margin-bottom: 30px;
   background-color: #389bdd;
   border-radius: 30%;
   transition: background-color 0.3s;
@@ -78,7 +76,6 @@ body {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  margin-bottom: 30px;
   padding: 15px 20px;
   background-color: #0de84f;
   border: 2px solid #1ddd4d;
@@ -88,33 +85,57 @@ body {
   margin-left: 1000px;
 }
 
-@media (max-width: 1050px) {
-  .btn-div  .back-button {
-    margin-right:80%
-  }
-
-  .btn-div  .music-button {
-    margin-left: 80%;
-  }
-}
-
-@media (max-width: 1050px) {
-  .btn-div2  .back-button2 {
-    margin-right:80%
-  }
-
-  .btn-div2  .music-button2 {
-    margin-left: 80%;
-  }
-}
-
-.back-button:hover {
+.back-button:hover,
+.back-button2:hover {
   background-color: #2980b9;
 }
 
-.music-button:hover {
+.music-button:hover,
+.music-button2:hover  {
   background-color: #13ae25;
 }
+
+@media (max-width: 1050px) {
+  .btn-div .back-button {
+    margin-right: 80%
+  }
+
+  .btn-div .music-button {
+    margin-left: 80%;
+  }
+
+  .btn-div2 .back-button2 {
+    margin-right: 80%
+  }
+
+  .btn-div2 .music-button2 {
+    margin-left: 80%;
+  }
+}
+
+@media (max-width: 450px) {
+  .btn-div .back-button {
+    padding: 0 7px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+  }
+
+  .btn-div .music-button {
+    padding: 10px 15px;
+  }
+
+  .btn-div2 .back-button2 {
+    padding: 0 7px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+  }
+
+  .btn-div2 .music-button2 {
+    padding: 10px 15px;
+  }
+}
+/* ----- Back & Music Btns ----- */
+/* ------- ------- ------- ------- */
 
 /* ----- Color Mode ----- */
 /* ----- ----- ----- ----- */
@@ -406,12 +427,6 @@ body {
 
 .game .grid-computer, 
 .game .grid-user {
-  /*background-color: rgb(14, 24, 80);
-  background-image: url('../img/radar2.gif');
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-  */
   width: 350px;
   height: 350px;
   display: flex;

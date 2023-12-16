@@ -21,18 +21,18 @@
      <section class="home">
         <section class="main">
           <!-- Back and Music Button -->
-        <div class="btn-div">
-          <a href="#" class="back-button">
-            <img src="./img/back.png" alt="Back" width="25" height="25" onclick="history.back()">
-          </a>
-          <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
-            <i class="fas fa-pause"></i>
-          </button>
-          <audio id="backgroundMusic" loop>
-            <source src="./sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
+          <div class="btn-div">
+            <a href="index.html" class="back-button">
+              <img src="img/back.png" alt="Back" width="25" height="25">
+            </a>
+            <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
+              <i class="fas fa-pause"></i>
+            </button>
+            <audio id="backgroundMusic" loop>
+              <source src="sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
 
           <!-- Alert Message -->
           <div class="custom-alert" id="customAlert">
@@ -67,6 +67,17 @@
   
       <!-- Board Section -->
       <section class="game game-board ocultar" id="game-board">
+          <!-- Back and Music Buttons-->
+          <div class="btn-div2">
+            <a href="index.html" class="back-button2">
+              <img src="img/back.png" alt="Back" width="25" height="25">
+            </a>
+
+            <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
+              <i class="fas fa-pause"></i>
+            </button>
+          </div>
+
           <!-- Color Mode -->
           <div class="color-mode">
               <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()"/>
@@ -75,17 +86,6 @@
                   <div class="bx bx-moon"></div> 
               </label>
           </div> 
-          
-          <!-- Back and Music Buttons-->
-          <div class="btn-div2">
-            <a href="#" class="back-button2">
-              <img src="./img/back.png" alt="Back" width="25" height="25" onclick="location.reload()">
-            </a>
-
-            <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
-              <i class="fas fa-pause"></i>
-            </button>
-          </div>
         
           <!-- Game Title -->
           <div class="game-title">
@@ -415,8 +415,7 @@
   
         <!-- Game Controler: Turn and Info -->
         <div class="gameController">
-          <h3 id="whose-go">Locate your ships!</h3>
-          <h3 id="info"></h3>
+          <h3>Locate your ships!</h3>
         </div>
   
         <!-- Ship Area -->
@@ -500,6 +499,12 @@
           <button id="ready-btn" class="ready-btn" type="button">Ready</button>
           <input id="reset_game" class="reset-btn" type="submit" value="Reset">
         </div>
+
+        <!-- Game Info -->
+        <div class="div-game-inf">
+          <h2 id="player_turn"></h2> <br/>
+          <h2 id="game_info">Your turn to play!</h2>
+        </div>
       </section>
   
       <!-- Game Over Section -->
@@ -557,21 +562,21 @@
         var musicButton2 = document.getElementById('musicButton2');
   
         function toggleMusic() {
-            if (musicEnabled) {
-                backgroundMusic.pause();
-                musicButton.innerHTML = '<i class="fas fa-play"></i>';
-                musicButton2.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
-                backgroundMusic.play();
-                musicButton.innerHTML = '<i class="fas fa-pause"></i>';
-                musicButton2.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-            musicEnabled = !musicEnabled;
+          if (musicEnabled) {
+              backgroundMusic.pause();
+              musicButton.innerHTML = '<i class="fas fa-play"></i>';
+              musicButton2.innerHTML = '<i class="fas fa-play"></i>';
+          } else {
+              backgroundMusic.play();
+              musicButton.innerHTML = '<i class="fas fa-pause"></i>';
+              musicButton2.innerHTML = '<i class="fas fa-pause"></i>';
+          }
+          musicEnabled = !musicEnabled;
         }
       </script>
 
-      <audio id="myAudio" src="./sounds/sonar-ping-95840.mp3" preload="auto"></audio>
-      <audio id="myAudio2" src="./sounds/sonar-sweep-beep-80957.mp3" preload="auto"></audio>
+      <audio id="myAudio" src="sounds/sonar-ping-95840.mp3" preload="auto"></audio>
+      <audio id="myAudio2" src="sounds/sonar-sweep-beep-80957.mp3" preload="auto"></audio>
       <script>
         // Function to play the audio
         temp = 0;
@@ -586,10 +591,9 @@
           audio.volume = 0.3;
           audio.play();
         }
-      
+
         // Set interval to play the audio every five seconds (5000 milliseconds)
         setInterval(playAudio, 3500);
       </script>
-      
 </body>
 </html>

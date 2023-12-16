@@ -1,10 +1,10 @@
 <?php
-    // checking status if it's aborted and returning SQL request of table game_status.
+    // Checking status if it's aborted and returning SQL request of table game_status.
     function show_status() {
         global $mysqli;
         
-        initialized();
-        aborted();
+        check_initialized();
+        check_abort();
 
         $sql = 'select * from game_status';
         $st = $mysqli->prepare($sql);
@@ -15,8 +15,8 @@
         print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
     }
 
-    // SQL request to check if an opponent has not been found in the specific deadline (60")
-    function initialized() {
+    // SQL Request to check if an opponent has not been found during the deadline (60").
+    function check_initialized() {
         global $mysqli;
 
         $sql = "select count(*) as npf from game_status WHERE last_change<(now()-INTERVAL 60 SECOND) and status='initialized'";
@@ -33,11 +33,11 @@
         }
     }
 
-    // SQL request to check if the player has not played in the 90" timer
-    function aborted() {
+    // SQL Request to check if the player hasn't played during the deadline (90").
+    function check_abort() {
         global $mysqli;
 
-        $sql = "update game_status set game_status='aborded', result=if(player_turn='p1','p2','p1'), player_turn=null where player_turn is not null and last_change<(now()-INTERVAL 90 SECOND) and status='started'";
+        $sql = "update game_status set status='aborded', result=if(player_turn='p1','p2','p1'), player_turn=null where player_turn is not null and last_change<(now()-INTERVAL 90 SECOND) and status='started'";
         $st = $mysqli->prepare($sql);
         $r = $st->execute();
     }
@@ -55,11 +55,11 @@
         $res3 = $st3->get_result();
         $aborted = $res3->fetch_assoc()['aborted'];
         if($aborted>0) {
-            // if ($status['status']=='started' || $status['status']=='ended'){
+            if ($status['status']=='started' || $status['status']=='ended'){
                 $sql = "UPDATE players SET username=NULL, token=NULL, last_action =NULL";
                 $st2 = $mysqli->prepare($sql);
                 $st2->execute();
-            //}
+            }
             if($status['status']=='started') {
                 $new_status='aborted';
             }
@@ -82,24 +82,22 @@
                 $new_status='started'; 
                 if($status['player_turn']==null) {
                     $random_turn=rand(1,2);
-                    if ($random_turn==1){
+                    if ($random_turn==1) {
                         $new_turn='p1';
-                    }else{
+                    } else {
                         $new_turn='p2';
                     }
-                    // $sql = 'update players set last_action=(NOW());';
-                    // $st = $mysqli->prepare($sql);
-                    // $st->execute();
                 }
                 break;
         }
+        
         $sql = 'update game_status set status=?, player_turn=?';
         $st = $mysqli->prepare($sql);
         $st->bind_param('ss',$new_status,$new_turn);
         $st->execute();
     }
 
-    //SQL request to return the table game_status
+    // SQL Request to return the table game_status
     function read_status() {
         global $mysqli;
 
@@ -112,7 +110,7 @@
         return($status);
     }
 
-    //SQL request to update the result of the game to 'ended'
+    // SQL Request to update the result of the game to 'ended'
     function end_game($winner){
         global $mysqli;
 

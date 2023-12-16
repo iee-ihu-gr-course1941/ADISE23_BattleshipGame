@@ -141,3 +141,14 @@ td {
 .div-game-btns .reset-btn:hover  {
     background: linear-gradient(180deg, #10c546, #0c8831);
 }
+
+/* Game Info */
+.div-game-inf {
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-game-inf h2 {
+    text-align: center;
+}

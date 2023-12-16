@@ -64,7 +64,7 @@
         print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
     }
 
-    //Checking if method is for GET/POST
+    // Checking if method is for GET/POST.
     function handle_user($method, $b, $input) {
         if($method=='GET') {
             header("HTTP/1.1 400 Bad Request");

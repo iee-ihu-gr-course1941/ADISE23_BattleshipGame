@@ -1,8 +1,7 @@
 <?php
     $host = 'localhost';
-    $user = 'root';
     $db = 'battleshipgamedb';
-    require_once "lib/db_upass.php";
+    require_once "db_upass.php";
 
     $user = $DB_USER;
     $pass = $DB_PASS;

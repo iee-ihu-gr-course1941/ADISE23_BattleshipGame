@@ -19,14 +19,14 @@
       <section class="main">
         <!-- Back and Music Button -->
         <div class="btn-div">
-          <a href="#" class="back-button">
-            <img src="./img/back.png" alt="Back" width="25" height="25" onclick="history.back()">
+          <a href="index.html" class="back-button">
+            <img src="img/back.png" alt="Back" width="25" height="25">
           </a>
           <button href="#" class="music-button" id="musicButton" onclick="toggleMusic()">
             <i class="fas fa-pause"></i>
           </button>
           <audio id="backgroundMusic" loop>
-            <source src="./sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
+            <source src="sounds/battle-of-the-dragons-8037.mp3" type="audio/mp3">
             Your browser does not support the audio element.
           </audio>
         </div>
@@ -59,6 +59,17 @@
 
     <!-- Board Section -->
     <section class="game game-board ocultar" id="game-board">
+        <!-- Back and Music Buttons-->
+        <div class="btn-div2">
+          <a href="index.html" class="back-button2">
+            <img src="img/back.png" alt="Back" width="25" height="25">
+          </a>
+
+          <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
+            <i class="fas fa-pause"></i>
+          </button>
+        </div>
+
         <!-- Color Mode -->
         <div class="color-mode">
             <input type="checkbox" id="darkmode-toggle" onchange="toggleDarkMode()"/>
@@ -66,19 +77,8 @@
                 <div class="bx bx-sun"></div> 
                 <div class="bx bx-moon"></div> 
             </label>
-
-          <!-- Back and Music Buttons-->
-          <div class="btn-div2">
-            <a href="#" class="back-button2">
-              <img src="./img/back.png" alt="Back" width="25" height="25" onclick="location.reload()">
-            </a>
-
-            <button href="#" class="music-button2" id="musicButton2" onclick="toggleMusic()">
-              <i class="fas fa-pause"></i>
-            </button>
-          </div>
         </div> 
-        
+
         <!-- Game Title -->
         <div class="game-title">
             <h1>Battleship Game</h1> 
@@ -171,18 +171,18 @@
     <script>
       // Color Mode Changer (betweem Light Mode <-> Dark Mode):
       function toggleDarkMode() {
-          // Dark Color Characteristics:
-          var gameBoard = document.getElementById("game-board");
-          var infoPlr = document.querySelector(".game .info-gamers #plr");
-          var infoCpu = document.querySelector(".game .info-gamers #cpu");
-          var rotateBtn = document.querySelector(".game .hidden-info button");
-          gameBoard.classList.toggle("dark-mode");
-          infoPlr.classList.toggle("dark-mode");
-          infoCpu.classList.toggle("dark-mode");
-          rotateBtn.classList.toggle("dark-mode");
-        }
+        // Dark Color Characteristics:
+        var gameBoard = document.getElementById("game-board");
+        var infoPlr = document.querySelector(".game .info-gamers #plr");
+        var infoCpu = document.querySelector(".game .info-gamers #cpu");
+        var rotateBtn = document.querySelector(".game .hidden-info button");
+        gameBoard.classList.toggle("dark-mode");
+        infoPlr.classList.toggle("dark-mode");
+        infoCpu.classList.toggle("dark-mode");
+        rotateBtn.classList.toggle("dark-mode");
+      }
     </script>
-     <script>
+    <script>
       window.addEventListener("DOMContentLoaded", event => {
         const audio = document.querySelector("audio");
         audio.play();
@@ -194,16 +194,16 @@
       var musicButton2 = document.getElementById('musicButton2');
 
       function toggleMusic() {
-          if (musicEnabled) {
-              backgroundMusic.pause();
-              musicButton.innerHTML = '<i class="fas fa-play"></i>';
-              musicButton2.innerHTML = '<i class="fas fa-play"></i>';
-          } else {
-              backgroundMusic.play();
-              musicButton.innerHTML = '<i class="fas fa-pause"></i>';
-              musicButton2.innerHTML = '<i class="fas fa-pause"></i>';
-          }
-          musicEnabled = !musicEnabled;
+        if (musicEnabled) {
+            backgroundMusic.pause();
+            musicButton.innerHTML = '<i class="fas fa-play"></i>';
+            musicButton2.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            backgroundMusic.play();
+            musicButton.innerHTML = '<i class="fas fa-pause"></i>';
+            musicButton2.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        musicEnabled = !musicEnabled;
       }
     </script>
 </body>
