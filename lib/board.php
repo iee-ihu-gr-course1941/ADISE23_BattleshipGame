@@ -122,8 +122,8 @@
     }
 
     // SQL Request for the player to set the ships.
-    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number, $token) {
-        // check if the token is null or empty
+    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $token) {
+        
         if($token==null || $token=='') {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Token is not set."]);
@@ -136,28 +136,28 @@
             print json_encode(['errormesg'=>"You are not a player of this game."]);
             exit;
         }
-        // read the status of the current game and check if it has started
-        $status = read_status();
-        if($status['status']!='started') {
-            header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"Game is not in action."]);
-            exit;
-        }
-        // check if the turn is equal to an existing player of the current game
-        if($status['player_turn']!=$player) {
-            header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"It is not your turn."]);
-            exit;
-        }
-        // if everything works, the call the set_all_ships so the ships are set up to the defined coordinates
-        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number);
+        
+        // $status = read_status();
+        // if($status['status']!='started') {
+        //     header("HTTP/1.1 400 Bad Request");
+        //     print json_encode(['errormesg'=>"Game is not in action."]);
+        //     exit;
+        // }
+        
+        // if($status['player_turn']!=$player) {
+        //     header("HTTP/1.1 400 Bad Request");
+        //     print json_encode(['errormesg'=>"It is not your turn."]);
+        //     exit;
+        // }
+
+        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player);
     }
 
 
-    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number) {
+    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player) {
         global $mysqli;
-        // if the player_number is equal to the first player, set his ships
-        if ($player_number=='p1') {
+
+        if ($player=='p1') {
             // Setting Destroyer into DB.
             $sql = "UPDATE `board` SET state='ship', ship='Destroyer' WHERE player='p1' AND coordinate=?";
             $st = $mysqli->prepare($sql);

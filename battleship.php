@@ -26,7 +26,7 @@
                     handle_board($method);
                     break;
                 case 'set_ships':
-                    set_ships($input['destroyer_coord1'], $input['destroyer_coord2'], $input['submarine_coord1'], $input['submarine_coord2'], $input['submarine_coord3'], $input['cruiser_coord1'], $input['cruiser_coord2'], $input['cruiser_coord3'], $input['battleship_coord1'], $input['battleship_coord2'], $input['battleship_coord3'], $input['battleship_coord4'], $input['carrier_coord1'], $input['carrier_coord2'], $input['carrier_coord3'], $input['carrier_coord4'], $input['carrier_coord5'], $input['player_number'], $input['token']);
+                    set_ships($input['destroyer_coord1'], $input['destroyer_coord2'], $input['submarine_coord1'], $input['submarine_coord2'], $input['submarine_coord3'], $input['cruiser_coord1'], $input['cruiser_coord2'], $input['cruiser_coord3'], $input['battleship_coord1'], $input['battleship_coord2'], $input['battleship_coord3'], $input['battleship_coord4'], $input['carrier_coord1'], $input['carrier_coord2'], $input['carrier_coord3'], $input['carrier_coord4'], $input['carrier_coord5'], $input['token']);
                     break;
                 case 'make_move':
                     make_move($input['choice'], $input['player_number'], $input['token']);
