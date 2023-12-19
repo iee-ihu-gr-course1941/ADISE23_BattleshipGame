@@ -3,6 +3,7 @@
     function show_status() {
         global $mysqli;
         
+        // call check_initialized and check_abort if the status of the game is 'initialized' and if it's 'aborded', respectively
         check_initialized();
         check_abort();
 
@@ -24,12 +25,13 @@
         $st->execute();
         $res = $st->get_result();
         $npf = $res->fetch_assoc()['npf'];
+        // if on the deadline a player has not been found, change the status to 'not active'
         if ($npf==1){
             $sql2 ="update game_status set status='not active'";
             $st2 = $mysqli->prepare($sql2);
             $st2->execute();
             $res2 = $st2->get_result();
-            remove_user();
+            remove_user(); // call remove_user, so the user is going to be removed
         }
     }
 
@@ -46,7 +48,7 @@
     function update_game_status() {
         global $mysqli;
 
-        $status=read_status();
+        $status=read_status(); // read the status of the game
         $new_status=null;
         $new_turn=null;
 
@@ -54,6 +56,7 @@
         $st3->execute();
         $res3 = $st3->get_result();
         $aborted = $res3->fetch_assoc()['aborted'];
+        // check if the player has aborted the game and then reset the game (like pressing the button 'play again')
         if($aborted>0) {
             if ($status['status']=='started' || $status['status']=='ended'){
                 $sql = "UPDATE players SET username=NULL, token=NULL, last_action =NULL";
@@ -71,6 +74,7 @@
         $res = $st->get_result();
         $active_players = $res->fetch_assoc()['c'];
 
+        // based on the number of active players, define the proper status of the game
         switch($active_players) {
             case 0:
                 $new_status='not active'; 
