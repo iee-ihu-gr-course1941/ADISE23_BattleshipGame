@@ -1,6 +1,7 @@
 // Using JQuery to handle Multiplayer Battleship Game:
 var me={ nickname: null, token: null, player_number: null };
 var players;
+//var player_number;
 var score={ me: 0, opponent: 0}
 var game_status={};
 var timer=null;
@@ -101,7 +102,7 @@ function login_to_game() {
 
 // Ajax Request for the player to set the ships.
 function set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5) {
-	player_number = me.player_number;
+	var player_number = me.player_number;
 
 	$.ajax({url: "battleship.php/board/set_ships/", 
       method: 'POST',
@@ -109,7 +110,8 @@ function set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submari
 			headers: { "X-Token": me.token },
 			contentType: 'application/json',
 			data: JSON.stringify( {destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5, player_number}),
-			success: game_status_update});
+			success: game_status_update,
+      error: show_error});
 }
 
 // Ajax Request for the player's move.
@@ -255,13 +257,13 @@ function update_status(data) {
 
 	// Getting Enemy's Username.
 	if (game_status_old.status==null && game_status.status=='started' && me.token!=null) { 
-		$.ajax({url: "rpsls.php/players/", 
+		$.ajax({url: "battleship.php/players/", 
 			success: function (data) {
         players = data;
 			}, 
 			headers: {"X-Token": me.token}});
 	} else if (game_status_old.status=='initialized' && game_status.status=='started') {
-		$.ajax({url: "rpsls.php/players/", 
+		$.ajax({url: "battleship.php/players/", 
 			success: function (data) {
 				players = data;
 			}, 
