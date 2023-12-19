@@ -18,30 +18,35 @@ $(function() {
   // Ready Button.
   $('#ready-btn').click(function() {
     // Retrieving values from input fields.
-    // Destroyer coords:
-    var destroyer_coord1 = $('#destroyer-coord1').val();
-    var destroyer_coord2 = $('#destroyer-coord2').val();
-    // Submarine coords:
-    var submarine_coord1 = $('#submarine-coord1').val();
-    var submarine_coord2 = $('#submarine-coord2').val();
-    var submarine_coord3 = $('#submarine-coord3').val();
-    // Cruiser coords:
-    var cruiser_coord1 = $('#cruiser-coord1').val();
-    var cruiser_coord2 = $('#cruiser-coord2').val();
-    var cruiser_coord3 = $('#cruiser-coord3').val();
-    // Battleship coords:
-    var battleship_coord1 = $('#battleship-coord1').val();
-    var battleship_coord2 = $('#battleship-coord2').val();
-    var battleship_coord3 = $('#battleship-coord3').val();
-    var battleship_coord4 = $('#battleship-coord4').val();
-    // Carrier coords:
-    var carrier_coord1 = $('#carrier-coord1').val();
-    var carrier_coord2 = $('#carrier-coord2').val();
-    var carrier_coord3 = $('#carrier-coord3').val();
-    var carrier_coord4 = $('#carrier-coord4').val();
-    var carrier_coord5 = $('#carrier-coord5').val();
     
-    set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5);
+    $.ajax({url: "battleship.php/board/set_ships/", 
+    method: 'POST',
+    dataType: "json",
+    headers: { "X-Token": me.token },
+    contentType: 'application/json',
+    data: JSON.stringify({
+      destroyer_coord1: $('#destroyer-coord1').val(), 
+      destroyer_coord2: $('#destroyer-coord2').val(), 
+      submarine_coord1: $('#submarine-coord1').val(), 
+      submarine_coord2: $('#submarine-coord2').val(), 
+      submarine_coord3: $('#submarine-coord3').val(), 
+      cruiser_coord1: $('#cruiser-coord1').val(), 
+      cruiser_coord2: $('#cruiser-coord2').val(), 
+      cruiser_coord3: $('#cruiser-coord3').val(), 
+      battleship_coord1: $('#battleship-coord1').val(), 
+      battleship_coord2: $('#battleship-coord2').val(),
+      battleship_coord3: $('#battleship-coord3').val(), 
+      battleship_coord4: $('#battleship-coord4').val(), 
+      carrier_coord1: $('#carrier-coord1').val(), 
+      carrier_coord2: $('#carrier-coord2').val(), 
+      carrier_coord3: $('#carrier-coord3').val(), 
+      carrier_coord4: $('#carrier-coord4').val(), 
+      carrier_coord5: $('#carrier-coord5').val()
+    }),
+    success: game_status_update,
+    error: show_error});
+
+   //set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5);
   });
 
   // Reset Button.
@@ -101,18 +106,18 @@ function login_to_game() {
 }
 
 // Ajax Request for the player to set the ships.
-function set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5) {
-	var player_number = me.player_number;
+// function set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5) {
+// 	VARlayer_number = me.player_number;
 
-	$.ajax({url: "battleship.php/board/set_ships/", 
-      method: 'POST',
-			dataType: "json",
-			headers: { "X-Token": me.token },
-			contentType: 'application/json',
-			data: JSON.stringify( {destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5, player_number}),
-			success: game_status_update,
-      error: show_error});
-}
+// 	$.ajax({url: "battleship.php/board/set_ships/", 
+//       method: 'POST',
+// 			dataType: "json",
+// 			headers: { "X-Token": me.token },
+// 			contentType: 'application/json',
+// 			data: JSON.stringify( {destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5, player_number}),
+// 			success: game_status_update,
+//       error: show_error});
+// }
 
 // Ajax Request for the player's move.
 function do_move(choice) {

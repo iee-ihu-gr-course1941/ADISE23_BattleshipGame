@@ -122,20 +122,20 @@
     }
 
     // SQL Request for the player to set the ships.
-    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number, $token) {
+    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $token) {
         
-        // if($token==null || $token=='') {
-        //     header("HTTP/1.1 400 Bad Request");
-        //     print json_encode(['errormesg'=>"Token is not set."]);
-        //     exit;
-        // }
+        if($token==null || $token=='') {
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"Token is not set."]);
+            exit;
+        }
         
-        // $player = current_player($token);
-        // if($player==null ) {
-        //     header("HTTP/1.1 400 Bad Request");
-        //     print json_encode(['errormesg'=>"You are not a player of this game."]);
-        //     exit;
-        // }
+        $player = current_player($token);
+        if($player==null ) {
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"You are not a player of this game."]);
+            exit;
+        }
         
         // $status = read_status();
         // if($status['status']!='started') {
@@ -150,14 +150,14 @@
         //     exit;
         // }
 
-        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number);
+        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player);
     }
 
 
-    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number) {
+    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player) {
         global $mysqli;
 
-        if ($player_number=='p1') {
+        if ($player=='p1') {
             // Setting Destroyer into DB.
             $sql = "UPDATE `board` SET state='ship', ship='Destroyer' WHERE player='p1' AND coordinate=?";
             $st = $mysqli->prepare($sql);
