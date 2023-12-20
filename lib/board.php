@@ -3,39 +3,42 @@
     function reset_board() {
         
         global $mysqli;
-        $sql = 'call clean_board()'; // call procedure clean_board() from our database (db)
+        $sql = 'call clean_board()';
         $mysqli->query($sql);
     }
 
     // SQL Request for the player to make a move.
     function make_move($choice, $player_number, $token) {
-        // check if the token is null or empty
+        // Checking if the token is null or empty.
         if($token==null || $token=='') {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Token is not set."]);
             exit;
         }
-        // get the token of the current player and check if it's empty
+
+        // Getting the current player.
         $player = current_player($token);
-        if($player==null ) {
+        if($player==null) {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"You are not a player of this game."]);
             exit;
         }
-        // read the status of the current game and check if it has started
+
+        // Reading the status of the current game.
         $status = read_status();
         if($status['status']!='started') {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Game is not in action."]);
             exit;
         }
-        // check if the turn is equal to an existing player of the current game
+
+        // Checking if player turn is not equal to the current player.
         if($status['player_turn']!=$player) {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"It is not your turn."]);
             exit;
         }
-        // if everything works, then call do_move, so the player can make a move
+
         do_move($choice, $player_number);
     }
 
@@ -46,18 +49,18 @@
             /* If at player's 2 board there is a ship then change the state from ship to 'hit',
             Otherwise change state to 'miss'. */
             $sql = "UPDATE `board` SET state=IF(ship IS NOT NULL, 'hit', 'miss') WHERE player='p2' AND coordinate=?";
-            $opponent = 'p2';
+            $opponent = 'p2'; // Changing opponent to p2.
         } else {
             /* If at player's 1 board there is a ship then change the state from ship to 'hit', 
             Otherwise change state to 'miss'. */
             $sql = "UPDATE `board` SET state=IF(ship IS NOT NULL, 'hit', 'miss') WHERE player='p1' AND coordinate=?";
-            $opponent = 'p1';
+            $opponent = 'p1'; // Changing opponent to p2.
         }
         $st = $mysqli->prepare($sql);
         $st->bind_param('s', $choice);
         $st->execute();
 
-        // change the player turn so that the opponent can play
+        // Changing player turn.
         $sql = 'UPDATE `game_status` set player_turn=?;';
         $st = $mysqli->prepare($sql);
         $st->bind_param('s', $opponent);
@@ -122,42 +125,46 @@
     }
 
     // SQL Request for the player to set the ships.
-    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $token) {
+    function set_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number, $token) {
         
+        // Checking if the token is null or empty.
         if($token==null || $token=='') {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Token is not set."]);
             exit;
         }
-        // get the token of the current player and check if it's empty
+
+        // Getting the current player.
         $player = current_player($token);
-        if($player==null ) {
+        if($player==null) {
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"You are not a player of this game."]);
             exit;
         }
-        
-        // $status = read_status();
-        // if($status['status']!='started') {
-        //     header("HTTP/1.1 400 Bad Request");
-        //     print json_encode(['errormesg'=>"Game is not in action."]);
-        //     exit;
-        // }
-        
-        // if($status['player_turn']!=$player) {
-        //     header("HTTP/1.1 400 Bad Request");
-        //     print json_encode(['errormesg'=>"It is not your turn."]);
-        //     exit;
-        // }
 
-        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player);
+        // Reading the status of the current game.
+        $status = read_status();
+        if($status['status']!='started') {
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"Game is not in action."]);
+            exit;
+        }
+
+        // Checking if player turn is not equal to the current player.
+        if($status['player_turn']!=$player) {
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"It is not your turn."]);
+            exit;
+        }
+
+        set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number);
     }
 
 
-    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player) {
+    function set_all_ships($destroyer_coord1, $destroyer_coord2, $submarine_coord1, $submarine_coord2, $submarine_coord3, $cruiser_coord1, $cruiser_coord2, $cruiser_coord3, $battleship_coord1, $battleship_coord2, $battleship_coord3, $battleship_coord4, $carrier_coord1, $carrier_coord2, $carrier_coord3, $carrier_coord4, $carrier_coord5, $player_number) {
         global $mysqli;
 
-        if ($player=='p1') {
+        if ($player_number=='p1') {
             // Setting Destroyer into DB.
             $sql = "UPDATE `board` SET state='ship', ship='Destroyer' WHERE player='p1' AND coordinate=?";
             $st = $mysqli->prepare($sql);
@@ -247,7 +254,8 @@
             $st = $mysqli->prepare($sql);
             $st->bind_param('s', $carrier_coord5);
             $st->execute();
-        // else if the player_number is equal to the second player, set his ships
+
+            $opponent = 'p2';  // Changing opponent to p2.
         } else {
             // Setting Destroyer into DB.
             $sql = "UPDATE `board` SET state='ship', ship='Destroyer' WHERE player='p2' AND coordinate=?";
@@ -338,7 +346,15 @@
             $st = $mysqli->prepare($sql);
             $st->bind_param('s', $carrier_coord5);
             $st->execute();  
+
+            $opponent = 'p1';  // Changing opponent to p1.
         }
+
+        // Changing player turn.
+        $sql = 'UPDATE `game_status` set player_turn=?;';
+        $st = $mysqli->prepare($sql);
+        $st->bind_param('s', $opponent);
+        $st->execute();
     }
 
     // SQL Request to set a new game with the same players.
