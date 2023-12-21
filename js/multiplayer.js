@@ -14,13 +14,18 @@ var selectedValue;
 
 $(function() {
   
+  // Start Button (onclick).
   $('#start').click(login_to_game); // Login.
   $('.game').hide();
   $('#reset_game').hide();
   $('.div-game-inf').hide();
+  $('#ready-btn').hide();
+  $('.ship-area').hide();
+  $('.gameController').hide();
+  $('.me').hide();
 
-  // Ready Button.
-  $('#ready-btn').click(set_ships);
+  // Ready Button (onclick).
+  $('#ready-btn').click(set_ships); // Set Ships.
 
   // Reset Button.
   $('#reset_game').click(function() {
@@ -42,6 +47,7 @@ function login_to_game() {
   if (/^[A-Za-z]{3,10}$/.test(name) && (selectedValue == 'p1' || selectedValue == 'p2')) {
     // Hide Alert Message
     $('#customAlert').removeClass('custom-alert error show');
+    $('#customAlert').find('p').text("");
 
     var outputName = $('#addNameOfUser');
     var outputName2 = $('#addNameOfUser2');
@@ -80,12 +86,80 @@ function login_to_game() {
 
 // Ajax Request for the player to set the ships.
 function set_ships() {
-	player_number = me.player_number;
+
+  // Destroyer coordinates.
+  var dc1 = $('#destroyer-coord1').val();
+  var dc2 = $('#destroyer-coord2').val();
+  // Submarine coordinates.
+  var sc1 = $('#submarine-coord1').val();
+  var sc2 = $('#submarine-coord2').val();
+  var sc3 = $('#submarine-coord3').val();
+  // Cruiser coordinates.
+  var crc1 = $('#cruiser-coord1').val();
+  var crc2 = $('#cruiser-coord2').val();
+  var crc3 = $('#cruiser-coord3').val();
+  // Battleship coordinates.
+  var bc1 = $('#battleship-coord1').val();
+  var bc2 = $('#battleship-coord2').val();
+  var bc3 = $('#battleship-coord3').val();
+  var bc4 = $('#battleship-coord4').val();
+  // Carrier coordinates.
+  var cc1 = $('#carrier-coord1').val();
+  var cc2 = $('#carrier-coord2').val();
+  var cc3 = $('#carrier-coord3').val();
+  var cc4 = $('#carrier-coord4').val();
+  var cc5 = $('#carrier-coord5').val();
 
   if(players != null)  {
-    $('#ready-btn').hide();
-    $('.ship-area').hide();
+    if(game_status.player_turn==me.player_number) {
+      // Hiding ships inputs.
+      $('#ready-btn').hide();
+      $('.ship-area').hide();
+      $('.gameController').hide();
+      $('.me').hide();
+
+      // Coloring board's coordinates according to your placed ships.
+      if(selectedValue == 'p1') {
+        $("#player1_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player1_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+      } else if (selectedValue == 'p2') {
+        $("#player2_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+        $("#player2_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+      }
+    }
   }
+
+  player_number = me.player_number;
 
   $.ajax({
     url: "battleship.php/board/set_ships/", 
@@ -93,24 +167,11 @@ function set_ships() {
     dataType: "json",
     headers: { "X-Token": me.token },
     contentType: 'application/json',
-    data: JSON.stringify({
-      destroyer_coord1: $('#destroyer-coord1').val(), 
-      destroyer_coord2: $('#destroyer-coord2').val(), 
-      submarine_coord1: $('#submarine-coord1').val(), 
-      submarine_coord2: $('#submarine-coord2').val(), 
-      submarine_coord3: $('#submarine-coord3').val(), 
-      cruiser_coord1: $('#cruiser-coord1').val(), 
-      cruiser_coord2: $('#cruiser-coord2').val(), 
-      cruiser_coord3: $('#cruiser-coord3').val(), 
-      battleship_coord1: $('#battleship-coord1').val(), 
-      battleship_coord2: $('#battleship-coord2').val(),
-      battleship_coord3: $('#battleship-coord3').val(), 
-      battleship_coord4: $('#battleship-coord4').val(), 
-      carrier_coord1: $('#carrier-coord1').val(), 
-      carrier_coord2: $('#carrier-coord2').val(), 
-      carrier_coord3: $('#carrier-coord3').val(), 
-      carrier_coord4: $('#carrier-coord4').val(), 
-      carrier_coord5: $('#carrier-coord5').val(),
+    data: JSON.stringify({destroyer_coord1: dc1, destroyer_coord2: dc2, 
+      submarine_coord1: sc1, submarine_coord2: sc2, submarine_coord3: sc3, 
+      cruiser_coord1: crc1, cruiser_coord2: crc2, cruiser_coord3: crc3, 
+      battleship_coord1: bc1, battleship_coord2: bc2, battleship_coord3: bc3, battleship_coord4: bc4,
+      carrier_coord1: cc1, carrier_coord2: cc2, carrier_coord3: cc3, carrier_coord4: cc4, carrier_coord5: cc5,
       player_number
   }),
   success: game_status_update,
@@ -148,6 +209,9 @@ function reset_boards() {
   $('.div-game-inf').hide(150);
   $('#ready-btn').hide(150);
   $('.ship-area').hide(150);
+  $('#ready-btn').hide(150);
+  $('.gameController').hide(150);
+  $('.me').hide(150);
 
   game_status_update();
 }
@@ -163,6 +227,8 @@ function login_result(data) {
   $('.div-game-inf').show();
   $('#ready-btn').show();
   $('.ship-area').show();
+  $('.gameController').show();
+  $('.me').show();
 
 	// Listener that resets the game when the user refresh or close the page.
 	window.addEventListener("beforeunload", function(e) {
@@ -224,9 +290,9 @@ function update_info() {
 		}
 
 		if (game_status.player_turn==me.player_number) {
-			$('#player_turn').html("<h6> It's </b> your turn to play</h6>");
+			$('#player_turn').html("<h6> It's your turn to play.</h6>");
 		} else {  
-			$('#player_turn').html("<h6> It's " + opponent +"'s</b> turn to play.</h6>");
+			$('#player_turn').html("<h6> It's " + opponent +"'s turn to play.</h6>");
 		}
 	} else {
     $('#game_info').html("<h4><b> Score:</h4></b>"  + me.username + ": " + score.me + "</br>Enemy: " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '+ game_status.status);
