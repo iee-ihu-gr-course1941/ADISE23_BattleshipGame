@@ -5,11 +5,11 @@ var player;
 var player_turn;
 var opponent;
 var player_number
-var score={ me: 0, opponent: 0}
+var score = { me: 0, opponent: 0}
 var game_status={};
-var timer=null;
-var last_update=new Date().getTime();
-var surrendered=false;
+var timer = null;
+var last_update = new Date().getTime();
+var surrendered = false;
 var selectedValue;
 
 $(function() {
@@ -26,6 +26,9 @@ $(function() {
 
   // Ready Button (onclick).
   $('#ready-btn').click(set_ships); // Set Ships.
+
+  player1_hits(); // Possible hits of player 1.
+  player2_hits(); // Possible hits of player 2.
 
   // Reset Button.
   $('#reset_game').click(function() {
@@ -56,11 +59,11 @@ function login_to_game() {
     if (selectedValue == 'p1') {
       outputName.text(name);
       outputName2.text('Enemy');
-      $('.ship-area .player-ships .ship .clr').addClass('one')
+      $('.ship-area .player-ships .ship .clr').addClass('one');
     } else if (selectedValue == 'p2') {
       outputName.text('Enemy');
       outputName2.text(name);
-      $('.ship-area .player-ships .ship .clr').addClass('two')
+      $('.ship-area .player-ships .ship .clr').addClass('two');
     }
   
   } else {
@@ -182,13 +185,15 @@ function set_ships() {
 function do_move(choice) {
 	player_number = me.player_number;
 
-	$.ajax({url: "battleship.php/board/make_move/", 
-			method: 'POST',
-			dataType: "json",
-			headers: { "X-Token": me.token },
-			contentType: 'application/json',
-			data: JSON.stringify( {choice, player_number}),
-			success: game_status_update});
+	$.ajax({
+    url: "battleship.php/board/make_move/", 
+		method: 'POST',
+		dataType: "json",
+		headers: { "X-Token": me.token },
+		contentType: 'application/json',
+		data: JSON.stringify( {choice, player_number}),
+    success: game_status_update,
+    error: show_error});
 }
 
 // Ajax Request for reseting/cleaning the boards.
@@ -397,18 +402,246 @@ function update_status(data) {
   }
 
   // Updating the Player info (Win or Loss) and Score.
-  // function alert_winner() {
-  //   winner = game_status.result;
-  //   if (me.token!=null) {
-  //     if (winner==me.player_number) {
-  //       score.me++;
-  //       play_again('You win!');
-  //     } else {
-  //       score.opponent++;
-  //       play_again('Enemy wins...');
-  //     }
-  //   }
-  // }
+  function alert_winner() {
+    winner = game_status.result;
+    if (me.token!=null) {
+      if (winner==me.player_number) {
+        score.me++;
+        //play_again('You win!');
+      } else {
+        score.opponent++;
+        //play_again('Enemy wins...');
+      }
+    }
+  }
+}
+
+// Function about the possible hits for player 1.
+function player1_hits() {
+
+  $("#player1_board .A1").on("click", function () { do_move("A1"); });
+  $("#player1_board .A2").on("click", function () { do_move("A2"); });
+  $("#player1_board .A3").on("click", function () { do_move("A3"); });
+  $("#player1_board .A4").on("click", function () { do_move("A4"); });
+  $("#player1_board .A5").on("click", function () { do_move("A5"); });
+  $("#player1_board .A6").on("click", function () { do_move("A6"); });
+  $("#player1_board .A7").on("click", function () { do_move("A7"); });
+  $("#player1_board .A8").on("click", function () { do_move("A8"); });
+  $("#player1_board .A9").on("click", function () { do_move("A9"); });
+  $("#player1_board .A10").on("click", function () { do_move("A10"); });
+
+  $("#player1_board .B1").on("click", function () { do_move("B1"); });
+  $("#player1_board .B2").on("click", function () { do_move("B2"); });
+  $("#player1_board .B3").on("click", function () { do_move("B3"); });
+  $("#player1_board .B4").on("click", function () { do_move("B4"); });
+  $("#player1_board .B5").on("click", function () { do_move("B5"); });
+  $("#player1_board .B6").on("click", function () { do_move("B6"); });
+  $("#player1_board .B7").on("click", function () { do_move("B7"); });
+  $("#player1_board .B8").on("click", function () { do_move("B8"); });
+  $("#player1_board .B9").on("click", function () { do_move("B9"); });
+  $("#player1_board .B10").on("click", function () { do_move("B10"); });
+
+  $("#player1_board .C1").on("click", function () { do_move("C1"); });
+  $("#player1_board .C2").on("click", function () { do_move("C2"); });
+  $("#player1_board .C3").on("click", function () { do_move("C3"); });
+  $("#player1_board .C4").on("click", function () { do_move("C4"); });
+  $("#player1_board .C5").on("click", function () { do_move("C5"); });
+  $("#player1_board .C6").on("click", function () { do_move("C6"); });
+  $("#player1_board .C7").on("click", function () { do_move("C7"); });
+  $("#player1_board .C8").on("click", function () { do_move("C8"); });
+  $("#player1_board .C9").on("click", function () { do_move("C9"); });
+  $("#player1_board .C10").on("click", function () { do_move("C10"); });
+
+  $("#player1_board .D1").on("click", function () { do_move("D1"); });
+  $("#player1_board .D2").on("click", function () { do_move("D2"); });
+  $("#player1_board .D3").on("click", function () { do_move("D3"); });
+  $("#player1_board .D4").on("click", function () { do_move("D4"); });
+  $("#player1_board .D5").on("click", function () { do_move("D5"); });
+  $("#player1_board .D6").on("click", function () { do_move("D6"); });
+  $("#player1_board .D7").on("click", function () { do_move("D7"); });
+  $("#player1_board .D8").on("click", function () { do_move("D8"); });
+  $("#player1_board .D9").on("click", function () { do_move("D9"); });
+  $("#player1_board .D10").on("click", function () { do_move("D10"); });
+
+  $("#player1_board .E1").on("click", function () { do_move("E1"); });
+  $("#player1_board .E2").on("click", function () { do_move("E2"); });
+  $("#player1_board .E3").on("click", function () { do_move("E3"); });
+  $("#player1_board .E4").on("click", function () { do_move("E4"); });
+  $("#player1_board .E5").on("click", function () { do_move("E5"); });
+  $("#player1_board .E6").on("click", function () { do_move("E6"); });
+  $("#player1_board .E7").on("click", function () { do_move("E7"); });
+  $("#player1_board .E8").on("click", function () { do_move("E8"); });
+  $("#player1_board .E9").on("click", function () { do_move("E9"); });
+  $("#player1_board .E10").on("click", function () { do_move("E10"); });
+
+  $("#player1_board .F1").on("click", function () { do_move("F1"); });
+  $("#player1_board .F2").on("click", function () { do_move("F2"); });
+  $("#player1_board .F3").on("click", function () { do_move("F3"); });
+  $("#player1_board .F4").on("click", function () { do_move("F4"); });
+  $("#player1_board .F5").on("click", function () { do_move("F5"); });
+  $("#player1_board .F6").on("click", function () { do_move("F6"); });
+  $("#player1_board .F7").on("click", function () { do_move("F7"); });
+  $("#player1_board .F8").on("click", function () { do_move("F8"); });
+  $("#player1_board .F9").on("click", function () { do_move("F9"); });
+  $("#player1_board .F10").on("click", function () { do_move("F10"); });
+
+  $("#player1_board .G1").on("click", function () { do_move("G1"); });
+  $("#player1_board .G2").on("click", function () { do_move("G2"); });
+  $("#player1_board .G3").on("click", function () { do_move("G3"); });
+  $("#player1_board .G4").on("click", function () { do_move("G4"); });
+  $("#player1_board .G5").on("click", function () { do_move("G5"); });
+  $("#player1_board .G6").on("click", function () { do_move("G6"); });
+  $("#player1_board .G7").on("click", function () { do_move("G7"); });
+  $("#player1_board .G8").on("click", function () { do_move("G8"); });
+  $("#player1_board .G9").on("click", function () { do_move("G9"); });
+  $("#player1_board .G10").on("click", function () { do_move("G10"); });
+
+  $("#player1_board .H1").on("click", function () { do_move("H1"); });
+  $("#player1_board .H2").on("click", function () { do_move("H2"); });
+  $("#player1_board .H3").on("click", function () { do_move("H3"); });
+  $("#player1_board .H4").on("click", function () { do_move("H4"); });
+  $("#player1_board .H5").on("click", function () { do_move("H5"); });
+  $("#player1_board .H6").on("click", function () { do_move("H6"); });
+  $("#player1_board .H7").on("click", function () { do_move("H7"); });
+  $("#player1_board .H8").on("click", function () { do_move("H8"); });
+  $("#player1_board .H9").on("click", function () { do_move("H9"); });
+  $("#player1_board .H10").on("click", function () { do_move("H10"); });
+
+  $("#player1_board .I1").on("click", function () { do_move("I1"); });
+  $("#player1_board .I2").on("click", function () { do_move("I2"); });
+  $("#player1_board .I3").on("click", function () { do_move("I3"); });
+  $("#player1_board .I4").on("click", function () { do_move("I4"); });
+  $("#player1_board .I5").on("click", function () { do_move("I5"); });
+  $("#player1_board .I6").on("click", function () { do_move("I6"); });
+  $("#player1_board .I7").on("click", function () { do_move("I7"); });
+  $("#player1_board .I8").on("click", function () { do_move("I8"); });
+  $("#player1_board .I9").on("click", function () { do_move("I9"); });
+  $("#player1_board .I10").on("click", function () { do_move("I10"); });
+
+  $("#player1_board .J1").on("click", function () { do_move("J1"); });
+  $("#player1_board .J2").on("click", function () { do_move("J2"); });
+  $("#player1_board .J3").on("click", function () { do_move("J3"); });
+  $("#player1_board .J4").on("click", function () { do_move("J4"); });
+  $("#player1_board .J5").on("click", function () { do_move("J5"); });
+  $("#player1_board .J6").on("click", function () { do_move("J6"); });
+  $("#player1_board .J7").on("click", function () { do_move("J7"); });
+  $("#player1_board .J8").on("click", function () { do_move("J8"); });
+  $("#player1_board .J9").on("click", function () { do_move("J9"); });
+  $("#player1_board .J10").on("click", function () { do_move("J10"); });
+}
+
+// Function about the possible hits of player 2.
+function player2_hits() {
+  
+  $("#player2_board .A1").on("click", function () { do_move("A1"); });
+  $("#player2_board .A2").on("click", function () { do_move("A2"); });
+  $("#player2_board .A3").on("click", function () { do_move("A3"); });
+  $("#player2_board .A4").on("click", function () { do_move("A4"); });
+  $("#player2_board .A5").on("click", function () { do_move("A5"); });
+  $("#player2_board .A6").on("click", function () { do_move("A6"); });
+  $("#player2_board .A7").on("click", function () { do_move("A7"); });
+  $("#player2_board .A8").on("click", function () { do_move("A8"); });
+  $("#player2_board .A9").on("click", function () { do_move("A9"); });
+  $("#player2_board .A10").on("click", function () { do_move("A10"); });
+
+  $("#player2_board .B1").on("click", function () { do_move("B1"); });
+  $("#player2_board .B2").on("click", function () { do_move("B2"); });
+  $("#player2_board .B3").on("click", function () { do_move("B3"); });
+  $("#player2_board .B4").on("click", function () { do_move("B4"); });
+  $("#player2_board .B5").on("click", function () { do_move("B5"); });
+  $("#player2_board .B6").on("click", function () { do_move("B6"); });
+  $("#player2_board .B7").on("click", function () { do_move("B7"); });
+  $("#player2_board .B8").on("click", function () { do_move("B8"); });
+  $("#player2_board .B9").on("click", function () { do_move("B9"); });
+  $("#player2_board .B10").on("click", function () { do_move("B10"); });
+
+  $("#player2_board .C1").on("click", function () { do_move("C1"); });
+  $("#player2_board .C2").on("click", function () { do_move("C2"); });
+  $("#player2_board .C3").on("click", function () { do_move("C3"); });
+  $("#player2_board .C4").on("click", function () { do_move("C4"); });
+  $("#player2_board .C5").on("click", function () { do_move("C5"); });
+  $("#player2_board .C6").on("click", function () { do_move("C6"); });
+  $("#player2_board .C7").on("click", function () { do_move("C7"); });
+  $("#player2_board .C8").on("click", function () { do_move("C8"); });
+  $("#player2_board .C9").on("click", function () { do_move("C9"); });
+  $("#player2_board .C10").on("click", function () { do_move("C10"); });
+
+  $("#player2_board .D1").on("click", function () { do_move("D1"); });
+  $("#player2_board .D2").on("click", function () { do_move("D2"); });
+  $("#player2_board .D3").on("click", function () { do_move("D3"); });
+  $("#player2_board .D4").on("click", function () { do_move("D4"); });
+  $("#player2_board .D5").on("click", function () { do_move("D5"); });
+  $("#player2_board .D6").on("click", function () { do_move("D6"); });
+  $("#player2_board .D7").on("click", function () { do_move("D7"); });
+  $("#player2_board .D8").on("click", function () { do_move("D8"); });
+  $("#player2_board .D9").on("click", function () { do_move("D9"); });
+  $("#player2_board .D10").on("click", function () { do_move("D10"); });
+
+  $("#player2_board .E1").on("click", function () { do_move("E1"); });
+  $("#player2_board .E2").on("click", function () { do_move("E2"); });
+  $("#player2_board .E3").on("click", function () { do_move("E3"); });
+  $("#player2_board .E4").on("click", function () { do_move("E4"); });
+  $("#player2_board .E5").on("click", function () { do_move("E5"); });
+  $("#player2_board .E6").on("click", function () { do_move("E6"); });
+  $("#player2_board .E7").on("click", function () { do_move("E7"); });
+  $("#player2_board .E8").on("click", function () { do_move("E8"); });
+  $("#player2_board .E9").on("click", function () { do_move("E9"); });
+  $("#player2_board .E10").on("click", function () { do_move("E10"); });
+
+  $("#player2_board .F1").on("click", function () { do_move("F1"); });
+  $("#player2_board .F2").on("click", function () { do_move("F2"); });
+  $("#player2_board .F3").on("click", function () { do_move("F3"); });
+  $("#player2_board .F4").on("click", function () { do_move("F4"); });
+  $("#player2_board .F5").on("click", function () { do_move("F5"); });
+  $("#player2_board .F6").on("click", function () { do_move("F6"); });
+  $("#player2_board .F7").on("click", function () { do_move("F7"); });
+  $("#player2_board .F8").on("click", function () { do_move("F8"); });
+  $("#player2_board .F9").on("click", function () { do_move("F9"); });
+  $("#player2_board .F10").on("click", function () { do_move("F10"); });
+
+  $("#player2_board .G1").on("click", function () { do_move("G1"); });
+  $("#player2_board .G2").on("click", function () { do_move("G2"); });
+  $("#player2_board .G3").on("click", function () { do_move("G3"); });
+  $("#player2_board .G4").on("click", function () { do_move("G4"); });
+  $("#player2_board .G5").on("click", function () { do_move("G5"); });
+  $("#player2_board .G6").on("click", function () { do_move("G6"); });
+  $("#player2_board .G7").on("click", function () { do_move("G7"); });
+  $("#player2_board .G8").on("click", function () { do_move("G8"); });
+  $("#player2_board .G9").on("click", function () { do_move("G9"); });
+  $("#player2_board .G10").on("click", function () { do_move("G10"); });
+
+  $("#player2_board .H1").on("click", function () { do_move("H1"); });
+  $("#player2_board .H2").on("click", function () { do_move("H2"); });
+  $("#player2_board .H3").on("click", function () { do_move("H3"); });
+  $("#player2_board .H4").on("click", function () { do_move("H4"); });
+  $("#player2_board .H5").on("click", function () { do_move("H5"); });
+  $("#player2_board .H6").on("click", function () { do_move("H6"); });
+  $("#player2_board .H7").on("click", function () { do_move("H7"); });
+  $("#player2_board .H8").on("click", function () { do_move("H8"); });
+  $("#player2_board .H9").on("click", function () { do_move("H9"); });
+  $("#player2_board .H10").on("click", function () { do_move("H10"); });
+
+  $("#player1_board .I1").on("click", function () { do_move("I1"); });
+  $("#player1_board .I2").on("click", function () { do_move("I2"); });
+  $("#player1_board .I3").on("click", function () { do_move("I3"); });
+  $("#player1_board .I4").on("click", function () { do_move("I4"); });
+  $("#player1_board .I5").on("click", function () { do_move("I5"); });
+  $("#player1_board .I6").on("click", function () { do_move("I6"); });
+  $("#player1_board .I7").on("click", function () { do_move("I7"); });
+  $("#player1_board .I8").on("click", function () { do_move("I8"); });
+  $("#player1_board .I9").on("click", function () { do_move("I9"); });
+  $("#player1_board .I10").on("click", function () { do_move("I10"); });
+
+  $("#player1_board .J1").on("click", function () { do_move("J1"); });
+  $("#player1_board .J2").on("click", function () { do_move("J2"); });
+  $("#player1_board .J3").on("click", function () { do_move("J3"); });
+  $("#player1_board .J4").on("click", function () { do_move("J4"); });
+  $("#player1_board .J5").on("click", function () { do_move("J5"); });
+  $("#player1_board .J6").on("click", function () { do_move("J6"); });
+  $("#player1_board .J7").on("click", function () { do_move("J7"); });
+  $("#player1_board .J8").on("click", function () { do_move("J8"); });
+  $("#player1_board .J9").on("click", function () { do_move("J9"); });
+  $("#player1_board .J10").on("click", function () { do_move("J10"); });
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):

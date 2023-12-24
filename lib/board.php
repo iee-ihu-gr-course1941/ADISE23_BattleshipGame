@@ -42,6 +42,7 @@
         do_move($choice, $player_number);
     }
 
+    // Makes the player move.
     function do_move($choice, $player_number) {
         global $mysqli;
 
@@ -72,7 +73,7 @@
     function check_winner() {
         global $mysqli;
 
-        // Checking if both players weighed
+        // Checking if both players have made shots.
         $st2=$mysqli->prepare('select count(*) as p1_shots FROM board WHERE player="p1" AND state IN ("hit", "miss")');
         $st2->execute();
         $res2 = $st2->get_result();
@@ -84,15 +85,15 @@
         $p2_shots = $res3->fetch_assoc()['p2_shots'];
 
         if($p1_shots>0 && $p2_shots>0) {
+            $winner=null; 
+        
             /* Check if player1 has hit all the enemy ships.
-            / If there are total 17 hits, which means that every ship is sunk, then p1 wins. */
+            If there are total 17 hits, which means that every ship is sunk, then p1 wins. */
             $sql = 'select count(*) as p1_hits FROM board WHERE player="p2" AND state="hit"';
             $st = $mysqli->prepare($sql);
             $st->execute();
             $res = $st->get_result();
             $p1_hits = $res->fetch_assoc()['p1_hits'];
-
-            $winner=null; 
 
             if ($p1_hits == 17) {
                 $winner = 'p1';
@@ -104,14 +105,12 @@
             } 
 
             /* Check if player2 has hit all the enemy ships.
-             If there are total 17 hits, which means that every ship is sunk, then p2 wins. */
+            If there are total 17 hits, which means that every ship is sunk, then p2 wins. */
             $sql1 = 'select count(*) as p2_hits FROM board WHERE player="p1" AND state="hit"';
             $st1 = $mysqli->prepare($sql1);
             $st1->execute();
             $res1 = $st1->get_result();
             $p2_hits = $res1->fetch_assoc()['p2_hits'];
-
-            $winner=null; 
 
             if ($p2_hits == 17) {
                 $winner = 'p2';
