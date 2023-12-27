@@ -4,12 +4,14 @@ var players;
 var player;
 var player_turn;
 var opponent;
-var player_number
+var player_number;
 var game_status={};
 var timer = null;
 var last_update = new Date().getTime();
 var surrendered = false;
 var selectedValue;
+var p1_ships_ready = false;
+var p2_ships_ready = false;
 
 $(function() {
   
@@ -29,7 +31,7 @@ $(function() {
   player1_hits(); // Possible hits of player 1.
   player2_hits(); // Possible hits of player 2.
 
-  // Reset Button.
+  // Reset Button (onclick).
   $('#reset_game').click(function() {
     surrendered=true;
     reset_boards(); 
@@ -51,6 +53,10 @@ function login_to_game() {
     $('#customAlert').removeClass('custom-alert error show');
     $('#customAlert').find('p').text("");
 
+    // Disabling onclick of both boards/tables.
+    $('#player1_board td').addClass('disabled-cell');
+    $('#player2_board td').addClass('disabled-cell');
+
     var outputName = $('#addNameOfUser');
     var outputName2 = $('#addNameOfUser2');
 
@@ -64,7 +70,7 @@ function login_to_game() {
       outputName2.text(name);
       $('.ship-area .player-ships .ship .clr').addClass('two');
     }
-  
+
   } else {
     // Displaying the Alert Message.
     $('#customAlert').addClass('custom-alert error show');
@@ -139,6 +145,7 @@ function set_ships() {
         $("#player1_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
         $("#player1_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
         $("#player1_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+        p1_ships_ready = true;
       } else if (selectedValue == 'p2') {
         $("#player2_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
         $("#player2_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
@@ -157,6 +164,7 @@ function set_ships() {
         $("#player2_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
         $("#player2_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
         $("#player2_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+        p2_ships_ready = true;
       }
     }
   }
@@ -292,10 +300,31 @@ function update_info() {
 			$('#game_info').html('Game Status: ' + game_status.status);
 		}
 
+    // Handling player turn.
     if (game_status.player_turn==me.player_number) {
       $('#player_turn').html("<h6>It's your turn to play.</h6>");
+      // if both players have placed the ships into the board, the boards will be enabled accordingly.
+      if (selectedValue == 'p1') { 
+        if (p1_ships_ready == true) { 
+          $('#player2_board td').removeClass('disabled-cell'); // Enabling onclick of the p2 board/table.
+        }
+      } else if (selectedValue == 'p2') {
+        if (p2_ships_ready == true) { 
+          $('#player1_board td').removeClass('disabled-cell'); // Enabling onclick of the p1 board/table.
+        }
+      }
     } else {  
       $('#player_turn').html("<h6>It's " + opponent +"'s turn to play.</h6>");
+      // if both players have placed the ships into the board, the boards will be disabled accordingly.
+      if (selectedValue == 'p1') {
+        if (p1_ships_ready == true) {
+          $('#player2_board td').addClass('disabled-cell'); // Disabling onclick of the p2 board/table.
+        }
+      } else if (selectedValue == 'p2') {
+        if (p2_ships_ready == true) {
+          $('#player1_board td').addClass('disabled-cell'); // Disabling onclick of the p1 board/table.
+        }
+      }
     }
   } else {
     $('#game_info').html('Game Status: '+ game_status.status);
