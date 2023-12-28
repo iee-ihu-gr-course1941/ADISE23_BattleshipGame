@@ -55,7 +55,7 @@
             /* If at player's 1 board there is a ship then change the state from ship to 'hit', 
             Otherwise change state to 'miss'. */
             $sql = "UPDATE `board` SET state=IF(ship IS NOT NULL, 'hit', 'miss') WHERE player='p1' AND coordinate=?";
-            $opponent = 'p1'; // Changing opponent to p2.
+            $opponent = 'p1'; // Changing opponent to p1.
         }
         $st = $mysqli->prepare($sql);
         $st->bind_param('s', $choice);
@@ -67,7 +67,7 @@
         $st->bind_param('s', $opponent);
         $st->execute();
 
-        check_winner();
+        check_winner(); // Checking if there is a winner.
     }
 
     function check_winner() {
@@ -356,10 +356,30 @@
         $st->execute();
     }
 
+    // SQL Request to get the state of the shoted coordinate.
+    function check_shot() {
+        global $mysqli;
+        //global $player_number;
+        //global $choice;
+
+        // if ($player_number=='p1') {
+        $sql = "SELECT state FROM board WHERE coordinate = 'A1' AND player = 'p1'";
+        // } else {
+        //     $sql = "SELECT state FROM board WHERE coordinate = ? AND player = 'p2'";
+        // }
+
+        $st = $mysqli->prepare($sql);
+        //$st->bind_param('s', $choice);
+        $st->execute();
+        $res = $st->get_result();
+        header('Content-type: application/json');
+        print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
+    }
+
     // SQL Request to set a new game with the same players.
     function play_again() {
         global $mysqli;
-        $sql = 'call `play_again`();'; // call procedure play_again() from our db
+        $sql = 'call `play_again`();';
         $st = $mysqli->prepare($sql);
         $st->execute();
     }

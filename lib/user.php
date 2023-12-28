@@ -1,5 +1,5 @@
 <?php
-    //SQL request to return players table
+    // SQL Request to return players table
     function show_users() {
         global $mysqli;
         $sql = 'select username from players';
@@ -10,7 +10,7 @@
         print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
     }
 
-    //Handling loginuser method 
+    // Handling the Login for the users.
     function set_user($input) {
         if(!isset($input['username'])) {
             header("HTTP/1.1 400 Bad Request");
@@ -22,7 +22,7 @@
         $player_number=$input['player_number']; 
         
         global $mysqli;
-        //Checking if the players are already playing.
+        // Checking if the players are already playing.
         $sql = 'select count(*) as c from players where username is not null';
         $st = $mysqli->prepare($sql);
         $st->execute();
@@ -54,7 +54,7 @@
         $st2->bind_param('sss',$username, $username, $player_number);
         $st2->execute();
         
-        // call update_game_status so the status is going to be changed
+        // Calling update_game_status(), so the status is going to be changed.
         update_game_status();
         $sql = 'select * from players where player_number=?';
         $st = $mysqli->prepare($sql);
@@ -74,7 +74,7 @@
         }
     }
 
-    // Checking user's token. Returning player with that token.
+    // Returning the current player with the specific token.
     function current_player($token) {
         global $mysqli;
 
@@ -94,7 +94,7 @@
         return(null);
     }
 
-    // SQL request to initialize the players
+    // SQL Request to initialize the players.
     function remove_user() {
         global $mysqli;
 
