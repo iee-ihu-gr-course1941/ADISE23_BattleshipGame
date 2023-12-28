@@ -458,7 +458,7 @@ function player1_hits() {
           }
         },
         click: function () {
-          const cellId = $(this).attr("class").split(' ')[1];
+          const cellId = $(this).attr("class");
           do_move(cellId);
     
           // Remove the selected class from any previously selected cell
@@ -492,9 +492,9 @@ function player2_hits() {
           }
         },
         click: function () {
-          const cellId = $(this).attr("class").split(' ')[1];
+          const cellId = $(this).attr("class");
           do_move(cellId);
-    
+
           // Remove the selected class from any previously selected cell
           $(".selector.selected").removeClass("selected");
     
