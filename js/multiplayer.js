@@ -441,230 +441,70 @@ function update_status(data) {
 
 // Function about the possible hits for player 1.
 function player1_hits() {
+  let selectedCell = null;
 
-  $("#player1_board .A1").on("click", function () { do_move("A1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A2").on("click", function () { do_move("A2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A3").on("click", function () { do_move("A3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A4").on("click", function () { do_move("A4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A5").on("click", function () { do_move("A5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A6").on("click", function () { do_move("A6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A7").on("click", function () { do_move("A7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A8").on("click", function () { do_move("A8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A9").on("click", function () { do_move("A9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .A10").on("click", function () { do_move("A10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .B1").on("click", function () { do_move("B1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B2").on("click", function () { do_move("B2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B3").on("click", function () { do_move("B3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B4").on("click", function () { do_move("B4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B5").on("click", function () { do_move("B5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B6").on("click", function () { do_move("B6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B7").on("click", function () { do_move("B7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B8").on("click", function () { do_move("B8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B9").on("click", function () { do_move("B9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .B10").on("click", function () { do_move("B10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .C1").on("click", function () { do_move("C1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C2").on("click", function () { do_move("C2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C3").on("click", function () { do_move("C3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C4").on("click", function () { do_move("C4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C5").on("click", function () { do_move("C5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C6").on("click", function () { do_move("C6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C7").on("click", function () { do_move("C7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C8").on("click", function () { do_move("C8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C9").on("click", function () { do_move("C9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .C10").on("click", function () { do_move("C10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .D1").on("click", function () { do_move("D1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D2").on("click", function () { do_move("D2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D3").on("click", function () { do_move("D3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D4").on("click", function () { do_move("D4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D5").on("click", function () { do_move("D5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D6").on("click", function () { do_move("D6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D7").on("click", function () { do_move("D7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D8").on("click", function () { do_move("D8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D9").on("click", function () { do_move("D9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .D10").on("click", function () { do_move("D10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .E1").on("click", function () { do_move("E1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E2").on("click", function () { do_move("E2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E3").on("click", function () { do_move("E3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E4").on("click", function () { do_move("E4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E5").on("click", function () { do_move("E5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E6").on("click", function () { do_move("E6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E7").on("click", function () { do_move("E7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E8").on("click", function () { do_move("E8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E9").on("click", function () { do_move("E9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .E10").on("click", function () { do_move("E10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .F1").on("click", function () { do_move("F1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F2").on("click", function () { do_move("F2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F3").on("click", function () { do_move("F3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F4").on("click", function () { do_move("F4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F5").on("click", function () { do_move("F5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F6").on("click", function () { do_move("F6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F7").on("click", function () { do_move("F7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F8").on("click", function () { do_move("F8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F9").on("click", function () { do_move("F9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .F10").on("click", function () { do_move("F10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .G1").on("click", function () { do_move("G1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G2").on("click", function () { do_move("G2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G3").on("click", function () { do_move("G3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G4").on("click", function () { do_move("G4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G5").on("click", function () { do_move("G5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G6").on("click", function () { do_move("G6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G7").on("click", function () { do_move("G7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G8").on("click", function () { do_move("G8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G9").on("click", function () { do_move("G9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .G10").on("click", function () { do_move("G10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .H1").on("click", function () { do_move("H1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H2").on("click", function () { do_move("H2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H3").on("click", function () { do_move("H3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H4").on("click", function () { do_move("H4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H5").on("click", function () { do_move("H5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H6").on("click", function () { do_move("H6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H7").on("click", function () { do_move("H7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H8").on("click", function () { do_move("H8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H9").on("click", function () { do_move("H9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .H10").on("click", function () { do_move("H10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .I1").on("click", function () { do_move("I1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I2").on("click", function () { do_move("I2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I3").on("click", function () { do_move("I3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I4").on("click", function () { do_move("I4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I5").on("click", function () { do_move("I5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I6").on("click", function () { do_move("I6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I7").on("click", function () { do_move("I7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I8").on("click", function () { do_move("I8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I9").on("click", function () { do_move("I9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .I10").on("click", function () { do_move("I10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player1_board .J1").on("click", function () { do_move("J1"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J2").on("click", function () { do_move("J2"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J3").on("click", function () { do_move("J3"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J4").on("click", function () { do_move("J4"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J5").on("click", function () { do_move("J5"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J6").on("click", function () { do_move("J6"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J7").on("click", function () { do_move("J7"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J8").on("click", function () { do_move("J8"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J9").on("click", function () { do_move("J9"); $(this).css("background-color", "lightblue"); });
-  $("#player1_board .J10").on("click", function () { do_move("J10"); $(this).css("background-color", "lightblue"); });
+  for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
+    for (let number = 1; number <= 10; number++) {
+      const selector = `#player1_board .${letter}${number}`;
+      $(selector).on({
+        mouseenter: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+        },
+        mouseleave: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "");
+          }
+        },
+        click: function () {
+          const cellId = $(this).attr("class");
+          do_move(cellId);
+    
+          // Remove the selected class from any previously selected cell
+          $(".selector.selected").removeClass("selected");
+    
+          // Add the selected class to the clicked cell
+          $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          $(this).off("click"); // Disable click for this cell
+        }
+      });
+    }
+  }
 }
 
 // Function about the possible hits of player 2.
 function player2_hits() {
-  
-  $("#player2_board .A1").on("click", function () { do_move("A1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A2").on("click", function () { do_move("A2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A3").on("click", function () { do_move("A3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A4").on("click", function () { do_move("A4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A5").on("click", function () { do_move("A5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A6").on("click", function () { do_move("A6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A7").on("click", function () { do_move("A7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A8").on("click", function () { do_move("A8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A9").on("click", function () { do_move("A9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .A10").on("click", function () { do_move("A10"); $(this).css("background-color", "lightblue"); });
+  let selectedCell = null;
 
-  $("#player2_board .B1").on("click", function () { do_move("B1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B2").on("click", function () { do_move("B2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B3").on("click", function () { do_move("B3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B4").on("click", function () { do_move("B4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B5").on("click", function () { do_move("B5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B6").on("click", function () { do_move("B6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B7").on("click", function () { do_move("B7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B8").on("click", function () { do_move("B8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B9").on("click", function () { do_move("B9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .B10").on("click", function () { do_move("B10"); $(this).css("background-color", "lightblue"); });
+  for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
+    for (let number = 1; number <= 10; number++) {
+      const selector = `#player2_board .${letter}${number}`;
+      $(selector).on({
+        mouseenter: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+        },
+        mouseleave: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "");
+          }
+        },
+        click: function () {
+          const cellId = $(this).attr("class");
+          do_move(cellId);
 
-  $("#player2_board .C1").on("click", function () { do_move("C1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C2").on("click", function () { do_move("C2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C3").on("click", function () { do_move("C3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C4").on("click", function () { do_move("C4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C5").on("click", function () { do_move("C5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C6").on("click", function () { do_move("C6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C7").on("click", function () { do_move("C7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C8").on("click", function () { do_move("C8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C9").on("click", function () { do_move("C9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .C10").on("click", function () { do_move("C10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .D1").on("click", function () { do_move("D1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D2").on("click", function () { do_move("D2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D3").on("click", function () { do_move("D3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D4").on("click", function () { do_move("D4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D5").on("click", function () { do_move("D5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D6").on("click", function () { do_move("D6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D7").on("click", function () { do_move("D7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D8").on("click", function () { do_move("D8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D9").on("click", function () { do_move("D9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .D10").on("click", function () { do_move("D10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .E1").on("click", function () { do_move("E1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E2").on("click", function () { do_move("E2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E3").on("click", function () { do_move("E3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E4").on("click", function () { do_move("E4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E5").on("click", function () { do_move("E5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E6").on("click", function () { do_move("E6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E7").on("click", function () { do_move("E7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E8").on("click", function () { do_move("E8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E9").on("click", function () { do_move("E9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .E10").on("click", function () { do_move("E10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .F1").on("click", function () { do_move("F1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F2").on("click", function () { do_move("F2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F3").on("click", function () { do_move("F3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F4").on("click", function () { do_move("F4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F5").on("click", function () { do_move("F5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F6").on("click", function () { do_move("F6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F7").on("click", function () { do_move("F7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F8").on("click", function () { do_move("F8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F9").on("click", function () { do_move("F9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .F10").on("click", function () { do_move("F10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .G1").on("click", function () { do_move("G1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G2").on("click", function () { do_move("G2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G3").on("click", function () { do_move("G3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G4").on("click", function () { do_move("G4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G5").on("click", function () { do_move("G5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G6").on("click", function () { do_move("G6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G7").on("click", function () { do_move("G7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G8").on("click", function () { do_move("G8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G9").on("click", function () { do_move("G9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .G10").on("click", function () { do_move("G10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .H1").on("click", function () { do_move("H1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H2").on("click", function () { do_move("H2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H3").on("click", function () { do_move("H3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H4").on("click", function () { do_move("H4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H5").on("click", function () { do_move("H5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H6").on("click", function () { do_move("H6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H7").on("click", function () { do_move("H7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H8").on("click", function () { do_move("H8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H9").on("click", function () { do_move("H9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .H10").on("click", function () { do_move("H10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .I1").on("click", function () { do_move("I1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I2").on("click", function () { do_move("I2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I3").on("click", function () { do_move("I3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I4").on("click", function () { do_move("I4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I5").on("click", function () { do_move("I5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I6").on("click", function () { do_move("I6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I7").on("click", function () { do_move("I7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I8").on("click", function () { do_move("I8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I9").on("click", function () { do_move("I9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .I10").on("click", function () { do_move("I10"); $(this).css("background-color", "lightblue"); });
-
-  $("#player2_board .J1").on("click", function () { do_move("J1"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J2").on("click", function () { do_move("J2"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J3").on("click", function () { do_move("J3"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J4").on("click", function () { do_move("J4"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J5").on("click", function () { do_move("J5"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J6").on("click", function () { do_move("J6"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J7").on("click", function () { do_move("J7"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J8").on("click", function () { do_move("J8"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J9").on("click", function () { do_move("J9"); $(this).css("background-color", "lightblue"); });
-  $("#player2_board .J10").on("click", function () { do_move("J10"); $(this).css("background-color", "lightblue"); });
+          // Remove the selected class from any previously selected cell
+          $(".selector.selected").removeClass("selected");
+    
+          // Add the selected class to the clicked cell
+          $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          $(this).off("click"); // Disable click for this cell
+        }
+      });
+    }
+  }
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
