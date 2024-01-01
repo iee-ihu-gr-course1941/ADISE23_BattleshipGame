@@ -92,79 +92,92 @@ function login_to_game() {
     error: show_error});
 }
 
+var dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5;
 // Ajax Request for the player to set the ships.
 function set_ships() {
 
   // Destroyer coordinates.
-  var dc1 = $('#destroyer-coord1').val();
-  var dc2 = $('#destroyer-coord2').val();
+  dc1 = $('#destroyer-coord1').val().trim();
+  dc2 = $('#destroyer-coord2').val().trim();
   // Submarine coordinates.
-  var sc1 = $('#submarine-coord1').val();
-  var sc2 = $('#submarine-coord2').val();
-  var sc3 = $('#submarine-coord3').val();
+  sc1 = $('#submarine-coord1').val().trim();
+  sc2 = $('#submarine-coord2').val().trim();
+  sc3 = $('#submarine-coord3').val().trim();
   // Cruiser coordinates.
-  var crc1 = $('#cruiser-coord1').val();
-  var crc2 = $('#cruiser-coord2').val();
-  var crc3 = $('#cruiser-coord3').val();
+  crc1 = $('#cruiser-coord1').val().trim();
+  crc2 = $('#cruiser-coord2').val().trim();
+  crc3 = $('#cruiser-coord3').val().trim();
   // Battleship coordinates.
-  var bc1 = $('#battleship-coord1').val();
-  var bc2 = $('#battleship-coord2').val();
-  var bc3 = $('#battleship-coord3').val();
-  var bc4 = $('#battleship-coord4').val();
+  bc1 = $('#battleship-coord1').val().trim();
+  bc2 = $('#battleship-coord2').val().trim();
+  bc3 = $('#battleship-coord3').val().trim();
+  bc4 = $('#battleship-coord4').val().trim();
   // Carrier coordinates.
-  var cc1 = $('#carrier-coord1').val();
-  var cc2 = $('#carrier-coord2').val();
-  var cc3 = $('#carrier-coord3').val();
-  var cc4 = $('#carrier-coord4').val();
-  var cc5 = $('#carrier-coord5').val();
+  cc1 = $('#carrier-coord1').val().trim();
+  cc2 = $('#carrier-coord2').val().trim();
+  cc3 = $('#carrier-coord3').val().trim();
+  cc4 = $('#carrier-coord4').val().trim();
+  cc5 = $('#carrier-coord5').val().trim();
 
   if(players != null)  {
     if(game_status.player_turn==me.player_number) {
-      // Hiding ships inputs.
-      $('#ready-btn').hide();
-      $('.ship-area').hide();
-      $('.gameController').hide();
-      $('.me').hide();
+      
+      // Performing additional validation.
+      if (/^[A-Ja-j][0-9][0]?$/.test(dc1) && /^[A-Ja-j][0-9][0]?$/.test(dc2) && 
+         /^[A-Ja-j][0-9][0]?$/.test(sc1) && /^[A-Ja-j][0-9][0]?$/.test(sc2) && /^[A-Ja-j][0-9][0]?$/.test(sc3) &&
+        /^[A-Ja-j][0-9][0]?$/.test(crc1) && /^[A-Ja-j][0-9][0]?$/.test(crc2) && /^[A-Ja-j][0-9][0]?$/.test(crc3) &&
+       /^[A-Ja-j][0-9][0]?$/.test(bc1) && /^[A-Ja-j][0-9][0]?$/.test(bc2) && /^[A-Ja-j][0-9][0]?$/.test(bc3) && /^[A-Ja-j][0-9][0]?$/.test(bc4) &&
+      /^[A-Ja-j][0-9][0]?$/.test(cc1) && /^[A-Ja-j][0-9][0]?$/.test(cc2) && /^[A-Ja-j][0-9][0]?$/.test(cc3) && /^[A-Ja-j][0-9][0]?$/.test(cc4) && /^[A-Ja-j][0-9][0]?$/.test(cc5)) {
+        
+        // Hiding ships inputs.
+        $('#ready-btn').hide();
+        $('.ship-area').hide();
+        $('.gameController').hide();
+        $('.me').hide();
 
-      // Coloring board's coordinates according to your placed ships.
-      if(selectedValue == 'p1') {
-        $("#player1_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player1_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
-        p1_ships_ready = true;
-      } else if (selectedValue == 'p2') {
-        $("#player2_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
-        $("#player2_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
-        p2_ships_ready = true;
+        // Coloring board's coordinates according to your placed ships.
+        if(selectedValue == 'p1') {
+          $("#player1_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+          p1_ships_ready = true;
+        } else if (selectedValue == 'p2') {
+          $("#player2_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+          p2_ships_ready = true;
+        }
+      } else {
+        alert("Invalid input. You must only add board's coordinates!");
+        return;
       }
     }
   }
@@ -225,6 +238,7 @@ function reset_boards() {
   $('#ready-btn').hide(150);
   $('.gameController').hide(150);
   $('.me').hide(150);
+  clean_colors();
 
   game_status_update();
 }
@@ -439,7 +453,7 @@ function update_status(data) {
   }
 }
 
-// Function about the possible hits for player 1.
+// Function about the possible hits of player 1.
 function player1_hits() {
   let selectedCell = null;
 
@@ -505,6 +519,46 @@ function player2_hits() {
       });
     }
   }
+}
+
+// A function that cleans the colors of players' placed ships into the coords, after reseting the game.
+function clean_colors() {
+  // Cleaning board of player 1.
+  $("#player1_board ." + dc1).css("background-color", "");
+  $("#player1_board ." + dc2).css("background-color", "");
+  $("#player1_board ." + sc1).css("background-color", "");
+  $("#player1_board ." + sc2).css("background-color", "");
+  $("#player1_board ." + sc3).css("background-color", "");
+  $("#player1_board ." + crc1).css("background-color", "");
+  $("#player1_board ." + crc2).css("background-color", "");
+  $("#player1_board ." + crc3).css("background-color", "");
+  $("#player1_board ." + bc1).css("background-color", "");
+  $("#player1_board ." + bc2).css("background-color", "");
+  $("#player1_board ." + bc3).css("background-color", "");
+  $("#player1_board ." + bc4).css("background-color", "");
+  $("#player1_board ." + cc1).css("background-color", "");
+  $("#player1_board ." + cc2).css("background-color", "");
+  $("#player1_board ." + cc3).css("background-color", "");
+  $("#player1_board ." + cc4).css("background-color", "");
+  $("#player1_board ." + cc5).css("background-color", "");
+  // Cleaning board of player 2.
+  $("#player2_board ." + dc1).css("background-color", "");
+  $("#player2_board ." + dc2).css("background-color", "");
+  $("#player2_board ." + sc1).css("background-color", "");
+  $("#player2_board ." + sc2).css("background-color", "");
+  $("#player2_board ." + sc3).css("background-color", "");
+  $("#player2_board ." + crc1).css("background-color", "");
+  $("#player2_board ." + crc2).css("background-color", "");
+  $("#player2_board ." + crc3).css("background-color", "");
+  $("#player2_board ." + bc1).css("background-color", "");
+  $("#player2_board ." + bc2).css("background-color", "");
+  $("#player2_board ." + bc3).css("background-color", "");
+  $("#player2_board ." + bc4).css("background-color", "");
+  $("#player2_board ." + cc1).css("background-color", "");
+  $("#player2_board ." + cc2).css("background-color", "");
+  $("#player2_board ." + cc3).css("background-color", "");
+  $("#player2_board ." + cc4).css("background-color", "");
+  $("#player2_board ." + cc5).css("background-color", "");
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
