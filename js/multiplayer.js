@@ -92,10 +92,19 @@ function login_to_game() {
     error: show_error});
 }
 
+var uniqueStrings = [];
+
+// The isUnique() function checks if a coordinate appears more than once.
+function isUnique(str) {
+  return uniqueStrings.filter(item => item === str).length <= 1;
+}
+
 var dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5;
 // Ajax Request for the player to set the ships.
 function set_ships() {
 
+  uniqueStrings = []; // Cleaning the array.
+  
   // Destroyer coordinates.
   dc1 = $('#destroyer-coord1').val().trim();
   dc2 = $('#destroyer-coord2').val().trim();
@@ -119,16 +128,21 @@ function set_ships() {
   cc4 = $('#carrier-coord4').val().trim();
   cc5 = $('#carrier-coord5').val().trim();
 
+  uniqueStrings.push(dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5);
+  console.log("You added the following coordinates: ", uniqueStrings);
+
   if(players != null)  {
     if(game_status.player_turn==me.player_number) {
       
       // Performing additional validation.
-      if (/^[A-Ja-j][0-9][0]?$/.test(dc1) && /^[A-Ja-j][0-9][0]?$/.test(dc2) && 
-         /^[A-Ja-j][0-9][0]?$/.test(sc1) && /^[A-Ja-j][0-9][0]?$/.test(sc2) && /^[A-Ja-j][0-9][0]?$/.test(sc3) &&
-        /^[A-Ja-j][0-9][0]?$/.test(crc1) && /^[A-Ja-j][0-9][0]?$/.test(crc2) && /^[A-Ja-j][0-9][0]?$/.test(crc3) &&
-       /^[A-Ja-j][0-9][0]?$/.test(bc1) && /^[A-Ja-j][0-9][0]?$/.test(bc2) && /^[A-Ja-j][0-9][0]?$/.test(bc3) && /^[A-Ja-j][0-9][0]?$/.test(bc4) &&
-      /^[A-Ja-j][0-9][0]?$/.test(cc1) && /^[A-Ja-j][0-9][0]?$/.test(cc2) && /^[A-Ja-j][0-9][0]?$/.test(cc3) && /^[A-Ja-j][0-9][0]?$/.test(cc4) && /^[A-Ja-j][0-9][0]?$/.test(cc5)) {
+      if (/^[A-Ja-j]([1-9]|10)$/.test(dc1) && isUnique(dc1) && /^[A-Ja-j]([1-9]|10)$/.test(dc2) && isUnique(dc2) &&
+         /^[A-Ja-j]([1-9]|10)$/.test(sc1) && isUnique(sc1) && /^[A-Ja-j]([1-9]|10)$/.test(sc2) && isUnique(sc2) && /^[A-Ja-j]([1-9]|10)$/.test(sc3) && isUnique(sc3) &&
+        /^[A-Ja-j]([1-9]|10)$/.test(crc1) && isUnique(crc1) && /^[A-Ja-j]([1-9]|10)$/.test(crc2) && isUnique(crc2) && /^[A-Ja-j]([1-9]|10)$/.test(crc3) && isUnique(crc3) && 
+       /^[A-Ja-j]([1-9]|10)$/.test(bc1) && isUnique(bc1) && /^[A-Ja-j]([1-9]|10)$/.test(bc2) && isUnique(bc2) && /^[A-Ja-j]([1-9]|10)$/.test(bc3) && isUnique(bc3) && /^[A-Ja-j]([1-9]|10)$/.test(bc4) && isUnique(bc4) &&
+      /^[A-Ja-j]([1-9]|10)$/.test(cc1) && isUnique(cc1) && /^[A-Ja-j]([1-9]|10)$/.test(cc2) && isUnique(cc2) && /^[A-Ja-j]([1-9]|10)$/.test(cc3) && isUnique(cc3) && /^[A-Ja-j]([1-9]|10)$/.test(cc4) && isUnique(cc4) && /^[A-Ja-j]([1-9]|10)$/.test(cc5) && isUnique(cc5)) {
         
+        uniqueStrings = []; // Cleaning the array.
+
         // Hiding ships inputs.
         $('#ready-btn').hide();
         $('.ship-area').hide();
@@ -176,7 +190,8 @@ function set_ships() {
           p2_ships_ready = true;
         }
       } else {
-        alert("Invalid input. You must only add board's coordinates!");
+        uniqueStrings = []; // Cleaning the array.
+        alert("Invalid input. You can only add board's coordinates. Each coordinate must be unique!");
         return;
       }
     }
