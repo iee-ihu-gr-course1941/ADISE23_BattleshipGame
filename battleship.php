@@ -32,7 +32,7 @@
                     make_move($input['choice'], $input['player_number'], $input['token']);
                     break;
                 case 'check_shot':
-                    check_shot();
+                    check_shot($input['coord'], $input['player_number']);
                     break;
                 case 'play_again':
                     play_again();

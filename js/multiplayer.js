@@ -12,6 +12,7 @@ var surrendered = false;
 var selectedValue;
 var p1_ships_ready = false;
 var p2_ships_ready = false;
+var coord_status;
 
 $(function() {
   
@@ -129,8 +130,8 @@ function set_ships() {
   cc5 = $('#carrier-coord5').val().trim();
 
   uniqueStrings.push(dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5);
-  console.log("You added the following coordinates: ", uniqueStrings);
-
+  // console.log("You added the following coordinates: ", uniqueStrings);
+  
   if(players != null)  {
     if(game_status.player_turn==me.player_number) {
       
@@ -468,6 +469,23 @@ function update_status(data) {
   }
 }
 
+// Ajax Request to check the shot. It gets the enemy's specific coordinate status of the shot.
+function checking_shot(cellId) {
+
+  player_number = me.player_number;
+
+  $.ajax({
+    url: 'battleship.php/board/check_shot/',
+    method: 'GET',
+    dataType: "json",
+    headers: {"X-Token": me.token},
+    data: { coord: cellId , player_number },
+    success: function (data) {
+      coord_status = data;
+    }, error: show_error
+  });
+}
+
 // Function about the possible hits of player 1.
 function player1_hits() {
   let selectedCell = null;
@@ -492,10 +510,18 @@ function player1_hits() {
     
           // Remove the selected class from any previously selected cell
           $(".selector.selected").removeClass("selected");
-    
-          // Add the selected class to the clicked cell
-          $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
-          $(this).off("click"); // Disable click for this cell
+  
+          checking_shot(cellId);
+          // alert(coord_status);
+
+          // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+          if (coord_status == "hit") {
+            $(this).addClass("selected").css("background-color", "red");
+          } else {
+            $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+
+          $(this).off("click"); // Disabling click for this cell.
         }
       });
     }
@@ -527,9 +553,17 @@ function player2_hits() {
           // Remove the selected class from any previously selected cell
           $(".selector.selected").removeClass("selected");
     
-          // Add the selected class to the clicked cell
-          $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
-          $(this).off("click"); // Disable click for this cell
+          checking_shot(cellId);
+          // alert(coord_status);
+
+          // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+          if (coord_status == "hit") {
+            $(this).addClass("selected").css("background-color", "red");
+          } else {
+            $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+
+          $(this).off("click"); // Disabling click for this cell.
         }
       });
     }

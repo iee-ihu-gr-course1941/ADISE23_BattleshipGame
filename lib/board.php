@@ -356,20 +356,18 @@
         $st->execute();
     }
 
-    // SQL Request to get the state of the shoted coordinate.
-    function check_shot() {
+    // SQL Request to check the shot. It gets the enemy's specific coordinate status of the shot.
+    function check_shot($coord, $player_number) {
         global $mysqli;
-        //global $player_number;
-        //global $choice;
 
-        // if ($player_number=='p1') {
-        $sql = "SELECT state FROM board WHERE coordinate = 'A1' AND player = 'p1'";
-        // } else {
-        //     $sql = "SELECT state FROM board WHERE coordinate = ? AND player = 'p2'";
-        // }
+        if ($player_number=='p1') {
+            $sql = "SELECT state FROM board WHERE player='p2' AND coordinate=?";
+        } else {
+            $sql = "SELECT state FROM board WHERE player='p1' AND coordinate=?";
+        }
 
         $st = $mysqli->prepare($sql);
-        //$st->bind_param('s', $choice);
+        $st->bind_param('s', $coord);
         $st->execute();
         $res = $st->get_result();
         header('Content-type: application/json');
