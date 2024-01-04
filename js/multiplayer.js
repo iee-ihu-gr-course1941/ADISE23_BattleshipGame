@@ -255,13 +255,13 @@ function update_status(data) {
 
 	// Getting Enemy's Username.
 	if (game_status_old.status==null && game_status.status=='started' && me.token!=null) { 
-		$.ajax({url: "rpsls.php/players/", 
+		$.ajax({url: "battleship.php/players/", 
 			success: function (data) {
         players = data;
 			}, 
 			headers: {"X-Token": me.token}});
 	} else if (game_status_old.status=='initialized' && game_status.status=='started') {
-		$.ajax({url: "rpsls.php/players/", 
+		$.ajax({url: "battleship.php/players/", 
 			success: function (data) {
 				players = data;
 			}, 
