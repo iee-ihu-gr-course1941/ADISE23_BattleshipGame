@@ -1,8 +1,9 @@
 <?php
-    // Checking status if it's aborted and returning SQL request of table game_status.
+    // SQL Request to show the status.
     function show_status() {
         global $mysqli;
         
+        // Calling check_initialized() and check_abort() to check if the status of the game is 'initialized' or 'aborded'.
         check_initialized();
         check_abort();
 
@@ -24,12 +25,13 @@
         $st->execute();
         $res = $st->get_result();
         $npf = $res->fetch_assoc()['npf'];
+        // If on the deadline a player has not been found, change the status to 'not active'.
         if ($npf==1){
             $sql2 ="update game_status set status='not active'";
             $st2 = $mysqli->prepare($sql2);
             $st2->execute();
             $res2 = $st2->get_result();
-            remove_user();
+            remove_user(); // Calling remove_user, so the user is going to be removed.
         }
     }
 
@@ -46,7 +48,7 @@
     function update_game_status() {
         global $mysqli;
 
-        $status=read_status();
+        $status=read_status(); // Reading the status of the game.
         $new_status=null;
         $new_turn=null;
 
@@ -54,6 +56,7 @@
         $st3->execute();
         $res3 = $st3->get_result();
         $aborted = $res3->fetch_assoc()['aborted'];
+
         if($aborted>0) {
             if ($status['status']=='started' || $status['status']=='ended'){
                 $sql = "UPDATE players SET username=NULL, token=NULL, last_action =NULL";
@@ -71,6 +74,7 @@
         $res = $st->get_result();
         $active_players = $res->fetch_assoc()['c'];
 
+        // Defining the proper status of the game, based on the count of players.
         switch($active_players) {
             case 0:
                 $new_status='not active'; 
@@ -97,7 +101,7 @@
         $st->execute();
     }
 
-    // SQL Request to return the table game_status
+    // SQL Request to return the table game_status.
     function read_status() {
         global $mysqli;
 
@@ -110,7 +114,7 @@
         return($status);
     }
 
-    // SQL Request to update the result of the game to 'ended'
+    // SQL Request to update the result of the game to 'ended'.
     function end_game($winner){
         global $mysqli;
 

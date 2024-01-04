@@ -1,49 +1,38 @@
 // Using JQuery to handle Multiplayer Battleship Game:
 var me={ nickname: null, token: null, player_number: null };
 var players;
-var score={ me: 0, opponent: 0}
+var player;
+var player_turn;
+var opponent;
+var player_number;
 var game_status={};
-var timer=null;
-var last_update=new Date().getTime();
-var surrendered=false;
+var timer = null;
+var last_update = new Date().getTime();
+var surrendered = false;
+var selectedValue;
+var p1_ships_ready = false;
+var p2_ships_ready = false;
+var coord_status;
 
 $(function() {
   
+  // Start Button (onclick).
   $('#start').click(login_to_game); // Login.
   $('.game').hide();
   $('#reset_game').hide();
   $('.div-game-inf').hide();
+  $('#ready-btn').hide();
+  $('.ship-area').hide();
+  $('.gameController').hide();
+  $('.me').hide();
 
-  // Ready Button.
-  $('#ready-btn').click(function() {
-    // Retrieving values from input fields.
-    // Destroyer coords:
-    var destroyer_coord1 = $('#destroyer-coord1').val();
-    var destroyer_coord2 = $('#destroyer-coord2').val();
-    // Submarine coords:
-    var submarine_coord1 = $('#submarine-coord1').val();
-    var submarine_coord2 = $('#submarine-coord2').val();
-    var submarine_coord3 = $('#submarine-coord3').val();
-    // Cruiser coords:
-    var cruiser_coord1 = $('#cruiser-coord1').val();
-    var cruiser_coord2 = $('#cruiser-coord2').val();
-    var cruiser_coord3 = $('#cruiser-coord3').val();
-    // Battleship coords:
-    var battleship_coord1 = $('#battleship-coord1').val();
-    var battleship_coord2 = $('#battleship-coord2').val();
-    var battleship_coord3 = $('#battleship-coord3').val();
-    var battleship_coord4 = $('#battleship-coord4').val();
-    // Carrier coords:
-    var carrier_coord1 = $('#carrier-coord1').val();
-    var carrier_coord2 = $('#carrier-coord2').val();
-    var carrier_coord3 = $('#carrier-coord3').val();
-    var carrier_coord4 = $('#carrier-coord4').val();
-    var carrier_coord5 = $('#carrier-coord5').val();
-    
-    set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5);
-  });
+  // Ready Button (onclick).
+  $('#ready-btn').click(set_ships); // Set Ships.
 
-  // Reset Button.
+  player1_hits(); // Possible hits of player 1.
+  player2_hits(); // Possible hits of player 2.
+
+  // Reset Button (onclick).
   $('#reset_game').click(function() {
     surrendered=true;
     reset_boards(); 
@@ -57,12 +46,17 @@ function login_to_game() {
   var name = $('#nameOfUser').val().trim();
 
   // User's Selected player taken through form:
-  var selectedValue = $('#player_select').val();
+  selectedValue = $('#player_select').val();
 
   // Performing additional validation.
   if (/^[A-Za-z]{3,10}$/.test(name) && (selectedValue == 'p1' || selectedValue == 'p2')) {
     // Hide Alert Message
     $('#customAlert').removeClass('custom-alert error show');
+    $('#customAlert').find('p').text("");
+
+    // Disabling onclick of both boards/tables.
+    $('#player1_board td').addClass('disabled-cell');
+    $('#player2_board td').addClass('disabled-cell');
 
     var outputName = $('#addNameOfUser');
     var outputName2 = $('#addNameOfUser2');
@@ -71,13 +65,13 @@ function login_to_game() {
     if (selectedValue == 'p1') {
       outputName.text(name);
       outputName2.text('Enemy');
-      $('.ship-area .player-ships .ship .clr').addClass('one')
+      $('.ship-area .player-ships .ship .clr').addClass('one');
     } else if (selectedValue == 'p2') {
       outputName.text('Enemy');
       outputName2.text(name);
-      $('.ship-area .player-ships .ship .clr').addClass('two')
+      $('.ship-area .player-ships .ship .clr').addClass('two');
     }
-  
+
   } else {
     // Displaying the Alert Message.
     $('#customAlert').addClass('custom-alert error show');
@@ -99,30 +93,144 @@ function login_to_game() {
     error: show_error});
 }
 
-// Ajax Request for the player to set the ships.
-function set_ships(destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5) {
-	player_number = me.player_number;
+var uniqueStrings = [];
 
-	$.ajax({url: "battleship.php/board/set_ships/", 
-      method: 'POST',
-			dataType: "json",
-			headers: { "X-Token": me.token },
-			contentType: 'application/json',
-			data: JSON.stringify( {destroyer_coord1, destroyer_coord2, submarine_coord1, submarine_coord2, submarine_coord3, cruiser_coord1, cruiser_coord2, cruiser_coord3, battleship_coord1, battleship_coord2, battleship_coord3, battleship_coord4, carrier_coord1, carrier_coord2, carrier_coord3, carrier_coord4, carrier_coord5, player_number}),
-			success: game_status_update});
+// The isUnique() function checks if a coordinate appears more than once.
+function isUnique(str) {
+  return uniqueStrings.filter(item => item === str).length <= 1;
+}
+
+var dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5;
+// Ajax Request for the player to set the ships.
+function set_ships() {
+
+  uniqueStrings = []; // Cleaning the array.
+  
+  // Destroyer coordinates.
+  dc1 = $('#destroyer-coord1').val().trim();
+  dc2 = $('#destroyer-coord2').val().trim();
+  // Submarine coordinates.
+  sc1 = $('#submarine-coord1').val().trim();
+  sc2 = $('#submarine-coord2').val().trim();
+  sc3 = $('#submarine-coord3').val().trim();
+  // Cruiser coordinates.
+  crc1 = $('#cruiser-coord1').val().trim();
+  crc2 = $('#cruiser-coord2').val().trim();
+  crc3 = $('#cruiser-coord3').val().trim();
+  // Battleship coordinates.
+  bc1 = $('#battleship-coord1').val().trim();
+  bc2 = $('#battleship-coord2').val().trim();
+  bc3 = $('#battleship-coord3').val().trim();
+  bc4 = $('#battleship-coord4').val().trim();
+  // Carrier coordinates.
+  cc1 = $('#carrier-coord1').val().trim();
+  cc2 = $('#carrier-coord2').val().trim();
+  cc3 = $('#carrier-coord3').val().trim();
+  cc4 = $('#carrier-coord4').val().trim();
+  cc5 = $('#carrier-coord5').val().trim();
+
+  uniqueStrings.push(dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5);
+  // console.log("You added the following coordinates: ", uniqueStrings);
+  
+  if(players != null)  {
+    if(game_status.player_turn==me.player_number) {
+      
+      // Performing additional validation.
+      if (/^[A-Ja-j]([1-9]|10)$/.test(dc1) && isUnique(dc1) && /^[A-Ja-j]([1-9]|10)$/.test(dc2) && isUnique(dc2) &&
+         /^[A-Ja-j]([1-9]|10)$/.test(sc1) && isUnique(sc1) && /^[A-Ja-j]([1-9]|10)$/.test(sc2) && isUnique(sc2) && /^[A-Ja-j]([1-9]|10)$/.test(sc3) && isUnique(sc3) &&
+        /^[A-Ja-j]([1-9]|10)$/.test(crc1) && isUnique(crc1) && /^[A-Ja-j]([1-9]|10)$/.test(crc2) && isUnique(crc2) && /^[A-Ja-j]([1-9]|10)$/.test(crc3) && isUnique(crc3) && 
+       /^[A-Ja-j]([1-9]|10)$/.test(bc1) && isUnique(bc1) && /^[A-Ja-j]([1-9]|10)$/.test(bc2) && isUnique(bc2) && /^[A-Ja-j]([1-9]|10)$/.test(bc3) && isUnique(bc3) && /^[A-Ja-j]([1-9]|10)$/.test(bc4) && isUnique(bc4) &&
+      /^[A-Ja-j]([1-9]|10)$/.test(cc1) && isUnique(cc1) && /^[A-Ja-j]([1-9]|10)$/.test(cc2) && isUnique(cc2) && /^[A-Ja-j]([1-9]|10)$/.test(cc3) && isUnique(cc3) && /^[A-Ja-j]([1-9]|10)$/.test(cc4) && isUnique(cc4) && /^[A-Ja-j]([1-9]|10)$/.test(cc5) && isUnique(cc5)) {
+        
+        uniqueStrings = []; // Cleaning the array.
+
+        // Hiding ships inputs.
+        $('#ready-btn').hide();
+        $('.ship-area').hide();
+        $('.gameController').hide();
+        $('.me').hide();
+
+        // Coloring board's coordinates according to your placed ships.
+        if(selectedValue == 'p1') {
+          $("#player1_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player1_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+          p1_ships_ready = true;
+        } else if (selectedValue == 'p2') {
+          $("#player2_board ." + dc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + dc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + sc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + crc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + bc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc1).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc2).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc3).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc4).css("background-color", "rgba(0, 128, 0, 0.494)");
+          $("#player2_board ." + cc5).css("background-color", "rgba(0, 128, 0, 0.494)");
+          p2_ships_ready = true;
+        }
+      } else {
+        uniqueStrings = []; // Cleaning the array.
+        alert("Invalid input. You can only add board's coordinates. Each coordinate must be unique!");
+        return;
+      }
+    }
+  }
+
+  player_number = me.player_number;
+
+  $.ajax({
+    url: "battleship.php/board/set_ships/", 
+    method: 'POST',
+    dataType: "json",
+    headers: { "X-Token": me.token },
+    contentType: 'application/json',
+    data: JSON.stringify({destroyer_coord1: dc1, destroyer_coord2: dc2, 
+      submarine_coord1: sc1, submarine_coord2: sc2, submarine_coord3: sc3, 
+      cruiser_coord1: crc1, cruiser_coord2: crc2, cruiser_coord3: crc3, 
+      battleship_coord1: bc1, battleship_coord2: bc2, battleship_coord3: bc3, battleship_coord4: bc4,
+      carrier_coord1: cc1, carrier_coord2: cc2, carrier_coord3: cc3, carrier_coord4: cc4, carrier_coord5: cc5,
+      player_number
+  }),
+  success: game_status_update,
+  error: show_error});
 }
 
 // Ajax Request for the player's move.
 function do_move(choice) {
+
 	player_number = me.player_number;
 
-	$.ajax({url: "battleship.php/board/make_move/", 
-			method: 'POST',
-			dataType: "json",
-			headers: { "X-Token": me.token },
-			contentType: 'application/json',
-			data: JSON.stringify( {choice, player_number}),
-			success: game_status_update});
+	$.ajax({
+    url: "battleship.php/board/make_move/", 
+		method: 'POST',
+		dataType: "json",
+		headers: { "X-Token": me.token },
+		contentType: 'application/json',
+		data: JSON.stringify( {choice, player_number}),
+    success: game_status_update,
+    error: show_error});
 }
 
 // Ajax Request for reseting/cleaning the boards.
@@ -141,6 +249,12 @@ function reset_boards() {
   $('.game').hide(150);
   $('#reset_game').hide(150);
   $('.div-game-inf').hide(150);
+  $('#ready-btn').hide(150);
+  $('.ship-area').hide(150);
+  $('#ready-btn').hide(150);
+  $('.gameController').hide(150);
+  $('.me').hide(150);
+  clean_colors();
 
   game_status_update();
 }
@@ -154,6 +268,10 @@ function login_result(data) {
   $('.game').show();
   $('#reset_game').show();
   $('.div-game-inf').show();
+  $('#ready-btn').show();
+  $('.ship-area').show();
+  $('.gameController').show();
+  $('.me').show();
 
 	// Listener that resets the game when the user refresh or close the page.
 	window.addEventListener("beforeunload", function(e) {
@@ -183,10 +301,6 @@ function game_status_update() {
 // Updating Info of players.
 function update_info() {
 
-  var player;
-  var player_turn;
-  var opponent;
-
 	if (me.player_number =='p1') {
 		player='Player 1';
 	} else {
@@ -211,22 +325,41 @@ function update_info() {
 
 	if(game_status.status=='started' && me.token!=null) {
 		if (players==null) {
-			$('#game_info').html("<h4><b> Score:</h4></b>" + me.username + ": " + score.me + "</br>Enemy: " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '
-			+ game_status.status + '<b>');
+			$('#game_info').html('Game Status: ' + game_status.status);
 		} else {
-			$('#game_info').html("<h4><b> Score:</h4></b>" + me.username + ": " + score.me + "</br>"+ opponent + ": " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '
-			+ game_status.status + '<b>');
+			$('#game_info').html('Game Status: ' + game_status.status);
 		}
 
-		if (game_status.player_turn==me.player_number) {
-			$('#player_turn').html("<h6> It's </b> your turn to play now.</h6>");
-		} else {  
-			$('#player_turn').html("<h6> It's " + opponent +"'s</b> turn to play now.</h6>");
-		}
-	} else {
-    $('#game_info').html("<h4><b> Score:</h4></b>"  + me.username + ": " + score.me + "</br>Enemy: " + score.opponent + '<br/> <br/> <h4>Game Status:</h4>Game state: '+ game_status.status);
-    $('#player_turn').html("<h6>Playing as " + player + "</h6>");
+    // Handling player turn.
+    if (game_status.player_turn==me.player_number) {
+      $('#player_turn').html("<h6>It's your turn to play.</h6>");
+      // if both players have placed the ships into the board, the boards will be enabled accordingly.
+      if (selectedValue == 'p1') { 
+        if (p1_ships_ready == true) { 
+          $('#player2_board td').removeClass('disabled-cell'); // Enabling onclick of the p2 board/table.
+        }
+      } else if (selectedValue == 'p2') {
+        if (p2_ships_ready == true) { 
+          $('#player1_board td').removeClass('disabled-cell'); // Enabling onclick of the p1 board/table.
+        }
+      }
+    } else {  
+      $('#player_turn').html("<h6>It's " + opponent +"'s turn to play.</h6>");
+      // if both players have placed the ships into the board, the boards will be disabled accordingly.
+      if (selectedValue == 'p1') {
+        if (p1_ships_ready == true) {
+          $('#player2_board td').addClass('disabled-cell'); // Disabling onclick of the p2 board/table.
+        }
+      } else if (selectedValue == 'p2') {
+        if (p2_ships_ready == true) {
+          $('#player1_board td').addClass('disabled-cell'); // Disabling onclick of the p1 board/table.
+        }
+      }
     }
+  } else {
+    $('#game_info').html('Game Status: '+ game_status.status);
+    $('#player_turn').html("<h6>Playing as " + player + "</h6>");
+  }
 }
 
 function update_status(data) {
@@ -273,8 +406,6 @@ function update_status(data) {
 		if (surrendered==false) { 
       alert("Enemy left the game."); 
     }
-		score.me=0; 
-    score.opponent=0;
 		reset_boards();
 	}
 	
@@ -285,8 +416,6 @@ function update_status(data) {
     } else { 
       surrendered=false; 
     };
-		score.me=0; 
-    score.opponent=0;
 		reset_boards();
 		document.querySelector('#reset_game').setAttribute('value','Reset');
 		update_info();
@@ -325,19 +454,160 @@ function update_status(data) {
     }
   }
 
-  // Updating the Player info (Win or Loss) and Score.
-  // function alert_winner() {
-  //   winner = game_status.result;
-  //   if (me.token!=null) {
-  //     if (winner==me.player_number) {
-  //       score.me++;
-  //       play_again('You win!');
-  //     } else {
-  //       score.opponent++;
-  //       play_again('Enemy wins...');
-  //     }
-  //   }
-  // }
+  // Alerting the winner.
+  function alert_winner() {
+    winner = game_status.result;
+    if (me.token!=null) {
+      if (winner==me.player_number) {
+        alert('You win!');
+        location.reload();
+      } else {
+        alert('Enemy wins...');
+        location.reload();
+      }
+    }
+  }
+}
+
+// Ajax Request to check the shot. It gets the enemy's specific coordinate status of the shot.
+function checking_shot(cellId) {
+
+  player_number = me.player_number;
+
+  $.ajax({
+    url: 'battleship.php/board/check_shot/',
+    method: 'GET',
+    dataType: "json",
+    headers: {"X-Token": me.token},
+    data: { coord: cellId , player_number },
+    success: function (data) {
+      coord_status = data;
+    }, error: show_error
+  });
+}
+
+// Function about the possible hits of player 1.
+function player1_hits() {
+  let selectedCell = null;
+
+  for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
+    for (let number = 1; number <= 10; number++) {
+      const selector = `#player1_board .${letter}${number}`;
+      $(selector).on({
+        mouseenter: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+        },
+        mouseleave: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "");
+          }
+        },
+        click: function () {
+          const cellId = $(this).attr("class");
+          do_move(cellId);
+    
+          // Remove the selected class from any previously selected cell
+          $(".selector.selected").removeClass("selected");
+  
+          checking_shot(cellId);
+          // alert(coord_status);
+
+          // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+          if (coord_status == "hit") {
+            $(this).addClass("selected").css("background-color", "red");
+          } else {
+            $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+
+          $(this).off("click"); // Disabling click for this cell.
+        }
+      });
+    }
+  }
+}
+
+// Function about the possible hits of player 2.
+function player2_hits() {
+  let selectedCell = null;
+
+  for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
+    for (let number = 1; number <= 10; number++) {
+      const selector = `#player2_board .${letter}${number}`;
+      $(selector).on({
+        mouseenter: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+        },
+        mouseleave: function () {
+          if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "");
+          }
+        },
+        click: function () {
+          const cellId = $(this).attr("class");
+          do_move(cellId);
+
+          // Remove the selected class from any previously selected cell
+          $(".selector.selected").removeClass("selected");
+    
+          checking_shot(cellId);
+          // alert(coord_status);
+
+          // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+          if (coord_status == "hit") {
+            $(this).addClass("selected").css("background-color", "red");
+          } else {
+            $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+
+          $(this).off("click"); // Disabling click for this cell.
+        }
+      });
+    }
+  }
+}
+
+// A function that cleans the colors of players' placed ships into the coords, after reseting the game.
+function clean_colors() {
+  // Cleaning board of player 1.
+  $("#player1_board ." + dc1).css("background-color", "");
+  $("#player1_board ." + dc2).css("background-color", "");
+  $("#player1_board ." + sc1).css("background-color", "");
+  $("#player1_board ." + sc2).css("background-color", "");
+  $("#player1_board ." + sc3).css("background-color", "");
+  $("#player1_board ." + crc1).css("background-color", "");
+  $("#player1_board ." + crc2).css("background-color", "");
+  $("#player1_board ." + crc3).css("background-color", "");
+  $("#player1_board ." + bc1).css("background-color", "");
+  $("#player1_board ." + bc2).css("background-color", "");
+  $("#player1_board ." + bc3).css("background-color", "");
+  $("#player1_board ." + bc4).css("background-color", "");
+  $("#player1_board ." + cc1).css("background-color", "");
+  $("#player1_board ." + cc2).css("background-color", "");
+  $("#player1_board ." + cc3).css("background-color", "");
+  $("#player1_board ." + cc4).css("background-color", "");
+  $("#player1_board ." + cc5).css("background-color", "");
+  // Cleaning board of player 2.
+  $("#player2_board ." + dc1).css("background-color", "");
+  $("#player2_board ." + dc2).css("background-color", "");
+  $("#player2_board ." + sc1).css("background-color", "");
+  $("#player2_board ." + sc2).css("background-color", "");
+  $("#player2_board ." + sc3).css("background-color", "");
+  $("#player2_board ." + crc1).css("background-color", "");
+  $("#player2_board ." + crc2).css("background-color", "");
+  $("#player2_board ." + crc3).css("background-color", "");
+  $("#player2_board ." + bc1).css("background-color", "");
+  $("#player2_board ." + bc2).css("background-color", "");
+  $("#player2_board ." + bc3).css("background-color", "");
+  $("#player2_board ." + bc4).css("background-color", "");
+  $("#player2_board ." + cc1).css("background-color", "");
+  $("#player2_board ." + cc2).css("background-color", "");
+  $("#player2_board ." + cc3).css("background-color", "");
+  $("#player2_board ." + cc4).css("background-color", "");
+  $("#player2_board ." + cc5).css("background-color", "");
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):
