@@ -465,6 +465,17 @@ function player1_hits() {
           if (!$(this).hasClass("selected")) {
             $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
           }
+          // If player1 has hit player2's ship
+          selectedCell = selector;
+          if (selectedCell.match(dc1) || selectedCell.match(dc2) || selectedCell.match(sc1) || selectedCell.match(sc2) || selectedCell.match(sc3)
+          || selectedCell.match(crc1) || selectedCell.match(crc2) || selectedCell.match(crc3) || selectedCell.match(bc1) || selectedCell.match(bc2)
+          || selectedCell.match(bc3) || selectedCell.match(bc4) || selectedCell.match(cc1) || selectedCell.match(cc2) || selectedCell.match(cc3)
+          || selectedCell.match(cc4) || selectedCell.match(cc5)) {
+            $(this).innerHTML = "X";
+            $(this).css("color", "rgba(255, 0, 0, 0.7)");
+          } else {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
         },
         mouseleave: function () {
           if (!$(this).hasClass("selected")) {
@@ -497,6 +508,17 @@ function player2_hits() {
       $(selector).on({
         mouseenter: function () {
           if (!$(this).hasClass("selected")) {
+            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+          }
+          // If player2 has hit player1's ship
+          selectedCell = selector;
+          if (selectedCell.match(dc1) || selectedCell.match(dc2) || selectedCell.match(sc1) || selectedCell.match(sc2) || selectedCell.match(sc3)
+          || selectedCell.match(crc1) || selectedCell.match(crc2) || selectedCell.match(crc3) || selectedCell.match(bc1) || selectedCell.match(bc2)
+          || selectedCell.match(bc3) || selectedCell.match(bc4) || selectedCell.match(cc1) || selectedCell.match(cc2) || selectedCell.match(cc3)
+          || selectedCell.match(cc4) || selectedCell.match(cc5)) {
+            $(this).innerHTML = "X";
+            $(this).css("color", "rgba(255, 0, 0, 0.7)");
+          } else {
             $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
           }
         },
