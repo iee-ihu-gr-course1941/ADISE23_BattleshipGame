@@ -471,7 +471,6 @@ function update_status(data) {
 
 // Ajax Request to check the shot. It gets the enemy's specific coordinate status of the shot.
 function checking_shot(cellId) {
-
   player_number = me.player_number;
 
   $.ajax({
@@ -479,12 +478,40 @@ function checking_shot(cellId) {
     method: 'GET',
     dataType: "json",
     headers: {"X-Token": me.token},
-    data: { coord: cellId , player_number },
-    success: function (data) {
-      coord_status = data;
-    }, error: show_error
+    data: { coord: cellId, player_number }
+  }).success(function(data) {
+    alert("Success! Data: " + JSON.stringify(data));
+    coord_status = data;
+    handleShotResult(coord_status);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("AJAX Error:", textStatus, errorThrown);
+    show_error(jqXHR);
   });
 }
+
+
+function handleShotResult(coord_status, cellId) {
+  // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+  //alert(cellId);
+  //alert(coord_status);
+
+  //Alerting if handleShotResult succeded
+  alert("Mpike gamw ti poutana m");
+  const clickedCell = $(`.${cellId}`);
+  if (coord_status == "hit") {
+    // Update UI for a hit
+    //alert(clickedCell);
+    clickedCell.addClass("selected").css("background-color", "red");
+  } else {
+    // Update UI for a miss
+    //alert(clickedCell);
+    clickedCell.addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+  }
+
+  // Disable click for this cell.
+  clickedCell.off("click");
+}
+
 
 // Function about the possible hits of player 1.
 function player1_hits() {
@@ -510,18 +537,8 @@ function player1_hits() {
     
           // Remove the selected class from any previously selected cell
           $(".selector.selected").removeClass("selected");
-  
+          
           checking_shot(cellId);
-          // alert(coord_status);
-
-          // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
-          if (coord_status == "hit") {
-            $(this).addClass("selected").css("background-color", "red");
-          } else {
-            $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
-          }
-
-          $(this).off("click"); // Disabling click for this cell.
         }
       });
     }
@@ -554,7 +571,7 @@ function player2_hits() {
           $(".selector.selected").removeClass("selected");
     
           checking_shot(cellId);
-          // alert(coord_status);
+           alert(cellId);
 
           // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
           if (coord_status == "hit") {

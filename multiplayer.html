@@ -578,22 +578,34 @@
       <audio id="myAudio" src="sounds/sonar-ping-95840.mp3" preload="auto"></audio>
       <audio id="myAudio2" src="sounds/sonar-sweep-beep-80957.mp3" preload="auto"></audio>
       <script>
-        // Function to play the audio
         temp = 0;
-        function playAudio() {
-          if(temp%2 == 0){
+        function playAudio1() {
             var audio = document.getElementById('myAudio');
-          }
-          else{
-            var audio = document.getElementById('myAudio2');
-          }
-          temp++;
-          audio.volume = 0.3;
-          audio.play();
+            temp++;
+            audio.volume = 0.3;
+            audio.play();
         }
-
+        function playAudio2() {
+            var audio = document.getElementById('myAudio2');
+            temp++;
+            audio.volume = 0.1;
+            audio.play();
+        }
+      // Function to play the audio
+      function audio() {
+        
         // Set interval to play the audio every five seconds (5000 milliseconds)
-        setInterval(playAudio, 3500);
-      </script>
+        if(temp%2 == 0){
+          playAudio1();
+          //setInterval(playAudio1, 3500);
+        }
+        else{
+          playAudio2();
+          //setInterval(playAudio2, 3500);
+        }
+    }
+
+    setInterval(audio, 4500);
+    </script>
 </body>
 </html>
