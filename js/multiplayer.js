@@ -12,7 +12,6 @@ var surrendered = false;
 var selectedValue;
 var p1_ships_ready = false;
 var p2_ships_ready = false;
-var coord_status;
 
 $(function() {
   
@@ -469,8 +468,9 @@ function update_status(data) {
   }
 }
 
+var coord_status;
 // Ajax Request to check the shot. It gets the enemy's specific coordinate status of the shot.
-function checking_shot(cellId) {
+function checking_shot(selector) {
 
   player_number = me.player_number;
 
@@ -479,16 +479,29 @@ function checking_shot(cellId) {
     method: 'GET',
     dataType: "json",
     headers: {"X-Token": me.token},
-    data: { coord: cellId , player_number },
     success: function (data) {
-      coord_status = data;
+      coord_status = data[0].state;
+      alert(coord_status);
+      paintShot(coord_status, selector);
     }, error: show_error
   });
 }
 
+// Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
+function paintShot(coord_status, selector) {
+  if (coord_status == "ship" || coord_status == "hit") {
+    $(selector).addClass("selected").css("background-color", "red");
+    coord_status = "" // cleaning coord_status.
+  } else {
+    $(selector).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
+    coord_status = "" // cleaning coord_status.
+  }
+
+  $(selector).off("click"); // Disabling click for this cell.
+}
+
 // Function about the possible hits of player 1.
 function player1_hits() {
-  let selectedCell = null;
 
   for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
     for (let number = 1; number <= 10; number++) {
@@ -508,11 +521,10 @@ function player1_hits() {
           const cellId = $(this).attr("class");
           do_move(cellId);
     
-          // Remove the selected class from any previously selected cell
+          // Remove the selected class from any previously selected cell.
           $(".selector.selected").removeClass("selected");
-  
-          checking_shot(cellId);
-          // alert(coord_status);
+
+          // checking_shot(selector); // Calling checking_shot.
 
           // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
           if (coord_status == "hit") {
@@ -530,7 +542,6 @@ function player1_hits() {
 
 // Function about the possible hits of player 2.
 function player2_hits() {
-  let selectedCell = null;
 
   for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
     for (let number = 1; number <= 10; number++) {
@@ -550,11 +561,10 @@ function player2_hits() {
           const cellId = $(this).attr("class");
           do_move(cellId);
 
-          // Remove the selected class from any previously selected cell
+          // Remove the selected class from any previously selected cell.
           $(".selector.selected").removeClass("selected");
-    
-          checking_shot(cellId);
-          // alert(coord_status);
+
+          // checking_shot(selector); // Calling checking_shot.
 
           // Checking if the clicked cell is a 'hit' or 'miss' and coloring it accordingly.
           if (coord_status == "hit") {

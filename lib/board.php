@@ -357,29 +357,25 @@
     }
 
     // SQL Request to check the shot. It gets the enemy's specific coordinate status of the shot.
-    function check_shot($coord, $player_number) {
+    function check_shot() {
         global $mysqli;
+        // global $player_number;
 
-        if ($player_number=='p1') {
+        // if ($player_number=='p1') {
             $sql = "SELECT state FROM board WHERE player='p2' AND coordinate=?";
-        } else {
-            $sql = "SELECT state FROM board WHERE player='p1' AND coordinate=?";
-        }
+        // } else {
+        //     $sql = "SELECT state FROM board WHERE player='p1' AND coordinate=?";
+        // }
 
+        // testing...
+        $coord = 'A1';
+        
         $st = $mysqli->prepare($sql);
         $st->bind_param('s', $coord);
         $st->execute();
         $res = $st->get_result();
         header('Content-type: application/json');
         print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
-    }
-
-    // SQL Request to set a new game with the same players.
-    function play_again() {
-        global $mysqli;
-        $sql = 'call `play_again`();';
-        $st = $mysqli->prepare($sql);
-        $st->execute();
     }
 
     // SQL Request to return players board.
