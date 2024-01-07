@@ -45,7 +45,7 @@ https://users.iee.ihu.gr/~iee2019119/ADISE23_BattleshipGame/
  * Κάντε clone το project σε κάποιον φάκελο <br/>
   `$ git clone https://github.com/iee-ihu-gr-course1941/ADISE23_BattleshipGame.git`
 
- * Βεβαιωθείτε ότι ο φάκελος είναι προσβάσιμος από τον Apache Server. πιθανόν να χρειαστεί να καθορίσετε τις παρακάτω ρυθμίσεις.
+ * Βεβαιωθείτε ότι ο φάκελος είναι προσβάσιμος από τον Apache Server. Πιθανόν να χρειαστεί να καθορίσετε τις παρακάτω ρυθμίσεις.
 
  * Θα πρέπει να δημιουργήσετε στην Mysql την βάση με όνομα 'battleshipgamedb' και να φορτώσετε σε αυτήν την βάση τα δεδομένα από το αρχείο schema.sql
 
@@ -117,10 +117,10 @@ https://users.iee.ihu.gr/~iee2019119/ADISE23_BattleshipGame/
 
 ## Συντελεστές
 
-Alexandros Oikonomou <br/>
-Vasilios Mourtzios <br/>
-Stylianos Panagiotopoulos <br/>
-Kostas Kyriakos Batsios <br/>
+- Αλέξανδρος Οικονόμου 2019119 <br/>
+- Βασίλειος Μούρτζιος 185237 <br/>
+- Στυλιανός Παναγιωτόπουλος 2019123 <br/>
+- Κωνσταντίνος Κυριάκος Μπάτσιος 2019110 <br/>
 
 
 # Περιγραφή API
@@ -274,4 +274,13 @@ H κατάσταση παιχνιδιού έχει τα παρακάτω στο�
 
 
  # Γραφική Διεπαφή
- 
+
+
+![Main-Page](/pics/main-page.png?raw=true "Main-Page") 
+![Login](/pics/Login.png?raw=true "Login")
+![Multiplayer](/pics/multiplayer.png?raw=true "Multiplayer")
+![Playing-Multiplayer](/pics/multiplayer-playing.png?raw=true "Playing-Multiplayer")
+![Singleplayer](/pics/singleplayer.png?raw=true "Singleplayer")
+![Playing-Singleplayer](/pics/singleplayer-playing.png?raw=true "Playing-Singleplayer")
+![Game-Rules](/pics/game-rules.png?raw=true "Game-Rules")
+![About-Us](/pics/about-us.png?raw=true "About-Us")
