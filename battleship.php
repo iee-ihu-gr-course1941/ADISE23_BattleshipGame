@@ -31,8 +31,17 @@
                 case 'make_move':
                     make_move($input['choice'], $input['player_number'], $input['token']);
                     break;
-                case 'check_shot':
-                    check_shot();
+                case 'handle_hits_p1':
+                    handle_hits_p1();
+                    break;
+                case 'handle_hits_p2':
+                    handle_hits_p2();
+                    break;
+                case 'handle_miss_p1':
+                    handle_miss_p1();
+                    break;
+                case 'handle_miss_p2':
+                    handle_miss_p2();
                     break;
                 default:
                     header("HTTP/1.1 404 Not Found");
