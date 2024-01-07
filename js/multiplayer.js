@@ -12,7 +12,14 @@ var surrendered = false;
 var selectedValue;
 var p1_ships_ready = false;
 var p2_ships_ready = false;
-var coord_status;
+var hits_p1 = [];
+var hits_p2 = [];
+var misses_p1 = [];
+var misses_p2 = [];
+var p1_selectorHits;
+var p2_selectorHits;
+var p1_selectorMisses;
+var p2_selectorMisses;
 
 $(function() {
   
@@ -107,27 +114,27 @@ function set_ships() {
   uniqueStrings = []; // Cleaning the array.
   
   // Destroyer coordinates.
-  dc1 = $('#destroyer-coord1').val().trim();
-  dc2 = $('#destroyer-coord2').val().trim();
+  dc1 = $('#destroyer-coord1').val().trim().toUpperCase();
+  dc2 = $('#destroyer-coord2').val().trim().toUpperCase();
   // Submarine coordinates.
-  sc1 = $('#submarine-coord1').val().trim();
-  sc2 = $('#submarine-coord2').val().trim();
-  sc3 = $('#submarine-coord3').val().trim();
+  sc1 = $('#submarine-coord1').val().trim().toUpperCase();
+  sc2 = $('#submarine-coord2').val().trim().toUpperCase();
+  sc3 = $('#submarine-coord3').val().trim().toUpperCase();
   // Cruiser coordinates.
-  crc1 = $('#cruiser-coord1').val().trim();
-  crc2 = $('#cruiser-coord2').val().trim();
-  crc3 = $('#cruiser-coord3').val().trim();
+  crc1 = $('#cruiser-coord1').val().trim().toUpperCase();
+  crc2 = $('#cruiser-coord2').val().trim().toUpperCase();
+  crc3 = $('#cruiser-coord3').val().trim().toUpperCase();
   // Battleship coordinates.
-  bc1 = $('#battleship-coord1').val().trim();
-  bc2 = $('#battleship-coord2').val().trim();
-  bc3 = $('#battleship-coord3').val().trim();
-  bc4 = $('#battleship-coord4').val().trim();
+  bc1 = $('#battleship-coord1').val().trim().toUpperCase();
+  bc2 = $('#battleship-coord2').val().trim().toUpperCase();
+  bc3 = $('#battleship-coord3').val().trim().toUpperCase();
+  bc4 = $('#battleship-coord4').val().trim().toUpperCase();
   // Carrier coordinates.
-  cc1 = $('#carrier-coord1').val().trim();
-  cc2 = $('#carrier-coord2').val().trim();
-  cc3 = $('#carrier-coord3').val().trim();
-  cc4 = $('#carrier-coord4').val().trim();
-  cc5 = $('#carrier-coord5').val().trim();
+  cc1 = $('#carrier-coord1').val().trim().toUpperCase();
+  cc2 = $('#carrier-coord2').val().trim().toUpperCase();
+  cc3 = $('#carrier-coord3').val().trim().toUpperCase();
+  cc4 = $('#carrier-coord4').val().trim().toUpperCase();
+  cc5 = $('#carrier-coord5').val().trim().toUpperCase();
 
   uniqueStrings.push(dc1, dc2, sc1, sc2, sc3, crc1, crc2, crc3, bc1, bc2, bc3, bc4, cc1, cc2, cc3, cc4, cc5);
   // console.log("You added the following coordinates: ", uniqueStrings);
@@ -244,7 +251,14 @@ function reset_boards() {
 	}
 
 	me = { nickname: null, token: null, color_picked: null };
- 
+  hits_p2 = [];
+  misses_p1 = [];
+  hits_p1 = [];
+  p1_selectorHits = "";
+  p2_selectorHits = "";
+  p1_selectorMisses = "";
+  p2_selectorMisses = "";
+
   $('.home').show(150);
   $('.game').hide(150);
   $('#reset_game').hide(150);
@@ -454,30 +468,44 @@ function update_status(data) {
     }
   }
 
+  // Handling all Hits.
+  handling_hits_p1(); // Calling handling_hits_p1 function, to handle the hits from p1.
+  handling_hits_p2(); // Calling handling_hits_p2 function, to handle the hits from p2.
+
+  // Handling all Misses.
+  handling_miss_p1(); // Calling handling_miss_p1 function, to handle the misses from p1.
+  handling_miss_p2(); // Calling handling_miss_p2 function, to handle the misses from p2.
+
   // Alerting the winner.
   function alert_winner() {
     winner = game_status.result;
     if (me.token!=null) {
       if (winner==me.player_number) {
         alert('You win!');
-        location.reload();
+        reset_boards();
       } else {
         alert('Enemy wins...');
-        location.reload();
+        reset_boards();
       }
     }
   }
 }
 
+<<<<<<< HEAD
 // Ajax Request to check the shot. It gets the enemy's specific coordinate status of the shot.
 function checking_shot(cellId) {
   player_number = me.player_number;
 
+=======
+// AJAX Request to GET player1 coordinates with status equals to a 'hit'.
+function handling_hits_p1() {
+>>>>>>> alex-dev
   $.ajax({
-    url: 'battleship.php/board/check_shot/',
+    url: 'battleship.php/board/handle_hits_p1/',
     method: 'GET',
     dataType: "json",
     headers: {"X-Token": me.token},
+<<<<<<< HEAD
     data: { coord: cellId, player_number }
   }).success(function(data) {
     alert("Success! Data: " + JSON.stringify(data));
@@ -512,18 +540,111 @@ function handleShotResult(coord_status, cellId) {
   clickedCell.off("click");
 }
 
+=======
+    success: function (data) {
+      for (var i = 0; i < data.length; i++) {
+        hits_p1.push(data[i].coordinate);
+      }
+      coloringHits_board1(hits_p1);
+    }, 
+    error: show_error
+  });
+}
+
+// Coloring red the shoted coordinates of player1_board that equals to a 'hit'.
+function coloringHits_board1(coords) {
+  for (var i = 0; i < coords.length; i++) {
+      p1_selectorHits = '#player1_board .' + coords[i];
+      $(p1_selectorHits).css("background-color", "rgba(255, 0, 0, 0.651)");
+    }
+}
+
+// AJAX Request to GET player2 coordinates with status equals to a 'hit'.
+function handling_hits_p2() {
+  $.ajax({
+    url: 'battleship.php/board/handle_hits_p2/',
+    method: 'GET',
+    dataType: "json",
+    headers: {"X-Token": me.token},
+    success: function (data) {
+      for (var i = 0; i < data.length; i++) {
+        hits_p2.push(data[i].coordinate);
+      }
+      coloringHits_board2(hits_p2);
+    }, 
+    error: show_error
+  });
+}
+
+// Coloring red the shoted coordinates of player2_board that equals to a 'hit'.
+function coloringHits_board2(coords) {
+  for (var i = 0; i < coords.length; i++) {
+      p2_selectorHits = '#player2_board .' + coords[i];
+      $(p2_selectorHits).css("background-color", "rgba(255, 0, 0, 0.651)");
+    }
+}
+
+// AJAX Request to GET player2 coordinates with status equals to a 'miss'.
+function handling_miss_p1() {
+  $.ajax({
+    url: 'battleship.php/board/handle_miss_p1/',
+    method: 'GET',
+    dataType: "json",
+    headers: {"X-Token": me.token},
+    success: function (data) {
+      for (var i = 0; i < data.length; i++) {
+        misses_p1.push(data[i].coordinate);
+      }
+      coloringMiss_board1(misses_p1);
+    }, 
+    error: show_error
+  });
+}
+
+// Coloring white the shoted coordinates of player1_board that equals to a 'miss'.
+function coloringMiss_board1(coords) {
+  for (var i = 0; i < coords.length; i++) {
+      p1_selectorMisses = '#player1_board .' + coords[i];
+      $(p1_selectorMisses).css("background-color", "rgba(173, 216, 230, 0.519)");
+    }
+}
+
+// AJAX Request to GET player2 coordinates with status equals to a 'miss'.
+function handling_miss_p2() {
+  $.ajax({
+    url: 'battleship.php/board/handle_miss_p2/',
+    method: 'GET',
+    dataType: "json",
+    headers: {"X-Token": me.token},
+    success: function (data) {
+      for (var i = 0; i < data.length; i++) {
+        misses_p2.push(data[i].coordinate);
+      }
+      coloringMiss_board2(misses_p2);
+    }, 
+    error: show_error
+  });
+}
+
+// Coloring white the shoted coordinates of player1_board that equals to a 'miss'.
+function coloringMiss_board2(coords) {
+  for (var i = 0; i < coords.length; i++) {
+      p2_selectorMisses = '#player2_board .' + coords[i];
+      $(p2_selectorMisses).css("background-color", "rgba(173, 216, 230, 0.519)");
+    }
+}
+>>>>>>> alex-dev
 
 // Function about the possible hits of player 1.
 function player1_hits() {
-  let selectedCell = null;
 
   for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
     for (let number = 1; number <= 10; number++) {
       const selector = `#player1_board .${letter}${number}`;
       $(selector).on({
-        mouseenter: function () {
+        mouseover: function () {
           if (!$(this).hasClass("selected")) {
-            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+            $(this).css("background-color", "rgba(173, 216, 230, 0.519)");
           }
         },
         mouseleave: function () {
@@ -533,12 +654,24 @@ function player1_hits() {
         },
         click: function () {
           const cellId = $(this).attr("class");
+<<<<<<< HEAD
           do_move(cellId);
     
           // Remove the selected class from any previously selected cell
           $(".selector.selected").removeClass("selected");
           
           checking_shot(cellId);
+=======
+
+          do_move(cellId); // Calling do_move function.
+    
+          // Remove the selected class from any previously selected cell.
+          $(".selector.selected").removeClass("selected");
+
+          $(this).addClass("selected");
+
+          $(this).off("click"); // Disabling click for this cell.
+>>>>>>> alex-dev
         }
       });
     }
@@ -547,15 +680,14 @@ function player1_hits() {
 
 // Function about the possible hits of player 2.
 function player2_hits() {
-  let selectedCell = null;
 
   for (let letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
     for (let number = 1; number <= 10; number++) {
       const selector = `#player2_board .${letter}${number}`;
       $(selector).on({
-        mouseenter: function () {
+        mouseover: function () {
           if (!$(this).hasClass("selected")) {
-            $(this).css("background-color", "rgba(173, 216, 230, 0.7)");
+            $(this).css("background-color", "rgba(173, 216, 230, 0.519)");
           }
         },
         mouseleave: function () {
@@ -565,10 +697,12 @@ function player2_hits() {
         },
         click: function () {
           const cellId = $(this).attr("class");
-          do_move(cellId);
 
-          // Remove the selected class from any previously selected cell
+          do_move(cellId); // Calling do_move function.
+
+          // Remove the selected class from any previously selected cell.
           $(".selector.selected").removeClass("selected");
+<<<<<<< HEAD
     
           checking_shot(cellId);
            alert(cellId);
@@ -579,6 +713,10 @@ function player2_hits() {
           } else {
             $(this).addClass("selected").css("background-color", "rgba(173, 216, 230, 0.7)");
           }
+=======
+            
+          $(this).addClass("selected");    
+>>>>>>> alex-dev
 
           $(this).off("click"); // Disabling click for this cell.
         }
@@ -587,9 +725,10 @@ function player2_hits() {
   }
 }
 
-// A function that cleans the colors of players' placed ships into the coords, after reseting the game.
+// A function that cleans the colors of players' placed ships and hits/misses, after reseting the game.
 function clean_colors() {
-  // Cleaning board of player 1.
+
+  // Cleaning colors from board of player 1.
   $("#player1_board ." + dc1).css("background-color", "");
   $("#player1_board ." + dc2).css("background-color", "");
   $("#player1_board ." + sc1).css("background-color", "");
@@ -607,7 +746,8 @@ function clean_colors() {
   $("#player1_board ." + cc3).css("background-color", "");
   $("#player1_board ." + cc4).css("background-color", "");
   $("#player1_board ." + cc5).css("background-color", "");
-  // Cleaning board of player 2.
+
+  // Cleaning colors from board of player 2.
   $("#player2_board ." + dc1).css("background-color", "");
   $("#player2_board ." + dc2).css("background-color", "");
   $("#player2_board ." + sc1).css("background-color", "");
@@ -625,6 +765,12 @@ function clean_colors() {
   $("#player2_board ." + cc3).css("background-color", "");
   $("#player2_board ." + cc4).css("background-color", "");
   $("#player2_board ." + cc5).css("background-color", "");
+
+  // Cleaning colors of hits and misses from both boards.
+  $(p1_selectorHits).css("background-color", "");
+  $(p2_selectorHits).css("background-color", "");
+  $(p1_selectorMisses).css("background-color", "");
+  $(p2_selectorMisses).css("background-color", "");
 }
 
 // Using 'ScrollReveal' by https://github.com/jlmakes/scrollreveal):

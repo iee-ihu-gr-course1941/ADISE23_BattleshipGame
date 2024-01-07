@@ -474,21 +474,6 @@ INSERT INTO `players` (`username`, `player_number`, `token`, `last_action`) VALU
 	(NULL, 'p1', NULL, '2023-11-30 10:00:00'),
 	(NULL, 'p2', NULL, '2023-11-30 10:00:00');
 
--- Dumping structure for procedure battleshipgamedb.play_again
-DELIMITER //
-CREATE PROCEDURE `play_again`()
-BEGIN
-    IF (SELECT status FROM game_status) LIKE 'ended' THEN        
-		  UPDATE game_status SET player_turn=(SELECT result FROM game_status);
-		  
-		  TRUNCATE TABLE board;
-        REPLACE INTO board SELECT * FROM board_empty;
-        
-        UPDATE game_status SET status='started', result=NULL;
-    END IF;      
-END//
-DELIMITER ;
-
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
