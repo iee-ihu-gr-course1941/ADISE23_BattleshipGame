@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Διακομιστής:                  127.0.0.1
--- Έκδοση διακομιστή:            10.4.28-MariaDB - mariadb.org binary distribution
--- Λειτ. σύστημα διακομιστή:     Win64
--- HeidiSQL Έκδοση:              12.6.0.6765
+-- Host:                         127.0.0.1
+-- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for πίνακας battleshipgamedb.board
+-- Dumping structure for table battleshipgamedb.board
 CREATE TABLE IF NOT EXISTS `board` (
   `player` enum('p1','p2') NOT NULL,
   `coordinate` varchar(3) NOT NULL,
@@ -225,7 +225,7 @@ INSERT INTO `board` (`player`, `coordinate`, `ship`, `state`) VALUES
 	('p2', 'J9', NULL, 'empty'),
 	('p2', 'J10', NULL, 'empty');
 
--- Dumping structure for πίνακας battleshipgamedb.board_empty
+-- Dumping structure for table battleshipgamedb.board_empty
 CREATE TABLE IF NOT EXISTS `board_empty` (
   `player` enum('p1','p2') NOT NULL,
   `coordinate` varchar(3) NOT NULL,
@@ -448,7 +448,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for πίνακας battleshipgamedb.game_status
+-- Dumping structure for table battleshipgamedb.game_status
 CREATE TABLE IF NOT EXISTS `game_status` (
   `status` enum('not active','initialized','started','ended','aborded') NOT NULL DEFAULT 'not active',
   `player_turn` enum('p1','p2') DEFAULT NULL,
@@ -460,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `game_status` (
 INSERT INTO `game_status` (`status`, `player_turn`, `result`, `last_change`) VALUES
 	('not active', NULL, NULL, '2023-11-30 10:00:00');
 
--- Dumping structure for πίνακας battleshipgamedb.players
+-- Dumping structure for table battleshipgamedb.players
 CREATE TABLE IF NOT EXISTS `players` (
   `username` varchar(10) DEFAULT NULL,
   `player_number` enum('p1','p2') NOT NULL,

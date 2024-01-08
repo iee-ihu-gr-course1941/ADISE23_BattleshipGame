@@ -483,9 +483,11 @@ function update_status(data) {
       if (winner==me.player_number) {
         alert('You win!');
         reset_boards();
+        location.reload();
       } else {
         alert('Enemy wins...');
         reset_boards();
+        location.reload();
       }
     }
   }
