@@ -356,30 +356,56 @@
         $st->execute();
     }
 
-    // SQL Request to check the shot. It gets the enemy's specific coordinate status of the shot.
-    function check_shot($coord, $player_number) {
+    // SQL Request to GET player1 coordinates with status equals to a 'hit'.
+    function handle_hits_p1() {
         global $mysqli;
 
-        if ($player_number=='p1') {
-            $sql = "SELECT state FROM board WHERE player='p2' AND coordinate=?";
-        } else {
-            $sql = "SELECT state FROM board WHERE player='p1' AND coordinate=?";
-        }
-
+        $sql = "SELECT coordinate FROM board WHERE player = 'p1' AND state = 'hit'";
+        
         $st = $mysqli->prepare($sql);
-        $st->bind_param('s', $coord);
         $st->execute();
         $res = $st->get_result();
         header('Content-type: application/json');
         print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
     }
 
-    // SQL Request to set a new game with the same players.
-    function play_again() {
+    // SQL Request to GET player2 coordinates with status equals to a 'hit'.
+    function handle_hits_p2() {
         global $mysqli;
-        $sql = 'call `play_again`();';
+
+        $sql = "SELECT coordinate FROM board WHERE player = 'p2' AND state = 'hit'";
+        
         $st = $mysqli->prepare($sql);
         $st->execute();
+        $res = $st->get_result();
+        header('Content-type: application/json');
+        print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
+    }
+
+    // SQL Request to GET player1 coordinates with status equals to a 'miss'.
+    function handle_miss_p1() {
+        global $mysqli;
+
+        $sql = "SELECT coordinate FROM board WHERE player = 'p1' AND state = 'miss'";
+        
+        $st = $mysqli->prepare($sql);
+        $st->execute();
+        $res = $st->get_result();
+        header('Content-type: application/json');
+        print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
+    }
+
+    // SQL Request to GET player2 coordinates with status equals to a 'miss'.
+    function handle_miss_p2() {
+        global $mysqli;
+
+        $sql = "SELECT coordinate FROM board WHERE player = 'p2' AND state = 'miss'";
+        
+        $st = $mysqli->prepare($sql);
+        $st->execute();
+        $res = $st->get_result();
+        header('Content-type: application/json');
+        print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
     }
 
     // SQL Request to return players board.
